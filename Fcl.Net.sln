@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32811.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C678115E-BD90-41E6-825D-4E9DE1DF20B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{AAF29E42-F1BC-4AEC-91B5-F6180C5B620D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{D4A40D6C-5619-41CA-A26F-950BECF1FC58}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fcl.Net.Core", "src\Fcl.Net.Core\Fcl.Net.Core.csproj", "{370EBDAD-977A-43D9-8DC9-311396C67739}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MAUI", "MAUI", "{6A5E59FB-0A87-433C-BBEF-A38A290EF3B9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BlazorWasm", "BlazorWasm", "{243920E0-883F-4EA3-B3B8-9E595A5B73B8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fcl.Net.Blazor", "src\Fcl.Net.Blazor\Fcl.Net.Blazor.csproj", "{395AD8E5-DF1E-4FFF-905A-C73D6AD630FA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWasmExample", "examples\BlazorWasm\BlazorWasmExample\BlazorWasmExample.csproj", "{159A8B2C-DA85-45F8-AFB3-EABE3DE95F73}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiExample", "examples\Maui\MauiExample\MauiExample.csproj", "{DD4B0629-98DD-4033-8B09-E7A6A1D7D8FC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{370EBDAD-977A-43D9-8DC9-311396C67739}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{370EBDAD-977A-43D9-8DC9-311396C67739}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{370EBDAD-977A-43D9-8DC9-311396C67739}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{370EBDAD-977A-43D9-8DC9-311396C67739}.Release|Any CPU.Build.0 = Release|Any CPU
+		{395AD8E5-DF1E-4FFF-905A-C73D6AD630FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{395AD8E5-DF1E-4FFF-905A-C73D6AD630FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{395AD8E5-DF1E-4FFF-905A-C73D6AD630FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{395AD8E5-DF1E-4FFF-905A-C73D6AD630FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{159A8B2C-DA85-45F8-AFB3-EABE3DE95F73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{159A8B2C-DA85-45F8-AFB3-EABE3DE95F73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{159A8B2C-DA85-45F8-AFB3-EABE3DE95F73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{159A8B2C-DA85-45F8-AFB3-EABE3DE95F73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD4B0629-98DD-4033-8B09-E7A6A1D7D8FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD4B0629-98DD-4033-8B09-E7A6A1D7D8FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD4B0629-98DD-4033-8B09-E7A6A1D7D8FC}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{DD4B0629-98DD-4033-8B09-E7A6A1D7D8FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD4B0629-98DD-4033-8B09-E7A6A1D7D8FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD4B0629-98DD-4033-8B09-E7A6A1D7D8FC}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{370EBDAD-977A-43D9-8DC9-311396C67739} = {C678115E-BD90-41E6-825D-4E9DE1DF20B6}
+		{6A5E59FB-0A87-433C-BBEF-A38A290EF3B9} = {D4A40D6C-5619-41CA-A26F-950BECF1FC58}
+		{243920E0-883F-4EA3-B3B8-9E595A5B73B8} = {D4A40D6C-5619-41CA-A26F-950BECF1FC58}
+		{395AD8E5-DF1E-4FFF-905A-C73D6AD630FA} = {C678115E-BD90-41E6-825D-4E9DE1DF20B6}
+		{159A8B2C-DA85-45F8-AFB3-EABE3DE95F73} = {243920E0-883F-4EA3-B3B8-9E595A5B73B8}
+		{DD4B0629-98DD-4033-8B09-E7A6A1D7D8FC} = {6A5E59FB-0A87-433C-BBEF-A38A290EF3B9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8249D8FE-2502-40FA-9ADC-AC5A64A9B2AC}
+	EndGlobalSection
+EndGlobal
