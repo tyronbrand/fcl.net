@@ -1,4 +1,5 @@
 ﻿@page "/signusermessage"
+@using Fcl.Net.Core.Models
 @inject Fcl.Net.Core.Fcl Fcl
 
 <PageTitle>Sign User Message</PageTitle>
@@ -11,5 +12,7 @@
     private async Task MutateAsync()
     {
         var signature = await Fcl.SignUserMessage("test");
+
+        var verify = await Fcl.VerifyUserSignature("test", new List<FclSignature> { signature });
     }
 }

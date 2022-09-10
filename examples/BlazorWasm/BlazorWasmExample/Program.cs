@@ -1,3 +1,5 @@
+using System;
+using System.Net.Http;
 using BlazorWasmExample;
 using Fcl.Net.Blazor;
 using Fcl.Net.Core;
@@ -7,6 +9,7 @@ using Flow.Net.Sdk.Client.Http;
 using Flow.Net.Sdk.Core.Client;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");

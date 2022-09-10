@@ -13,15 +13,28 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Fcl.Net.Core
 {
     public class Fcl
     {
-        public FclUser User;
-        public IFlowClient Sdk;
-
+        private FclUser _user;
+        private IFlowClient _sdk;
+        
+        public FclUser User
+        {
+            get => _user;
+            private set => _user = value;
+        }
+        
+        public IFlowClient Sdk
+        {
+            get => _sdk;
+            private set => _sdk = value;
+        }
+        
         private readonly ExecService _execService;
         private readonly FclConfig _fclConfig;
 
@@ -107,6 +120,9 @@ namespace Fcl.Net.Core
 
         public async Task<FclSignature> SignUserMessage(string message)
         {
+            if (User == null || !User.LoggedIn)
+                throw new FclException("User unauthenticated.");
+
             var userSignatureService = User.Services.FirstOrDefault(f => f.Type == FclServiceType.UserSignature);
 
             if (userSignatureService == null)
@@ -128,6 +144,55 @@ namespace Fcl.Net.Core
                 KeyId = (uint)response.Data.KeyId,
                 Signature = response.Data.Signature
             };
+        }
+
+        public async Task<bool> VerifyUserSignature(string message, IEnumerable<FclSignature> fclSignatures)
+        {
+            //TODO - use testnet "0x74daa6f9c7ef24b1" / mainnet "0xb4b82a1c9d21d284"
+
+            var script = @"
+import FCLCrypto from 0x74daa6f9c7ef24b1
+pub fun main(
+    address: Address,
+    message: String,
+    keyIndices: [Int],
+    signatures: [String]
+): Bool {
+    return FCLCrypto.verifyUserSignatures(address: address, message: message, keyIndices: keyIndices, signatures: signatures)
+}";
+
+            var address = fclSignatures.Select(s => s.Address).FirstOrDefault();
+            var signatures = new List<ICadence>();
+            var signatureIndexes = new List<ICadence>();
+
+            foreach (var signature in fclSignatures)
+            {
+                signatures.Add(new CadenceString(signature.Signature));
+                signatureIndexes.Add(new CadenceNumber(CadenceNumberType.Int, signature.KeyId.ToString()));
+            }
+
+            var flowScripts = new FlowScript
+            {
+                Script = script,
+                Arguments = new List<ICadence>()
+                {
+                    new CadenceAddress(address.RemoveHexPrefix()),
+                    new CadenceString(message.StringToHex()),
+                    new CadenceArray(signatureIndexes),
+                    new CadenceArray(signatures)
+                }
+            };
+
+            try
+            {
+                var response = await Sdk.ExecuteScriptAtLatestBlockAsync(flowScripts).ConfigureAwait(false);
+
+                return response.As<CadenceBool>().Value;
+            }
+            catch(Exception ex)
+            {
+                throw new FclException(ex.Message, ex);
+            }            
         }
 
         public async Task<string> MutateAsync(FclMutation fclMutation)
