@@ -19,7 +19,7 @@ namespace Fcl.Net.Core.Models
         public ICollection<FclService> Services { get; set; }
 
         [JsonProperty("keyId")]
-        public uint KeyId { get; set; }
+        public uint? KeyId { get; set; }
 
         [JsonProperty("signature")]
         public string Signature { get; set; }

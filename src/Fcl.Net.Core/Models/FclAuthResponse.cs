@@ -16,10 +16,12 @@ namespace Fcl.Net.Core.Models
             UserSignatures = new List<FclCompositeSignature>();
         }
 
-        [JsonConverter(typeof(LocalConverter))]
-        public FclService Local { get; set; }
-        public ResponseStatus Status { get; set; }
+        [JsonConverter(typeof(ArrayConverter<FclAuthData>))]
         public FclAuthData Data { get; set; }
+
+        [JsonConverter(typeof(ArrayConverter<FclService>))]
+        public FclService Local { get; set; }
+        public ResponseStatus Status { get; set; }        
         public FclService Updates { get; set; }        
         public string Reason { get; set; }
         public FclAuthData CompositeSignature { get; set; }
@@ -27,16 +29,11 @@ namespace Fcl.Net.Core.Models
         public ICollection<FclCompositeSignature> UserSignatures { get; set; }
     }
 
-    public class LocalConverter : JsonConverter
+    public class ArrayConverter<T> : JsonConverter<T> where T : new()
     {
-        public override bool CanConvert(Type objectType)
+        public override T ReadJson(JsonReader reader, Type objectType, T existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
-            return true;
-        }        
-
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-        {
-            var target = new FclService();
+            var target = new T();
 
             if (reader.TokenType == JsonToken.StartArray)
             {
@@ -46,15 +43,16 @@ namespace Fcl.Net.Core.Models
             }
             else
             {
-                var jObject = JObject.Load(reader);                
-                serializer.Populate(jObject.CreateReader(), target);                
+                var jObject = JObject.Load(reader);
+                serializer.Populate(jObject.CreateReader(), target);
             }
 
             return target;
         }
+
         public override bool CanWrite => false;
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => throw new NotImplementedException();
+        public override void WriteJson(JsonWriter writer, T value, JsonSerializer serializer) => throw new NotImplementedException();        
     }
 }
 

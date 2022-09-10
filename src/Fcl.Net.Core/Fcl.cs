@@ -4,8 +4,10 @@ using Fcl.Net.Core.Models;
 using Fcl.Net.Core.Resolve;
 using Fcl.Net.Core.Service;
 using Fcl.Net.Core.Service.Strategy;
+using Flow.Net.Sdk.Core;
 using Flow.Net.Sdk.Core.Cadence;
 using Flow.Net.Sdk.Core.Client;
+using Flow.Net.Sdk.Core.Exceptions;
 using Flow.Net.Sdk.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -100,6 +102,31 @@ namespace Fcl.Net.Core
                 Address = fclAuthResponse.Data.Address,
                 LoggedIn = true,
                 Services = fclAuthResponse.Data.Services,
+            };
+        }
+
+        public async Task<FclSignature> SignUserMessage(string message)
+        {
+            var userSignatureService = User.Services.FirstOrDefault(f => f.Type == FclServiceType.UserSignature);
+
+            if (userSignatureService == null)
+                throw new FlowException("Current user must have authorized a signing service.");
+
+            var data = new FclSignableMessage
+            {
+                Message = message.StringToHex()
+            };
+
+            var response = await _execService.ExecuteAsync(userSignatureService, msg: data).ConfigureAwait(false);
+
+            if (response.Data == null || string.IsNullOrEmpty(response.Data.Signature) || string.IsNullOrEmpty(response.Data.Address) || response.Data.KeyId == null)
+                throw new FclException("Failed to sign message.");
+
+            return new FclSignature
+            {
+                Address= response.Data.Address,
+                KeyId = (uint)response.Data.KeyId,
+                Signature = response.Data.Signature
             };
         }
 

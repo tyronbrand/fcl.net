@@ -27,6 +27,11 @@
             </NavLink>
         </div>
         <div class="nav-item px-3">
+            <NavLink class="nav-link" href="signusermessage">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Sign Message
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
             <button onclick="@(async () => await Fcl.AuthenticateAsync())">Login</button>
             @if (Fcl.User != null)
             {

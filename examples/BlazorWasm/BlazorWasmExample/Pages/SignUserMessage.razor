@@ -1,0 +1,15 @@
+﻿@page "/signusermessage"
+@inject Fcl.Net.Core.Fcl Fcl
+
+<PageTitle>Sign User Message</PageTitle>
+
+<h1>Sign User Message</h1>
+
+<button onclick="@(async () => await MutateAsync())">Sign</button>
+
+@code {
+    private async Task MutateAsync()
+    {
+        var signature = await Fcl.SignUserMessage("test");
+    }
+}
