@@ -4,7 +4,9 @@ using Fcl.Net.Core.Models;
 using Fcl.Net.Core.Resolve;
 using Fcl.Net.Core.Service;
 using Fcl.Net.Core.Service.Strategy;
+using Flow.Net.Sdk.Core.Cadence;
 using Flow.Net.Sdk.Core.Client;
+using Flow.Net.Sdk.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -119,5 +121,7 @@ namespace Fcl.Net.Core
                 throw new FclException("Mutation failed", ex);
             }
         }
+
+        public async Task<ICadence> QueryAsync(FlowScript flowScript) => await Sdk.ExecuteScriptAtLatestBlockAsync(flowScript).ConfigureAwait(false);
     }
 }

@@ -9,8 +9,6 @@
 
 <button onclick="@(async () => await MutateAsync())">Mutate</button>
 
-<button onclick="@(async () => await QueryAsync())">Query</button>
-
 @code {
     private async Task MutateAsync()
     {
@@ -22,21 +20,5 @@
         var transactionId = await Fcl.MutateAsync(tx);
 
         var result = await Fcl.Sdk.WaitForSealAsync(transactionId);
-    }
-
-    private async Task QueryAsync()
-    {
-        //try
-        //{
-        //    var result = await Fcl.QueryAsync(
-        //        new FlowScript
-        //            {
-        //                Script = ""
-        //            });
-        //}
-        //catch (Exception ex)
-        //{
-        //    Console.WriteLine(ex);
-        //}
     }
 }
