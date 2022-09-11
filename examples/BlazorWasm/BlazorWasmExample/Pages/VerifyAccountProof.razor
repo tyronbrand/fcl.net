@@ -1,0 +1,15 @@
+﻿@page "/verifyaccountproof"
+@inject Fcl.Net.Core.Fcl Fcl
+
+<PageTitle>Verify Account Proof</PageTitle>
+
+<h1>Verify Account Proof</h1>
+
+<button onclick="@(async () => await VerifyAsync())">Verify</button>
+
+@code {
+    private async Task VerifyAsync()
+    {
+        var result = await Fcl.VerifyAccountProof();
+    }
+}

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Fcl.Net.Core.Models
 {
@@ -10,7 +11,10 @@ namespace Fcl.Net.Core.Models
             Nonce = nonce;
         }
 
+        [JsonProperty("accountProofIdentifier")]
         public string AppId { get; set; }
+
+        [JsonProperty("accountProofNonce")]
         public string Nonce { get; set; }
     }
 

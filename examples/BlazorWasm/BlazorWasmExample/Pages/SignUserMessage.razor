@@ -13,6 +13,6 @@
     {
         var signature = await Fcl.SignUserMessage("test");
 
-        var verify = await Fcl.VerifyUserSignature("test", new List<FclSignature> { signature });
+        var verify = await Fcl.VerifyUserSignature("test", new List<FclCompositeSignature> { signature });
     }
 }

@@ -22,7 +22,7 @@ var sdkOptions = new FlowClientOptions
     ServerUrl = builder.HostEnvironment.IsProduction() ? ServerUrl.MainnetHost: ServerUrl.TestnetHost
 };
 
-var fclConfig = 
+var fclConfig =
     new FclConfig(
         new FclWalletDiscovery
         {
@@ -35,7 +35,10 @@ var fclConfig =
             Title = "Blazor Example"
         },
         builder.HostEnvironment.BaseAddress.Remove(builder.HostEnvironment.BaseAddress.Length - 1)
-    );
+    )
+    {
+        AccountProof = new FclAccountProofData("AWESOME-BLAZOR-APP-ID", "3037366134636339643564623330316636626239323161663465346131393662")
+    };
 
 builder.Services.AddFclServices(sdkOptions, fclConfig);
 
