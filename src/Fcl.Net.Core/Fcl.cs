@@ -12,11 +12,8 @@ using Flow.Net.Sdk.Core.Exceptions;
 using Flow.Net.Sdk.Core.Models;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Fcl.Net.Core
@@ -40,20 +37,8 @@ namespace Fcl.Net.Core
         private readonly ExecService _execService;
         private readonly FclConfig _fclConfig;
 
-        public Fcl(IFlowClient sdkClient, FclConfig fclConfig, Dictionary<FclServiceMethod, ILocalView> localViews, FetchService fetchService = null, Dictionary<FclServiceMethod, IStrategy> strategies = null)
+        public Fcl(IFlowClient sdkClient, FclConfig fclConfig, Dictionary<FclServiceMethod, ILocalView> localViews, FetchService fetchService, Dictionary<FclServiceMethod, IStrategy> strategies = null)
         {
-            Sdk = sdkClient;
-
-            if (fetchService == null)
-            {
-                fetchService = new FetchService(
-                    new HttpClient(),
-                    new FetchServiceConfig
-                    {
-                        Location = "" //TODO
-                    });
-            }
-
             var strategyItems = new Dictionary<FclServiceMethod, IStrategy>
             {
                 { FclServiceMethod.HttpPost, new HttpPostStrategy(fetchService, localViews) }
@@ -67,6 +52,7 @@ namespace Fcl.Net.Core
 
             _execService = new ExecService(strategyItems);
             _fclConfig = fclConfig;
+            _sdk = sdkClient;
         }
 
         public async Task AuthenticateAsync()
@@ -78,7 +64,7 @@ namespace Fcl.Net.Core
             }
             else
             {
-                var response = await _execService.ExecuteAsync(GetDiscoveryService(), GetServiceConfig(), _fclConfig.AccountProof ?? null).ConfigureAwait(false);
+                var response = await _execService.ExecuteAsync(GetDiscoveryService(), GetServiceConfig(), _fclConfig.AccountProof).ConfigureAwait(false);
 
                 if (response.Status == ResponseStatus.Approved)
                     SetCurrentUser(response);

@@ -105,13 +105,8 @@ namespace Fcl.Net.Core.Models
             {
                 var payer = Payer.FirstOrDefault();
 
-                if (!string.IsNullOrEmpty(payer))
-                {
-                    if (Accounts.ContainsKey(payer))
-                    {
-                        voucher.Payer = Accounts[payer].Address.AddHexPrefix();
-                    }
-                }
+                if (!string.IsNullOrEmpty(payer) && Accounts.ContainsKey(payer))
+                    voucher.Payer = Accounts[payer].Address.AddHexPrefix();
             }
 
             if (Authorizations.Any())

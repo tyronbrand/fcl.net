@@ -26,6 +26,7 @@ var fclConfig =
     new FclConfig(
         new FclWalletDiscovery
         {
+            // TODO - Read uri from config
             Wallet = new Uri("https://fcl-discovery.onflow.org/testnet/authn"),
             WalletMethod = FclServiceMethod.IFrameRPC
         },

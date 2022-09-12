@@ -1,4 +1,5 @@
-﻿using Fcl.Net.Blazor.LocalView;
+﻿using System.Collections.Generic;
+using Fcl.Net.Blazor.LocalView;
 using Fcl.Net.Blazor.Strategy;
 using Fcl.Net.Core;
 using Fcl.Net.Core.Config;
@@ -24,12 +25,12 @@ namespace Fcl.Net.Blazor
             // fetch service
             services.AddSingleton(f =>
             {
-                var sdkClientOptions = new FetchServiceConfig
+                var fetchServiceConfig = new FetchServiceConfig
                 {
                     Location = fclConfig.Location
                 };
 
-                return sdkClientOptions;
+                return fetchServiceConfig;
             });
             services.AddHttpClient<FetchService>();
 

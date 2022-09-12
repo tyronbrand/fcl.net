@@ -1,20 +1,21 @@
-﻿using Fcl.Net.Core;
-using Fcl.Net.Core.Models;
+﻿using System;
+using System.Threading.Tasks;
+using Fcl.Net.Core;
 using Fcl.Net.Core.Service.Strategy;
 
 namespace Fcl.Net.Blazor.LocalView
 {
     public class PopLocalView : ILocalView
     {
-        private readonly FclJsObjRef _fclJSObjRef; 
+        private readonly FclJsObjRef _fclJsObjRef; 
         
-        public PopLocalView(FclJsObjRef fclJSObjRef)
+        public PopLocalView(FclJsObjRef fclJsObjRef)
         {
-            _fclJSObjRef = fclJSObjRef;
+            _fclJsObjRef = fclJsObjRef;
         }
 
-        public async Task CloseLocalView() => await _fclJSObjRef.CloseLocalView().ConfigureAwait(false);
+        public async Task CloseLocalView() => await _fclJsObjRef.CloseLocalView().ConfigureAwait(false);
 
-        public async Task OpenLocalView(Uri uri) => await _fclJSObjRef.OpenLocalView(uri, FclServiceMethod.ViewPop).ConfigureAwait(false);
+        public async Task OpenLocalView(Uri uri) => await _fclJsObjRef.OpenLocalView(uri, FclServiceMethod.ViewPop).ConfigureAwait(false);
     }
 }

@@ -1,16 +1,17 @@
-﻿using Microsoft.JSInterop;
+﻿using System.Threading.Tasks;
+using Microsoft.JSInterop;
 
 namespace Fcl.Net.Blazor.Models
 {
     public class JsInstance
     {
-        private readonly IJSObjectReference jSInstance;
+        private readonly IJSObjectReference _jsInstance;
 
-        public JsInstance(IJSObjectReference jSInstance)
+        public JsInstance(IJSObjectReference jsInstance)
         {
-            this.jSInstance = jSInstance;
+            this._jsInstance = jsInstance;
         }
-        public async Task Close() => await jSInstance.InvokeVoidAsync("close");
+        public async Task Close() => await _jsInstance.InvokeVoidAsync("close");
 
     }
 }

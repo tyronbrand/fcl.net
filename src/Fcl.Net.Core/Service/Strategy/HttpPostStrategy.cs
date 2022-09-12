@@ -20,7 +20,7 @@ namespace Fcl.Net.Core.Service.Strategy
             _localViews = localViews;
         }
 
-        public async Task<FclAuthResponse> ExecuteAsync(FclService service, FclServiceConfig config, object data = null, HttpMethod httpMethod = null)
+        public async Task<FclAuthResponse> ExecuteAsync(FclService service, FclServiceConfig config = null, object data = null, HttpMethod httpMethod = null)
         {
             if (httpMethod == null)
                 httpMethod = HttpMethod.Post;
@@ -42,7 +42,7 @@ namespace Fcl.Net.Core.Service.Strategy
                     requestData.Add(item.Key, item.Value);
             }
 
-            var response =  await _fetchService.FetchAndReadResponseAsync<FclAuthResponse>(service, requestData, httpMethod).ConfigureAwait(false);
+            var response = await _fetchService.FetchAndReadResponseAsync<FclAuthResponse>(service, requestData, httpMethod).ConfigureAwait(false);
 
             switch(response.Status)
             {

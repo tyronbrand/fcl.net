@@ -1,7 +1,7 @@
-﻿using Fcl.Net.Core.Models;
+﻿using Fcl.Net.Blazor.Models;
 using Fcl.Net.Core;
+using Fcl.Net.Core.Models;
 using Microsoft.JSInterop;
-using Fcl.Net.Blazor.Models;
 
 namespace Fcl.Net.Blazor
 {
@@ -12,11 +12,11 @@ namespace Fcl.Net.Blazor
 
         public FclJsObjRef(IJSRuntime jsRuntime)
         {
-            _moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>(
+            _moduleTask = new Lazy<Task<IJSObjectReference>>(() => jsRuntime.InvokeAsync<IJSObjectReference>(
                 "import", "./_content/Fcl.Net.Blazor/fclDotNet.js").AsTask());
         }
 
-        public async ValueTask<string> OpenLocalViewReturnResponse(FclService service, FclServiceConfig config, object? data = null)
+        public async ValueTask<string> OpenLocalViewAwaitResponse(FclService service, FclServiceConfig config, object? data = null)
         {
             var jsMethod = service.Method.ToString().ToLower().Contains("pop") ? "execPop" : "execIFrame";
             var module = await _moduleTask.Value;
