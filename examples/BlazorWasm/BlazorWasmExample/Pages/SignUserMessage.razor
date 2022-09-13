@@ -11,8 +11,8 @@
 @code {
     private async Task MutateAsync()
     {
-        var signature = await Fcl.SignUserMessage("test");
+        var signature = await Fcl.SignUserMessageAsync("test");
 
-        var verify = await Fcl.VerifyUserSignature("test", new List<FclCompositeSignature> { signature });
+        var verify = await Fcl.VerifyUserSignatureAsync("test", new List<FclCompositeSignature> { signature });
     }
 }
