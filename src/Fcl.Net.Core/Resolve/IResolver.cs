@@ -5,6 +5,6 @@ namespace Fcl.Net.Core.Resolve
 {
     public interface IResolver
     {
-        Task Resolve(FclInteraction fclInteraction);
+        Task ResolveAsync(FclInteraction fclInteraction);
     }
 }

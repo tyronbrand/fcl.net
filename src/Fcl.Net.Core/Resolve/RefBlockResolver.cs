@@ -12,7 +12,7 @@ namespace Fcl.Net.Core.Resolve
             _sdkClient = sdkClient;
         }
 
-        public async Task Resolve(FclInteraction fclInteraction)
+        public async Task ResolveAsync(FclInteraction fclInteraction)
         {
             var block = await _sdkClient.GetLatestBlockAsync(false).ConfigureAwait(false);
             fclInteraction.Message.RefrenceBlock = block.Header.Id;

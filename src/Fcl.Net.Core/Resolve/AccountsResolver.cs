@@ -20,7 +20,7 @@ namespace Fcl.Net.Core.Resolve
             _fclServiceConfig = fclServiceConfig;
         }
 
-        public async Task Resolve(FclInteraction fclInteraction)
+        public async Task ResolveAsync(FclInteraction fclInteraction)
         {
             var preAuthz = _fclUser.Services.FirstOrDefault(f => f.Type == FclServiceType.PreAuthz);
 

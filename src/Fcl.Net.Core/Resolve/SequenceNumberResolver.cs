@@ -14,7 +14,7 @@ namespace Fcl.Net.Core.Resolve
             _sdkClient = sdkClient;
         }
 
-        public async Task Resolve(FclInteraction fclInteraction)
+        public async Task ResolveAsync(FclInteraction fclInteraction)
         {
             var proposer = fclInteraction.Proposer;
             var account = fclInteraction.Accounts[proposer];

@@ -20,7 +20,7 @@ namespace Fcl.Net.Core.Resolve
             _execService = execService;
         }
 
-        public async Task<FclInteraction> Build(FclMutation fclMutation, FclUser fclUser)
+        public async Task<FclInteraction> BuildAsync(FclMutation fclMutation, FclUser fclUser)
         {
             var interaction = new FclInteraction
             {
@@ -48,7 +48,7 @@ namespace Fcl.Net.Core.Resolve
             };
 
             foreach (var resolver in mutationResolvers)
-                await resolver.Resolve(interaction).ConfigureAwait(false);
+                await resolver.ResolveAsync(interaction).ConfigureAwait(false);
             
             return interaction;
         }

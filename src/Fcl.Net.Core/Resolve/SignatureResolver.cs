@@ -19,16 +19,16 @@ namespace Fcl.Net.Core.Resolve
             _fclServiceConfig = fclServiceConfig;
         }
 
-        public async Task Resolve(FclInteraction fclInteraction)
+        public async Task ResolveAsync(FclInteraction fclInteraction)
         {
             if (fclInteraction.Tag != FclInteractionTag.Transaction)
                 return;
 
             var insideSigners = fclInteraction.FindInsideSigners();
-            await FetchSignaturesAsync(fclInteraction, insideSigners, true);
+            await FetchSignaturesAsync(fclInteraction, insideSigners, true).ConfigureAwait(false);
 
             var outsideSigners = fclInteraction.FindOutsideSigners();
-            await FetchSignaturesAsync(fclInteraction, outsideSigners);
+            await FetchSignaturesAsync(fclInteraction, outsideSigners).ConfigureAwait(false);
         }
 
         private async Task FetchSignaturesAsync(FclInteraction fclInteraction, ICollection<string> signerIds, bool isPayload = false)

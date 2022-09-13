@@ -21,7 +21,7 @@ namespace Fcl.Net.Core.Service
             var response = await _strategies[service.Method].ExecuteAsync(service, config, message).ConfigureAwait(false);
 
             if(response.Status == ResponseStatus.Redirect)
-                return await ExecuteAsync(response.Data, config, msg);
+                return await ExecuteAsync(response.Data, config, msg).ConfigureAwait(false);
 
             return response;
         }

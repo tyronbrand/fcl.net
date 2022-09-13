@@ -57,18 +57,11 @@ namespace Fcl.Net.Core
 
         public async Task AuthenticateAsync()
         {
-            if (User != null && User.LoggedIn)
-            {
-                //TODO
-                //authn-refresh
-            }
-            else
-            {
-                var response = await _execService.ExecuteAsync(GetDiscoveryService(), GetServiceConfig(), _fclConfig.AccountProof).ConfigureAwait(false);
+            var service = (User != null && User.LoggedIn) ? User.Services.FirstOrDefault(f => f.Type == FclServiceType.AuthnRefresh) : GetDiscoveryService();
+            var response = await _execService.ExecuteAsync(service, GetServiceConfig(), _fclConfig.AccountProof).ConfigureAwait(false);
 
-                if (response.Status == ResponseStatus.Approved)
-                    SetCurrentUser(response);
-            }
+            if (response.Status == ResponseStatus.Approved)
+                SetCurrentUser(response);
         }
 
         public void Unauthenticate()
@@ -76,7 +69,7 @@ namespace Fcl.Net.Core
             _user = null;
         }
 
-        public async Task<bool> VerifyAccountProof(bool includeDomainTag = false)
+        public async Task<bool> VerifyAccountProofAsync(bool includeDomainTag = false)
         {
             if (User == null || !User.LoggedIn)
                 throw new FclException("User unauthenticated.");
@@ -102,10 +95,10 @@ pub fun main(
     return FCLCrypto.verifyAccountProofSignatures(address: address, message: message, keyIndices: keyIndices, signatures: signatures)
 }";
 
-            return await Verify(address.ToString(), message.BytesToHex(), script, signatures);
+            return await VerifyAsync(address.ToString(), message.BytesToHex(), script, signatures).ConfigureAwait(false);
         }        
 
-        public async Task<bool> VerifyUserSignature(string message, IEnumerable<FclCompositeSignature> fclCompositeSignatures)
+        public async Task<bool> VerifyUserSignatureAsync(string message, IEnumerable<FclCompositeSignature> fclCompositeSignatures)
         {
             //TODO - use testnet "0x74daa6f9c7ef24b1" / mainnet "0xb4b82a1c9d21d284"
             var script = @"
@@ -121,10 +114,10 @@ pub fun main(
 
             var address = fclCompositeSignatures.Select(s => s.Address).FirstOrDefault();
 
-            return await Verify(address, message.StringToHex(), script, fclCompositeSignatures);
+            return await VerifyAsync(address, message.StringToHex(), script, fclCompositeSignatures).ConfigureAwait(false);
         }
 
-        private async Task<bool> Verify(string address, string message, string script, IEnumerable<FclCompositeSignature> fclCompositeSignatures)
+        private async Task<bool> VerifyAsync(string address, string message, string script, IEnumerable<FclCompositeSignature> fclCompositeSignatures)
         {
             var signatures = new List<ICadence>();
             var signatureIndexes = new List<ICadence>();
@@ -158,7 +151,7 @@ pub fun main(
             }
         }
 
-        public async Task<FclCompositeSignature> SignUserMessage(string message)
+        public async Task<FclCompositeSignature> SignUserMessageAsync(string message)
         {
             if (User == null || !User.LoggedIn)
                 throw new FclException("User unauthenticated.");
@@ -194,7 +187,7 @@ pub fun main(
                     throw new FclException("User unauthenticated.");
 
                 var interactionBuilder = new FclInteractionBuilder(_execService, GetServiceConfig(), Sdk);
-                var interaction = await interactionBuilder.Build(fclMutation, User).ConfigureAwait(false);
+                var interaction = await interactionBuilder.BuildAsync(fclMutation, User).ConfigureAwait(false);
                 var transaction = await Sdk.SendTransactionAsync(interaction.ToFlowTransaction()).ConfigureAwait(false);
 
                 return transaction.Id;
