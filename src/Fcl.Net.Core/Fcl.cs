@@ -1,14 +1,14 @@
 ﻿using Fcl.Net.Core.Config;
 using Fcl.Net.Core.Exceptions;
 using Fcl.Net.Core.Models;
+using Fcl.Net.Core.Platform;
 using Fcl.Net.Core.Resolve;
 using Fcl.Net.Core.Service;
-using Fcl.Net.Core.Service.Strategy;
+using Fcl.Net.Core.Service.Strategies;
 using Fcl.Net.Core.Utilities;
 using Flow.Net.Sdk.Core;
 using Flow.Net.Sdk.Core.Cadence;
 using Flow.Net.Sdk.Core.Client;
-using Flow.Net.Sdk.Core.Exceptions;
 using Flow.Net.Sdk.Core.Models;
 using Newtonsoft.Json.Linq;
 using System;
@@ -36,21 +36,12 @@ namespace Fcl.Net.Core
         private IFlowClient _sdk;
         private readonly ExecService _execService;
         private readonly FclConfig _fclConfig;
+        private readonly IPlatform _platform;
 
-        public Fcl(IFlowClient sdkClient, FclConfig fclConfig, Dictionary<FclServiceMethod, ILocalView> localViews, FetchService fetchService, Dictionary<FclServiceMethod, IStrategy> strategies = null)
+        public Fcl(FclConfig fclConfig, IFlowClient sdkClient, IPlatform platform, Dictionary<FclServiceMethod, IStrategy> strategies)
         {
-            var strategyItems = new Dictionary<FclServiceMethod, IStrategy>
-            {
-                { FclServiceMethod.HttpPost, new HttpPostStrategy(fetchService, localViews) }
-            };
-
-            if (strategies != null && strategies.Any())
-            {
-                foreach (var strategy in strategies)
-                    strategyItems.Add(strategy.Key, strategy.Value);
-            }
-
-            _execService = new ExecService(strategyItems);
+            _platform = platform;
+            _execService = new ExecService(strategies);
             _fclConfig = fclConfig;
             _sdk = sdkClient;
         }
@@ -159,7 +150,7 @@ pub fun main(
             var userSignatureService = User.Services.FirstOrDefault(f => f.Type == FclServiceType.UserSignature);
 
             if (userSignatureService == null)
-                throw new FlowException("Current user must have authorized a signing service.");
+                throw new FclException("Current user must have authorized a signing service.");
 
             var data = new FclSignableMessage
             {
@@ -208,7 +199,7 @@ pub fun main(
                 App = _fclConfig.AppInfo,
                 Client = new FclClientInfo
                 {
-                    Hostname = _fclConfig.Location
+                    Hostname = _platform.Location()
                 }
             };
         }

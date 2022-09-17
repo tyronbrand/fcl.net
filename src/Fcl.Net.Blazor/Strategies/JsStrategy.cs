@@ -1,12 +1,9 @@
-﻿using System;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using Fcl.Net.Core.Exceptions;
 using Fcl.Net.Core.Models;
-using Fcl.Net.Core.Service.Strategy;
-using Flow.Net.Sdk.Core.Exceptions;
+using Fcl.Net.Core.Service.Strategies;
 using Newtonsoft.Json;
 
-namespace Fcl.Net.Blazor.Strategy
+namespace Fcl.Net.Blazor.Strategies
 {
     public class JsStrategy : IStrategy
     {
@@ -26,7 +23,7 @@ namespace Fcl.Net.Blazor.Strategy
             }
             catch (Exception ex)
             {
-                throw new FlowException("Frame error.", ex);
+                throw new FclException("Frame error.", ex);
             }
         }
     }

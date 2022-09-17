@@ -1,5 +1,5 @@
 ﻿using Fcl.Net.Core.Models;
-using Fcl.Net.Core.Service.Strategy;
+using Fcl.Net.Core.Service.Strategies;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

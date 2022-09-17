@@ -11,7 +11,7 @@ namespace Fcl.Net.Blazor.Models
         {
             this._jsInstance = jsInstance;
         }
-        public async Task Close() => await _jsInstance.InvokeVoidAsync("close");
+        public async Task Close() => await _jsInstance.InvokeVoidAsync("close").ConfigureAwait(false);
 
     }
 }

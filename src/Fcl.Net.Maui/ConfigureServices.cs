@@ -1,7 +1,8 @@
 ﻿using Fcl.Net.Core;
 using Fcl.Net.Core.Config;
+using Fcl.Net.Core.Platform.Strategies;
 using Fcl.Net.Core.Service;
-using Fcl.Net.Core.Service.Strategy;
+using Fcl.Net.Core.Service.Strategies.LocalViews;
 using Flow.Net.Sdk.Client.Http;
 using Flow.Net.Sdk.Core.Client;
 

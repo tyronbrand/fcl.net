@@ -1,12 +1,21 @@
 ﻿using System.Collections.Generic;
-using Fcl.Net.Blazor.LocalView;
-using Fcl.Net.Blazor.Strategy;
+using Blazored.LocalStorage;
+using Fcl.Net.Blazor.LocalViews;
+using Fcl.Net.Blazor.Platform;
+using Fcl.Net.Blazor.Strategies;
 using Fcl.Net.Core;
 using Fcl.Net.Core.Config;
+using Fcl.Net.Core.Platform;
 using Fcl.Net.Core.Service;
-using Fcl.Net.Core.Service.Strategy;
+using Fcl.Net.Core.Service.Strategies;
+using Fcl.Net.Core.Service.Strategies.LocalViews;
+using Flow.Net.Sdk.Client.Grpc;
 using Flow.Net.Sdk.Client.Http;
 using Flow.Net.Sdk.Core.Client;
+using Grpc.Core;
+using Grpc.Net.Client;
+using Grpc.Net.Client.Web;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Fcl.Net.Blazor
@@ -15,11 +24,12 @@ namespace Fcl.Net.Blazor
     {
         public static IServiceCollection AddFclServices(this IServiceCollection services, FlowClientOptions sdkClientOptions, FclConfig fclConfig)
         {
+            // platform
+            //services.AddBlazoredLocalStorage();
+            services.AddSingleton<IPlatform, BlazorPlatform>();
+
             // sdk client
-            services.AddSingleton(f =>
-            {
-                return sdkClientOptions;
-            });
+            services.AddSingleton(f => sdkClientOptions);
             services.AddHttpClient<IFlowClient, FlowHttpClient>();
 
             // fetch service
@@ -43,13 +53,6 @@ namespace Fcl.Net.Blazor
 
             // strategies
             services.AddSingleton<JsStrategy>();
-
-            // fcl
-            services.AddSingleton(f =>
-            {
-                return fclConfig;
-            });
-
             services.AddSingleton(f =>
             {
                 // local views
@@ -57,21 +60,27 @@ namespace Fcl.Net.Blazor
                 {
                     { FclServiceMethod.ViewIFrame, f.GetRequiredService<IFrameLocalView>() },
                     { FclServiceMethod.ViewPop, f.GetRequiredService<PopLocalView>() },
-                    { FclServiceMethod.BrowserIframe, fclConfig.WalletDiscovery.WalletMethod == FclServiceMethod.IFrameRPC ? f.GetRequiredService<IFrameLocalView>() : f.GetRequiredService<PopLocalView>() }
                 };
 
+                return new HttpPostStrategy(f.GetRequiredService<FetchService>(), localViews);
+            });            
+
+            // fcl
+            services.AddSingleton(f => fclConfig);
+            services.AddSingleton(f =>
+            {
                 // strategies
                 var strategies = new Dictionary<FclServiceMethod, IStrategy>
                 {
+                    { FclServiceMethod.HttpPost, f.GetRequiredService<HttpPostStrategy>() },
                     { FclServiceMethod.IFrameRPC, f.GetRequiredService<JsStrategy>() },
                     { FclServiceMethod.PopRpc, f.GetRequiredService<JsStrategy>() }
                 };
 
                 return new Core.Fcl(
-                    f.GetRequiredService<IFlowClient>(),
                     f.GetRequiredService<FclConfig>(),
-                    localViews,
-                    f.GetRequiredService<FetchService>(),
+                    f.GetRequiredService<IFlowClient>(),
+                    f.GetRequiredService<IPlatform>(),
                     strategies);
             });            
 

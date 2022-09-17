@@ -1,5 +1,5 @@
-﻿using Fcl.Net.Core.Models;
-using Flow.Net.Sdk.Core.Exceptions;
+﻿using Fcl.Net.Core.Exceptions;
+using Fcl.Net.Core.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -56,7 +56,7 @@ namespace Fcl.Net.Core.Service
         public async Task<T> ReadResponseAsync<T>(HttpResponseMessage response)
         {
             if (response == null || response.Content == null)
-                throw new FlowException("Response was empty");
+                throw new FclException("Response was empty");
 
             try
             {
@@ -71,7 +71,7 @@ namespace Fcl.Net.Core.Service
             catch (JsonException exception)
             {
                 var message = "Could not deserialize the response body stream as " + typeof(T).FullName + ".";
-                throw new FlowException(message, exception);
+                throw new FclException(message, exception);
             }
         }
 

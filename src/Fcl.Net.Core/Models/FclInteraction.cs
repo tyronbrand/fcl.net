@@ -1,6 +1,6 @@
-﻿using Flow.Net.Sdk.Core;
+﻿using Fcl.Net.Core.Exceptions;
+using Flow.Net.Sdk.Core;
 using Flow.Net.Sdk.Core.Cadence;
-using Flow.Net.Sdk.Core.Exceptions;
 using Flow.Net.Sdk.Core.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -193,7 +193,7 @@ namespace Fcl.Net.Core.Models
             var payer = Accounts[Payer.FirstOrDefault()]?.Address;
 
             if (string.IsNullOrEmpty(payer))
-                throw new FlowException("Payer is missing.");
+                throw new FclException("Payer is missing.");
 
             var arguments = Arguments.Select(arg => JsonConvert.SerializeObject(arg.Value.AsArgument)).Select(cadenceStr => cadenceStr.Decode()).ToList();
             var payloadSignatures = CreateFlowSignatures(FindInsideSigners());

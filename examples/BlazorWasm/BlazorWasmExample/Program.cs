@@ -2,6 +2,7 @@ using System;
 using System.Net.Http;
 using BlazorWasmExample;
 using Fcl.Net.Blazor;
+using Fcl.Net.Blazor.Platform;
 using Fcl.Net.Core;
 using Fcl.Net.Core.Config;
 using Fcl.Net.Core.Models;

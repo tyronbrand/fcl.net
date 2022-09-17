@@ -21,22 +21,22 @@ namespace Fcl.Net.Blazor
             var jsMethod = service.Method.ToString().ToLower().Contains("pop") ? "execPop" : "execIFrame";
             var module = await _moduleTask.Value;
 
-            return await module.InvokeAsync<string>(jsMethod, service.ToDictionary<string, object>(), data, config);
+            return await module.InvokeAsync<string>(jsMethod, service.ToDictionary<string, object>(), data, config).ConfigureAwait(false);
         }
 
         public async ValueTask OpenLocalView(Uri uri, FclServiceMethod fclServiceMethod)
         {
             var jsMethod = fclServiceMethod == FclServiceMethod.ViewPop ? "renderPop" : "renderFrame";
-            var module = await _moduleTask.Value;
+            var module = await _moduleTask.Value.ConfigureAwait(false);
 
-            var objRef = await module.InvokeAsync<IJSObjectReference>(jsMethod, uri, true);
+            var objRef = await module.InvokeAsync<IJSObjectReference>(jsMethod, uri, true).ConfigureAwait(false);
             _jsInstance = new JsInstance(objRef);
         }
 
         public async ValueTask CloseLocalView()
         {
-            if(_jsInstance != null)
-                await _jsInstance.Close();
+            if (_jsInstance != null)
+                await _jsInstance.Close().ConfigureAwait(false);
         }
 
         public async ValueTask DisposeAsync()

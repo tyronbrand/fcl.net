@@ -14,7 +14,7 @@ namespace Fcl.Net.Core.Resolve
 
         public async Task ResolveAsync(FclInteraction fclInteraction)
         {
-            var block = await _sdkClient.GetLatestBlockAsync(false).ConfigureAwait(false);
+            var block = await _sdkClient.GetLatestBlockAsync().ConfigureAwait(false); // TODO - investigate sealed vs final error
             fclInteraction.Message.RefrenceBlock = block.Header.Id;
         }
     }

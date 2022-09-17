@@ -1,7 +1,7 @@
-﻿using Fcl.Net.Core.Models;
+﻿using Fcl.Net.Core.Exceptions;
+using Fcl.Net.Core.Models;
 using Fcl.Net.Core.Service;
 using Flow.Net.Sdk.Core;
-using Flow.Net.Sdk.Core.Exceptions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -39,7 +39,7 @@ namespace Fcl.Net.Core.Resolve
                 var payload = DomainTag.AddTransactionDomainTag(isPayload ? Rlp.EncodedCanonicalPayload(tx) : Rlp.EncodedCanonicalAuthorizationEnvelope(tx)).BytesToHex();
 
                 if (!fclInteraction.Accounts.ContainsKey(id))
-                    throw new FlowException("Can't find account by id.");
+                    throw new FclException("Can't find account by id.");
 
                 var acct = fclInteraction.Accounts[id];
                 var signable = CreateSignable(fclInteraction, payload, acct);

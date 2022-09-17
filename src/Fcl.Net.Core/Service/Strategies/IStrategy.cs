@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Fcl.Net.Core.Service.Strategy
+namespace Fcl.Net.Core.Service.Strategies
 {
     public interface IStrategy
     {

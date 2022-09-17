@@ -1,6 +1,6 @@
-﻿using Fcl.Net.Core.Models;
+﻿using Fcl.Net.Core.Exceptions;
+using Fcl.Net.Core.Models;
 using Fcl.Net.Core.Service;
-using Flow.Net.Sdk.Core.Exceptions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,7 +25,7 @@ namespace Fcl.Net.Core.Resolve
             var preAuthz = _fclUser.Services.FirstOrDefault(f => f.Type == FclServiceType.PreAuthz);
 
             if (preAuthz == null)
-                throw new FlowException($"User missing preAuthz.");
+                throw new FclException($"User missing preAuthz.");
 
             var preSigned = fclInteraction.BuildPreSignable(new FclRole { Proposer = true, Authorizer = true, Payer = true });
             var response = await _execService.ExecuteAsync(preAuthz, _fclServiceConfig, preSigned).ConfigureAwait(false);

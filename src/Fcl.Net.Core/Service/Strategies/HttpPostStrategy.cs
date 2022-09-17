@@ -1,13 +1,13 @@
 ﻿using Fcl.Net.Core.Exceptions;
 using Fcl.Net.Core.Models;
-using Flow.Net.Sdk.Core.Exceptions;
+using Fcl.Net.Core.Service.Strategies.LocalViews;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Fcl.Net.Core.Service.Strategy
+namespace Fcl.Net.Core.Service.Strategies
 {
     public class HttpPostStrategy : IStrategy
     {
@@ -44,7 +44,7 @@ namespace Fcl.Net.Core.Service.Strategy
 
             var response = await _fetchService.FetchAndReadResponseAsync<FclAuthResponse>(service, requestData, httpMethod).ConfigureAwait(false);
 
-            switch(response.Status)
+            switch (response.Status)
             {
                 case ResponseStatus.Approved:
                     return response;
@@ -62,10 +62,34 @@ namespace Fcl.Net.Core.Service.Strategy
         private async Task<FclAuthResponse> PollAsync(FclAuthResponse fclAuthResponse)
         {
             if (fclAuthResponse.Local == null)
-                throw new FlowException("Local was null.");
+                throw new FclException("Local was null.");
 
-            var url = _fetchService.BuildUrl(fclAuthResponse.Local);
-            await _localViews[fclAuthResponse.Local.Method].OpenLocalView(url).ConfigureAwait(false);
+            ILocalView localView = null;
+            if (_localViews.ContainsKey(fclAuthResponse.Local.Method))
+            {
+                localView = _localViews[fclAuthResponse.Local.Method];                
+            }
+            else if (fclAuthResponse.Local.Method == FclServiceMethod.BrowserIframe)
+            {
+                foreach (var view in _localViews)
+                {
+                    if (view.Value.IsDefault())
+                    {
+                        localView = view.Value;
+                        break;
+                    }
+                }
+            }
+
+            if(localView != null)
+            {
+                var url = _fetchService.BuildUrl(fclAuthResponse.Local);
+                await localView.OpenLocalView(url).ConfigureAwait(false);
+            }
+            else
+            {
+                throw new FclException($"Failed to find strategy for {fclAuthResponse.Local.Method}");
+            }
 
             var delayMs = 1000;
             var timeoutMs = 300000;
@@ -77,14 +101,14 @@ namespace Fcl.Net.Core.Service.Strategy
 
                 if (pollingResponse.Status == ResponseStatus.Approved || pollingResponse.Status == ResponseStatus.Declined)
                 {
-                    await _localViews[fclAuthResponse.Local.Method].CloseLocalView().ConfigureAwait(false);
+                    await localView.CloseLocalView().ConfigureAwait(false);
                     return pollingResponse;
                 }
 
                 if (DateTime.UtcNow.Subtract(startTime).TotalMilliseconds > timeoutMs)
                 {
-                    await _localViews[fclAuthResponse.Local.Method].CloseLocalView().ConfigureAwait(false);
-                    throw new FlowException("Timed out polling.");
+                    await localView.CloseLocalView().ConfigureAwait(false);
+                    throw new FclException("Timed out polling.");
                 }
 
                 await Task.Delay(delayMs).ConfigureAwait(false);
