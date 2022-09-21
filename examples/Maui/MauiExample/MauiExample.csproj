@@ -52,4 +52,16 @@
 	  <ProjectReference Include="..\..\..\src\Fcl.Net.Maui\Fcl.Net.Maui.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiXaml Update="Views\LoginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\MutatePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\QueryPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

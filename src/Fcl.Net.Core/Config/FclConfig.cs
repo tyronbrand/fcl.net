@@ -12,7 +12,7 @@ namespace Fcl.Net.Core.Config
             Location = location;
         }
 
-        public FclWalletDiscovery WalletDiscovery { get; }
+        public FclWalletDiscovery WalletDiscovery { get; set; }
         public FclAppInfo AppInfo { get; }
         public string Location { get; }
         public Dictionary<string, string> Services { get; set; }

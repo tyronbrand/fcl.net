@@ -69,7 +69,7 @@ namespace Fcl.Net.Core.Service.Strategies
             {
                 localView = _localViews[fclAuthResponse.Local.Method];                
             }
-            else if (fclAuthResponse.Local.Method == FclServiceMethod.BrowserIframe)
+            else
             {
                 foreach (var view in _localViews)
                 {
@@ -81,15 +81,11 @@ namespace Fcl.Net.Core.Service.Strategies
                 }
             }
 
-            if(localView != null)
-            {
-                var url = _fetchService.BuildUrl(fclAuthResponse.Local);
-                await localView.OpenLocalView(url).ConfigureAwait(false);
-            }
-            else
-            {
+            if (localView == null)
                 throw new FclException($"Failed to find strategy for {fclAuthResponse.Local.Method}");
-            }
+
+            var url = _fetchService.BuildUrl(fclAuthResponse.Local);
+            await localView.OpenLocalView(url).ConfigureAwait(false);
 
             var delayMs = 1000;
             var timeoutMs = 300000;

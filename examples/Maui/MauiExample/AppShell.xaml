@@ -3,12 +3,22 @@
     x:Class="MauiExample.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:MauiExample"
+    xmlns:local="clr-namespace:MauiExample.Views"
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <ShellItem Route="login">
+        <ShellContent ContentTemplate="{DataTemplate local:LoginPage}"/>
+    </ShellItem>
+
+    <TabBar Route="main">
+        <Tab Title="Query">
+            <ShellContent 
+                ContentTemplate="{DataTemplate local:QueryPage}" />
+        </Tab>
+        <Tab Title="Mutate">
+            <ShellContent 
+                ContentTemplate="{DataTemplate local:MutatePage}" />
+        </Tab>
+    </TabBar>
 
 </Shell>

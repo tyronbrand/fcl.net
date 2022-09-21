@@ -191,6 +191,11 @@ pub fun main(
 
         public async Task<ICadence> QueryAsync(FlowScript flowScript) => await Sdk.ExecuteScriptAtLatestBlockAsync(flowScript).ConfigureAwait(false);
 
+        public void SetWalletProvider(FclWalletDiscovery fclWalletDiscovery)
+        {
+            _fclConfig.WalletDiscovery = fclWalletDiscovery;
+        }
+
         private FclServiceConfig GetServiceConfig()
         {
             return new FclServiceConfig

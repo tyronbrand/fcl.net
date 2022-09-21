@@ -1,6 +1,6 @@
-﻿using Fcl.Net.Core.Config;
+﻿using Fcl.Net.Core;
+using Fcl.Net.Core.Config;
 using Fcl.Net.Core.Models;
-using Fcl.Net.Core;
 using Fcl.Net.Maui;
 using Flow.Net.Sdk.Client.Http;
 using Flow.Net.Sdk.Core.Client;
@@ -14,6 +14,14 @@ namespace MauiExample
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+#if TIZEN
+				.UseMauiCompatibility()
+#endif
+                .ConfigureEssentials(essentials =>
+                {
+                    essentials.UseVersionTracking();
+                    essentials.OnAppAction(App.HandleAppActions);
+                })
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiExample.Views.LoginPage"
+             Shell.NavBarIsVisible="False"
+             Title="LoginPage">
+    <ContentPage.Content>
+        <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
+            <Label Text="Sign in to continue" FontSize="22" />
+            <Button VerticalOptions="Center" BackgroundColor="#003FBE" Text="Login with Blocto" Clicked="Blocto_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

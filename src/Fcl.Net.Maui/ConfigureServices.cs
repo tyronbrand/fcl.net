@@ -1,8 +1,11 @@
 ﻿using Fcl.Net.Core;
 using Fcl.Net.Core.Config;
-using Fcl.Net.Core.Platform.Strategies;
+using Fcl.Net.Core.Platform;
 using Fcl.Net.Core.Service;
+using Fcl.Net.Core.Service.Strategies;
 using Fcl.Net.Core.Service.Strategies.LocalViews;
+using Fcl.Net.Maui.LocalViews;
+using Fcl.Net.Maui.WebBrowser;
 using Flow.Net.Sdk.Client.Http;
 using Flow.Net.Sdk.Core.Client;
 
@@ -12,11 +15,11 @@ namespace Fcl.Net.Maui
     {
         public static IServiceCollection AddFclServices(this IServiceCollection services, FlowClientOptions sdkClientOptions, FclConfig fclConfig)
         {
+            // platform
+            services.AddSingleton<IPlatform, MauiPlatform>();
+
             // sdk client
-            services.AddSingleton(f =>
-            {
-                return sdkClientOptions;
-            });
+            services.AddSingleton(f => sdkClientOptions);
             services.AddHttpClient<IFlowClient, FlowHttpClient>();
 
             // fetch service
@@ -31,33 +34,38 @@ namespace Fcl.Net.Maui
             });
             services.AddHttpClient<FetchService>();
 
+            // browsers
+            services.AddSingleton<IWebBrowser, Browser>();
+
             // local views
+            services.AddSingleton<BrowserView>();
 
             // strategies
-
-            // fcl
-            services.AddSingleton(f =>
-            {
-                return fclConfig;
-            });
-
             services.AddSingleton(f =>
             {
                 // local views
                 var localViews = new Dictionary<FclServiceMethod, ILocalView>
-                {                    
+                {
+                    { FclServiceMethod.HttpPost, f.GetRequiredService<BrowserView>() }
                 };
 
+                return new HttpPostStrategy(f.GetRequiredService<FetchService>(), localViews);
+            });
+
+            // fcl
+            services.AddSingleton(f => fclConfig);
+            services.AddSingleton(f =>
+            {
                 // strategies
                 var strategies = new Dictionary<FclServiceMethod, IStrategy>
-                {                    
+                {
+                    { FclServiceMethod.HttpPost, f.GetRequiredService<HttpPostStrategy>() }
                 };
 
                 return new Core.Fcl(
-                    f.GetRequiredService<IFlowClient>(),
                     f.GetRequiredService<FclConfig>(),
-                    localViews,
-                    f.GetRequiredService<FetchService>(),
+                    f.GetRequiredService<IFlowClient>(),
+                    f.GetRequiredService<IPlatform>(),
                     strategies);
             });
 

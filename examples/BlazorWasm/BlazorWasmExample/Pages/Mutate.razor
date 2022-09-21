@@ -9,16 +9,35 @@
 
 <button onclick="@(async () => await MutateAsync())">Mutate</button>
 
+@if (!string.IsNullOrEmpty(status))
+{
+    <p role="status">Status: @status</p>
+}
+
 @code {
+    private string? status;
+
     private async Task MutateAsync()
     {
         var tx = new FclMutation
-            {
-                Script = "transaction() { prepare(signer: AuthAccount) { log(signer.address) } }"
-            };
+        {
+            Script = "transaction() { prepare(signer: AuthAccount) { log(signer.address) } }"
+        };
 
+        status = "INITIALIZING";
         var transactionId = await Fcl.MutateAsync(tx);
 
+        status = "AWAITING SEALING";
+        StateHasChanged();
         var result = await Fcl.Sdk.WaitForSealAsync(transactionId);
+
+        if(!string.IsNullOrEmpty(result.ErrorMessage))
+        {
+            status = result.ErrorMessage;
+        }
+        else
+        {
+            status = "TRANSACTION SEALED";
+        }        
     }
 }

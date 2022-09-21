@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Blazored.LocalStorage;
-using Fcl.Net.Blazor.LocalViews;
+﻿using Fcl.Net.Blazor.LocalViews;
 using Fcl.Net.Blazor.Platform;
 using Fcl.Net.Blazor.Strategies;
 using Fcl.Net.Core;
@@ -9,13 +7,8 @@ using Fcl.Net.Core.Platform;
 using Fcl.Net.Core.Service;
 using Fcl.Net.Core.Service.Strategies;
 using Fcl.Net.Core.Service.Strategies.LocalViews;
-using Flow.Net.Sdk.Client.Grpc;
 using Flow.Net.Sdk.Client.Http;
 using Flow.Net.Sdk.Core.Client;
-using Grpc.Core;
-using Grpc.Net.Client;
-using Grpc.Net.Client.Web;
-using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Fcl.Net.Blazor
