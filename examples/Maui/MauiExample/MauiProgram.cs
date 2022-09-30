@@ -1,6 +1,6 @@
-﻿using Fcl.Net.Core;
-using Fcl.Net.Core.Config;
+﻿using Fcl.Net.Core.Config;
 using Fcl.Net.Core.Models;
+using Fcl.Net.Core;
 using Fcl.Net.Maui;
 using Flow.Net.Sdk.Client.Http;
 using Flow.Net.Sdk.Core.Client;
@@ -20,7 +20,6 @@ namespace MauiExample
                 .ConfigureEssentials(essentials =>
                 {
                     essentials.UseVersionTracking();
-                    essentials.OnAppAction(App.HandleAppActions);
                 })
                 .ConfigureFonts(fonts =>
                 {
@@ -52,7 +51,8 @@ namespace MauiExample
                     AccountProof = new FclAccountProofData("AWESOME-BLAZOR-APP-ID", "3037366134636339643564623330316636626239323161663465346131393662")
                 };
 
-            builder.Services.AddFclServices(sdkOptions, fclConfig);
+            builder.Services.AddFclServices(sdkOptions, fclConfig, new Uri("xamarinessentials://"));
+
 
             return builder.Build();
         }

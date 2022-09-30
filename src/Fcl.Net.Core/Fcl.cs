@@ -49,10 +49,13 @@ namespace Fcl.Net.Core
         public async Task AuthenticateAsync()
         {
             var service = (User != null && User.LoggedIn) ? User.Services.FirstOrDefault(f => f.Type == FclServiceType.AuthnRefresh) : GetDiscoveryService();
-            var response = await _execService.ExecuteAsync(service, GetServiceConfig(), _fclConfig.AccountProof).ConfigureAwait(false);
+            if(service !=null)
+            {
+                var response = await _execService.ExecuteAsync(service, GetServiceConfig(), _fclConfig.AccountProof).ConfigureAwait(false);
 
-            if (response.Status == ResponseStatus.Approved)
-                SetCurrentUser(response);
+                if (response.Status == ResponseStatus.Approved)
+                    SetCurrentUser(response);
+            }            
         }
 
         public void Unauthenticate()

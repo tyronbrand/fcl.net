@@ -11,8 +11,8 @@ namespace Fcl.Net.Core.Service.Strategies
 {
     public class HttpPostStrategy : IStrategy
     {
-        private readonly FetchService _fetchService;
-        private readonly Dictionary<FclServiceMethod, ILocalView> _localViews;
+        protected readonly FetchService _fetchService;
+        protected readonly Dictionary<FclServiceMethod, ILocalView> _localViews;
 
         public HttpPostStrategy(FetchService fetchService, Dictionary<FclServiceMethod, ILocalView> localViews)
         {
@@ -59,7 +59,7 @@ namespace Fcl.Net.Core.Service.Strategies
             }
         }
 
-        private async Task<FclAuthResponse> PollAsync(FclAuthResponse fclAuthResponse)
+        public virtual async Task<FclAuthResponse> PollAsync(FclAuthResponse fclAuthResponse)
         {
             if (fclAuthResponse.Local == null)
                 throw new FclException("Local was null.");
