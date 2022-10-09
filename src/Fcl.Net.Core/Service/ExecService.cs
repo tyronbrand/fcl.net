@@ -20,6 +20,9 @@ namespace Fcl.Net.Core.Service
             var message = CreateMessage(service, msg);
             var response = await _strategies[service.Method].ExecuteAsync(service, config, message).ConfigureAwait(false);
 
+            if(response == null)
+                return response;
+
             if(response.Status == ResponseStatus.Redirect)
                 return await ExecuteAsync(response.Data, config, msg).ConfigureAwait(false);
 

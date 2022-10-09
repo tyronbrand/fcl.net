@@ -53,7 +53,7 @@ namespace Fcl.Net.Core
             {
                 var response = await _execService.ExecuteAsync(service, GetServiceConfig(), _fclConfig.AccountProof).ConfigureAwait(false);
 
-                if (response.Status == ResponseStatus.Approved)
+                if (response != null && response.Status == ResponseStatus.Approved)
                     SetCurrentUser(response);
             }            
         }
