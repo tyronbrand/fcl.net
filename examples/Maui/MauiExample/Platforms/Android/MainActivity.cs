@@ -44,21 +44,24 @@ namespace MauiExample
         void Platform_ActivityStateChanged(object sender, Microsoft.Maui.ApplicationModel.ActivityStateChangedEventArgs e) =>
             Toast.MakeText(this, e.State.ToString(), ToastLength.Short).Show();
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
-        {
-            Microsoft.Maui.ApplicationModel.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-
     }
 
     [Activity(NoHistory = true, LaunchMode = LaunchMode.SingleTop, Exported = true)]
     [IntentFilter(
         new[] { Intent.ActionView },
-        Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable },
-        DataScheme = "xamarinessentials")]
-    public class WebAuthenticationCallbackActivity : Microsoft.Maui.Authentication.WebAuthenticatorCallbackActivity
+        Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable },        
+        DataScheme = "fclmaui")]
+    public class FclCallbackActivity : Activity
     {
+        protected override void OnCreate(Bundle bundle)
+        {
+            base.OnCreate(bundle);
+
+            var intent = new Intent(this, typeof(MainActivity));
+            intent.AddFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
+            StartActivity(intent);
+
+            Finish();
+        }
     }
 }

@@ -51,7 +51,7 @@ namespace MauiExample
                     AccountProof = new FclAccountProofData("AWESOME-BLAZOR-APP-ID", "3037366134636339643564623330316636626239323161663465346131393662")
                 };
 
-            builder.Services.AddFclServices(sdkOptions, fclConfig, new Uri("xamarinessentials://"));
+            builder.Services.AddFclServices(sdkOptions, fclConfig, new Uri("fclmaui://"));
 
 
             return builder.Build();

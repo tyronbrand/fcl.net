@@ -33,12 +33,13 @@ namespace Fcl.Net.Maui
             services.AddHttpClient<FetchService>();
 
             // browsers
-            services.AddSingleton(b => WebAuthenticator.Default);
+            //services.AddSingleton(b => WebAuthenticator.Default);
+            services.AddSingleton(b => Browser.Default);
 
             // strategies
             services.AddSingleton(f =>
             {
-                return new MauiHttpPostStrategy(f.GetRequiredService<IWebAuthenticator>(), redirectUri, f.GetRequiredService<FetchService>(), null);
+                return new MauiHttpPostStrategy(f.GetRequiredService<IBrowser>(), redirectUri, f.GetRequiredService<FetchService>(), null);
             });
 
             // fcl
