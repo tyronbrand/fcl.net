@@ -19,7 +19,7 @@ namespace Fcl.Net.Blazor
         public async ValueTask<string> OpenLocalViewAwaitResponse(FclService service, FclServiceConfig config, object? data = null)
         {
             var jsMethod = service.Method.ToString().ToLower().Contains("pop") ? "execPop" : "execIFrame";
-            var module = await _moduleTask.Value;
+            var module = await _moduleTask.Value.ConfigureAwait(false);
 
             return await module.InvokeAsync<string>(jsMethod, service.ToDictionary<string, object>(), data, config).ConfigureAwait(false);
         }
@@ -43,8 +43,8 @@ namespace Fcl.Net.Blazor
         {
             if (_moduleTask.IsValueCreated)
             {
-                var module = await _moduleTask.Value;
-                await module.DisposeAsync();
+                var module = await _moduleTask.Value.ConfigureAwait(false);
+                await module.DisposeAsync().ConfigureAwait(false);
             }
         }
     }

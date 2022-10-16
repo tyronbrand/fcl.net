@@ -194,6 +194,18 @@ pub fun main(
 
         public async Task<ICadence> QueryAsync(FlowScript flowScript) => await Sdk.ExecuteScriptAtLatestBlockAsync(flowScript).ConfigureAwait(false);
 
+        public async Task<FlowAccount> GetAccountAsync(string address) => await _sdk.GetAccountAtLatestBlockAsync(address).ConfigureAwait(false);
+
+        public async Task<FlowBlock> GetBlockAsync(string blockId) => await _sdk.GetBlockByIdAsync(blockId).ConfigureAwait(false);
+
+        public async Task<FlowBlock> GetLastestBlock(bool isSealed = true) => await _sdk.GetLatestBlockAsync(isSealed).ConfigureAwait(false);
+
+        public async Task<FlowBlockHeader> GetBlockHeader(string blockId) => await _sdk.GetBlockHeaderByIdAsync(blockId).ConfigureAwait(false);
+
+        public async Task<FlowTransactionResult> GetTransactionStatus(string transactionId) => await _sdk.GetTransactionResultAsync(transactionId).ConfigureAwait(false);
+
+        public async Task<FlowTransactionResponse> GetTransaction(string transactionId) => await _sdk.GetTransactionAsync(transactionId).ConfigureAwait(false);
+
         public void SetWalletProvider(FclWalletDiscovery fclWalletDiscovery)
         {
             _fclConfig.WalletDiscovery = fclWalletDiscovery;

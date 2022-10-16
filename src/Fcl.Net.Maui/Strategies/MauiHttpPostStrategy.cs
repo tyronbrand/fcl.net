@@ -29,7 +29,7 @@ namespace Fcl.Net.Maui.Strategies
                 throw new FclException("Local was null.");
 
             var url = _fetchService.BuildUrl(fclAuthResponse.Local);
-            await Task.WhenAll(_authenticator.AuthenticateAsync(url, _redirectUri), Poller(fclAuthResponse));
+            await Task.WhenAll(_authenticator.AuthenticateAsync(url, _redirectUri), Poller(fclAuthResponse)).ConfigureAwait(false);
 
             return await _fetchService.FetchAndReadResponseAsync<FclAuthResponse>(fclAuthResponse.Updates ?? fclAuthResponse.AuthorizationUpdates, httpMethod: HttpMethod.Get).ConfigureAwait(false);
         }
