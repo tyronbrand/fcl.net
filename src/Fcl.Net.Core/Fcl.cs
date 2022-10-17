@@ -77,34 +77,32 @@ namespace Fcl.Net.Core
 
             var message = WalletUtilities.EncodeAccountProof(address.ToString(), _fclConfig.AccountProof.Nonce, _fclConfig.AccountProof.AppId, includeDomainTag);
 
-            //TODO - use testnet "0x74daa6f9c7ef24b1" / mainnet "0xb4b82a1c9d21d284"
-            var script = @"
-import FCLCrypto from 0x74daa6f9c7ef24b1
+            var script = $@"
+import FCLCrypto from {(_fclConfig.Environment == ChainId.Mainnet ? "0xb4b82a1c9d21d284" : "0x74daa6f9c7ef24b1")}
 pub fun main(
     address: Address,
     message: String,
     keyIndices: [Int],
     signatures: [String]
-): Bool {
+): Bool {{
     return FCLCrypto.verifyAccountProofSignatures(address: address, message: message, keyIndices: keyIndices, signatures: signatures)
-}";
+}}";
 
             return await VerifyAsync(address.ToString(), message.BytesToHex(), script, signatures).ConfigureAwait(false);
         }        
 
         public async Task<bool> VerifyUserSignatureAsync(string message, IEnumerable<FclCompositeSignature> fclCompositeSignatures)
         {
-            //TODO - use testnet "0x74daa6f9c7ef24b1" / mainnet "0xb4b82a1c9d21d284"
-            var script = @"
-import FCLCrypto from 0x74daa6f9c7ef24b1
+            var script = $@"
+import FCLCrypto from {(_fclConfig.Environment == ChainId.Mainnet ? "0xb4b82a1c9d21d284" : "0x74daa6f9c7ef24b1")}
 pub fun main(
     address: Address,
     message: String,
     keyIndices: [Int],
     signatures: [String]
-): Bool {
+): Bool {{
     return FCLCrypto.verifyUserSignatures(address: address, message: message, keyIndices: keyIndices, signatures: signatures)
-}";
+}}";
 
             var address = fclCompositeSignatures.Select(s => s.Address).FirstOrDefault();
 

@@ -5,11 +5,12 @@ namespace Fcl.Net.Core.Config
 {
     public class FclConfig
     {
-        public FclConfig(FclWalletDiscovery walletDiscovery, FclAppInfo appInfo, string location)
+        public FclConfig(FclWalletDiscovery walletDiscovery, FclAppInfo appInfo, string location, ChainId environment)
         {
             WalletDiscovery = walletDiscovery;
             AppInfo = appInfo;
             Location = location;
+            Environment = environment;
         }
 
         public FclWalletDiscovery WalletDiscovery { get; set; }
@@ -17,5 +18,6 @@ namespace Fcl.Net.Core.Config
         public string Location { get; }
         public Dictionary<string, string> Services { get; set; }
         public FclAccountProofData AccountProof { get; set; }
+        public ChainId Environment { get; set; }
     }
 }

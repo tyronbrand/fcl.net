@@ -73,7 +73,7 @@ namespace Fcl.Net.Core.Service.Strategies
             {
                 foreach (var view in _localViews)
                 {
-                    if (view.Value.IsDefault())
+                    if (view.Value.IsLocalDefault())
                     {
                         localView = view.Value;
                         break;

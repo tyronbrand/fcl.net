@@ -6,7 +6,7 @@ namespace Fcl.Net.Core.Service.Strategies.LocalViews
 {
     public interface ILocalView
     {
-        bool IsDefault();
+        bool IsLocalDefault();
         Task OpenLocalView(Uri uri);
         Task CloseLocalView();
     }

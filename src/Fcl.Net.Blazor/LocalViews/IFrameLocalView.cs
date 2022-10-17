@@ -16,6 +16,6 @@ namespace Fcl.Net.Blazor.LocalViews
 
         public async Task OpenLocalView(Uri uri) => await _fclJsObjRef.OpenLocalView(uri, FclServiceMethod.ViewIFrame).ConfigureAwait(false);
 
-        public bool IsDefault() => true;
+        public bool IsLocalDefault() => true;
     }
 }

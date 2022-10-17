@@ -45,7 +45,8 @@ namespace MauiExample
                         Icon = new Uri("https://kitty-items-flow-testnet-prod.herokuapp.com/images/kitty-items-logo.svg"),
                         Title = "Blazor Example"
                     },
-                    "" // TODO - replace with platform
+                    "",
+                    ChainId.Testnet
                 )
                 {
                     AccountProof = new FclAccountProofData("AWESOME-BLAZOR-APP-ID", "3037366134636339643564623330316636626239323161663465346131393662")

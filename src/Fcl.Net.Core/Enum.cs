@@ -131,4 +131,10 @@ namespace Fcl.Net.Core
         [EnumMember(Value = "GET_COLLECTION")]
         GetCollection
     }
+
+    public enum ChainId
+    {
+        Testnet,
+        Mainnet
+    }
 }
