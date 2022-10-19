@@ -13,17 +13,19 @@ using Flow.Net.Sdk.Core.Models;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Fcl.Net.Core
 {
-    public class Fcl
+    public class Fcl : INotifyPropertyChanged
     {        
         public FclUser User
         {
             get => _user;
-            private set => _user = value;
+            private set => SetProperty(ref _user, value);
         }
         
         public IFlowClient Sdk
@@ -32,11 +34,28 @@ namespace Fcl.Net.Core
             private set => _sdk = value;
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (Equals(storage, value))
+                return false;
+
+            storage = value;
+            OnPropertyChanged(propertyName);
+            return true;
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         private FclUser _user;
         private IFlowClient _sdk;
         private readonly ExecService _execService;
         private readonly FclConfig _fclConfig;
-        private readonly IPlatform _platform;
+        private readonly IPlatform _platform;        
 
         public Fcl(FclConfig fclConfig, IFlowClient sdkClient, IPlatform platform, Dictionary<FclServiceMethod, IStrategy> strategies)
         {
@@ -60,7 +79,7 @@ namespace Fcl.Net.Core
 
         public void Unauthenticate()
         {
-            _user = null;
+            User = null;
         }
 
         public async Task<bool> VerifyAccountProofAsync(bool includeDomainTag = false)
@@ -236,7 +255,7 @@ pub fun main(
 
         private void SetCurrentUser(FclAuthResponse fclAuthResponse)
         {
-            _user = new FclUser
+            User = new FclUser
             {
                 Address = fclAuthResponse.Data.Address,
                 LoggedIn = true,

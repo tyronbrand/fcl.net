@@ -1,0 +1,61 @@
+﻿@page "/verifyaccountproof"
+
+@inject Fcl.Net.Core.Fcl Fcl
+@inject ISnackbar Snackbar
+
+<PageTitle>Verify Account Proof</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">Verify Account Proof</MudText>
+
+<MudCard>
+    <MudCardContent>
+        @if (_result != null)
+        {
+            if ((bool)_result)
+            {
+                <MudText Color="Color.Success" Class="mb-8">Success!</MudText>
+            }
+            else
+            {
+                <MudText Color="Color.Error" Class="mb-8">Error!</MudText>
+            }
+        }
+    </MudCardContent>
+    <MudCardActions>
+        <MudButton Disabled="@_processing" OnClick="@(async () => await VerifyAccountProofAsync())" Variant="Variant.Filled" Color="Color.Primary">
+            @if (_processing)
+            {
+                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                <MudText Class="ms-2">Processing</MudText>
+            }
+            else
+            {
+                <MudText>Verify Account Proof</MudText>
+            }
+        </MudButton>
+    </MudCardActions>
+</MudCard>
+
+@code {
+    private bool _processing = false;
+    private bool? _result;
+
+    private async Task VerifyAccountProofAsync()
+    {
+        _processing = true;
+        _result = null;
+
+        try
+        {
+            _result = await Fcl.VerifyAccountProofAsync();
+        }
+        catch (Exception)
+        {
+            _result = false;
+            _processing = false;
+        }
+
+        _processing = false;
+    }
+}
+

@@ -1,0 +1,17 @@
+﻿@inject Fcl.Net.Core.Fcl Fcl
+
+<MudNavMenu>
+    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
+    @if (Fcl.User != null && Fcl.User.LoggedIn)
+    {
+        <MudNavLink Href="mutate" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Mutate</MudNavLink>
+        <MudNavLink Href="query" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Query</MudNavLink>
+        <MudNavLink Href="signusermessage" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Sign Message</MudNavLink>
+        <MudNavLink Href="verifyaccountproof" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Verify Account Proof</MudNavLink>
+        <MudNavLink OnClick="@(() => Fcl.Unauthenticate())"  Icon="@Icons.Material.Filled.Add">Sign Out</MudNavLink>
+    }
+    else
+    {
+        <MudNavLink OnClick="@(async () => await Fcl.AuthenticateAsync())" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add">Sign In</MudNavLink>
+    }
+</MudNavMenu>

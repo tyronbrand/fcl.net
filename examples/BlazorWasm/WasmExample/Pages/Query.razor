@@ -1,0 +1,87 @@
+﻿@page "/query"
+
+@inject Fcl.Net.Core.Fcl Fcl
+@inject ISnackbar Snackbar
+
+<PageTitle>Query</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">Query</MudText>
+
+<MudCard>
+    <MudCardContent>
+        <MudText Class="mb-8">Script: @_script</MudText>
+        <MudText Class="mb-8">Parameters: a = 5</MudText>
+
+        @if (!string.IsNullOrEmpty(_result))
+        {
+            <MudText Color="Color.Success" Class="mb-8">Result: @_result</MudText>
+        }
+    </MudCardContent>
+    <MudCardActions>
+        <MudButton Disabled="@_processing" OnClick="@(async () => await QueryAsync())" Variant="Variant.Filled" Color="Color.Primary">
+            @if (_processing)
+            {
+                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                <MudText Class="ms-2">Processing</MudText>
+            }
+            else
+            {
+                <MudText>Run Query</MudText>
+            }
+        </MudButton>
+    </MudCardActions>
+</MudCard>
+
+@code {
+    private bool _processing = false;    
+    private Snackbar? _snackbar;
+    private string? _result;
+    private string _script = @"
+pub fun main(a: Int): Int {
+    return a + 10
+}";
+
+    void ShowSnackbar(string message)
+    {
+        _snackbar = Snackbar.Add(message, Severity.Normal, config =>
+        {
+            config.VisibleStateDuration = int.MaxValue;
+        });
+    }
+
+    void HideSnackbar()
+    {
+        if (_snackbar is null) return;
+        Snackbar.Remove(_snackbar);
+    }
+
+    private async Task QueryAsync()
+    {
+        _processing = true;
+        _result = null;
+
+        try
+        {
+            var arguments = new List<ICadence>
+            {
+                new CadenceNumber(CadenceNumberType.Int, "5")
+            };
+
+            var response = await Fcl.QueryAsync(
+                new FlowScript
+                    {
+                        Script = _script,
+                        Arguments = arguments
+                    });
+
+            _result = response.As<CadenceNumber>().Value;
+        }
+        catch (Exception ex)
+        {
+            _processing = false;
+            Snackbar.Add(ex.Message);
+        }
+
+        _processing = false;
+    }
+}

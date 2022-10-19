@@ -1,0 +1,97 @@
+﻿@page "/signusermessage"
+
+@inject Fcl.Net.Core.Fcl Fcl
+@inject ISnackbar Snackbar
+
+<PageTitle>Sign User Message</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">Sign User Message</MudText>
+
+<MudCard>
+    <MudCardContent>
+        <MudText Class="mb-8">Message: @_message</MudText>
+
+        @if (_signature != null)
+        {
+            <MudText Color="Color.Success" Class="mb-8">Message signed!</MudText>
+        }
+
+        @if (_result != null && (bool)_result)
+        {
+            <MudText Color="Color.Success" Class="mb-8">Signature verified!</MudText>
+        }
+    </MudCardContent>
+    <MudCardActions>
+        <MudButton Style="margin-right:50px;" Disabled="@_processingSigning" OnClick="@(async () => await SignUserMessageAsync())" Variant="Variant.Filled" Color="Color.Primary">
+            @if (_processingSigning)
+            {
+                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                <MudText Class="ms-2">Processing</MudText>
+            }
+            else
+            {
+                <MudText>Sign Message</MudText>
+            }
+        </MudButton>
+        @if (_signature != null)
+        {
+            <MudButton Disabled="@_processingVerify" OnClick="@(async () => await VerifyUserSignatureAsync())" Variant="Variant.Filled" Color="Color.Primary">
+                @if (_processingVerify)
+                {
+                    <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                    <MudText Class="ms-2">Processing</MudText>
+                }
+                else
+                {
+                    <MudText>Verify User Signature</MudText>
+                }
+            </MudButton>
+        }
+    </MudCardActions>
+</MudCard>
+
+@code {
+    private bool _processingSigning = false;
+    private bool _processingVerify = false;
+    private Snackbar? _snackbar;
+    private bool? _result;
+    private string _message = "test";
+    private FclCompositeSignature? _signature;
+
+    void ShowSnackbar(string message)
+    {
+        _snackbar = Snackbar.Add(message, Severity.Normal, config =>
+        {
+            config.VisibleStateDuration = int.MaxValue;
+        });
+    }
+
+    void HideSnackbar()
+    {
+        if (_snackbar is null) return;
+        Snackbar.Remove(_snackbar);
+    }
+
+    private async Task SignUserMessageAsync()
+    {
+        _processingSigning = true;
+        _result = null;
+        
+        _signature = await Fcl.SignUserMessageAsync(_message); 
+
+        _processingSigning = false;
+    }
+    
+    private async Task VerifyUserSignatureAsync()
+    {
+        _processingVerify = true;
+        _result = null;
+
+        if(_signature != null)
+        {
+            _result = await Fcl.VerifyUserSignatureAsync("test", new List<FclCompositeSignature> { _signature });
+        }
+
+        _processingVerify = false;
+    }
+}

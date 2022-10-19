@@ -1,0 +1,67 @@
+﻿@page "/mutate"
+@inject Fcl.Net.Core.Fcl Fcl
+@inject ISnackbar Snackbar
+
+<PageTitle>Mutate</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">Mutate</MudText>
+
+<MudCard>
+    <MudCardContent>
+        <MudText Class="mb-8">Script: @_simpleScript</MudText>
+    </MudCardContent>
+    <MudCardActions>
+        <MudButton Disabled="@_processingSimpleMutation" OnClick="@(async () => await MutateSimpleAsync())" Variant="Variant.Filled" Color="Color.Primary">
+            @if (_processingSimpleMutation)
+            {
+                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                <MudText Class="ms-2">Processing</MudText>
+            }
+            else
+            {
+                <MudText>Run Mutation</MudText>
+            }
+        </MudButton>
+    </MudCardActions>
+</MudCard>
+
+@code {
+    private bool _processingSimpleMutation = false;    
+    private Snackbar? _snackbar;
+    private string _simpleScript = "transaction() { prepare(signer: AuthAccount) { log(\"Hello World\") } }";
+
+    void ShowSnackbar(string message)
+    {
+        _snackbar = Snackbar.Add(message, Severity.Normal, config =>
+        {
+            config.VisibleStateDuration = int.MaxValue;
+        });
+    }
+
+    void HideSnackbar()
+    {
+        if (_snackbar is null) return;
+        Snackbar.Remove(_snackbar);
+    }
+
+    private async Task MutateSimpleAsync()
+    {
+        _processingSimpleMutation = true;
+
+        var tx = new FclMutation
+        {
+            Script = _simpleScript
+        };
+
+        ShowSnackbar("Initializing...");
+        var transactionId = await Fcl.MutateAsync(tx);
+        HideSnackbar();
+
+        ShowSnackbar("Awaiting Sealing...");
+        var result = await Fcl.Sdk.WaitForSealAsync(transactionId);
+        HideSnackbar();
+
+        Snackbar.Add(!string.IsNullOrEmpty(result.ErrorMessage) ? result.ErrorMessage : "Transaction Sealed!");
+        _processingSimpleMutation = false;
+    }
+}

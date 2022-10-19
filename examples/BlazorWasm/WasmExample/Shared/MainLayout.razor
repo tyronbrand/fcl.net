@@ -1,0 +1,49 @@
+﻿@using System.ComponentModel
+@inherits LayoutComponentBase
+@inject Fcl.Net.Core.Fcl Fcl
+
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<CascadingValue Value="@Fcl.User">
+    <MudLayout>
+        <MudAppBar Elevation="0">
+            <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+            <MudSpacer />
+            <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/tyronbrand/fcl.net" Target="_blank" />
+        </MudAppBar>
+        <MudDrawer @bind-Open="_drawerOpen" Elevation="1">
+            <MudDrawerHeader>
+                @if (Fcl.User != null && Fcl.User.LoggedIn)
+                {
+                    <MudText Typo="Typo.h6">@Fcl.User.Address</MudText>
+                }
+                else
+                {
+                    <MudText Typo="Typo.h6">Wasm FCL Example</MudText>
+                }
+            </MudDrawerHeader>
+            <NavMenu />
+        </MudDrawer>
+        <MudMainContent>
+            <MudContainer MaxWidth="MaxWidth.Large" Class="my-16 pt-16">
+                @Body
+            </MudContainer>
+        </MudMainContent>
+    </MudLayout>
+</CascadingValue>
+
+
+@code {
+    bool _drawerOpen = true;
+
+    private void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+    protected override void OnInitialized() => Fcl.PropertyChanged += PropertyHasChanged;
+
+    private void PropertyHasChanged(object sender, PropertyChangedEventArgs args) => StateHasChanged();
+}
