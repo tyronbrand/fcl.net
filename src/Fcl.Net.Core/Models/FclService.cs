@@ -49,5 +49,8 @@ namespace Fcl.Net.Core.Models
 
         [JsonProperty("scoped")]
         public Dictionary<string, object> Scoped { get; set; }
+
+        [JsonProperty("network", NullValueHandling = NullValueHandling.Ignore)]
+        public string Network { get; set; }
     }
 }

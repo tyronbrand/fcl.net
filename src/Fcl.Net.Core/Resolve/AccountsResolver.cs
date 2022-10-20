@@ -1,6 +1,7 @@
 ﻿using Fcl.Net.Core.Exceptions;
 using Fcl.Net.Core.Models;
 using Fcl.Net.Core.Service;
+using Flow.Net.Sdk.Core;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -63,7 +64,7 @@ namespace Fcl.Net.Core.Resolve
 
             if (fclAuthResponse.Data?.Proposer != null)
                 axs.Add(new FclSignableUserItem { Key = "PROPOSER", Service = fclAuthResponse.Data.Proposer });
-
+            
             if(fclAuthResponse.Data?.Payer != null)
             {
                 foreach(var payer in fclAuthResponse.Data.Payer)
@@ -76,7 +77,7 @@ namespace Fcl.Net.Core.Resolve
                     axs.Add(new FclSignableUserItem { Key = "AUTHORIZER", Service = authorizer });
             }
 
-            var singableUsers = new List<FclSignableUser>();
+            var signableUsers = new List<FclSignableUser>();
 
             foreach(var item in axs)
             {
@@ -99,11 +100,11 @@ namespace Fcl.Net.Core.Resolve
                         SigningService = item.Service
                     };
 
-                    singableUsers.Add(signableUser);
+                    signableUsers.Add(signableUser);
                 }
             }
 
-            return singableUsers;
+            return signableUsers;
         }
     }
 }

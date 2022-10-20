@@ -28,7 +28,7 @@
 @code {
     private bool _processingSimpleMutation = false;    
     private Snackbar? _snackbar;
-    private string _simpleScript = "transaction() { prepare(signer: AuthAccount) { log(\"Hello World\") } }";
+    private string _simpleScript = @"transaction() { prepare(signer: AuthAccount) { }}";
 
     void ShowSnackbar(string message)
     {

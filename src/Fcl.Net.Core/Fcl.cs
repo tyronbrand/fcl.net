@@ -70,7 +70,7 @@ namespace Fcl.Net.Core
             var service = (User != null && User.LoggedIn) ? User.Services.FirstOrDefault(f => f.Type == FclServiceType.AuthnRefresh) : GetDiscoveryService();
             if(service !=null)
             {
-                var response = await _execService.ExecuteAsync(service, GetServiceConfig(), _fclConfig.AccountProof).ConfigureAwait(false);
+                var response = await _execService.ExecuteAsync(service, await GetServiceConfigAsync(), _fclConfig.AccountProof).ConfigureAwait(false);
 
                 if (response != null && response.Status == ResponseStatus.Approved)
                     SetCurrentUser(response);
@@ -91,6 +91,10 @@ namespace Fcl.Net.Core
                 throw new FclException("Config does not contain account proof.");
 
             var accountProofService = User.Services.FirstOrDefault(f => f.Type == FclServiceType.AccountProof);
+
+            if (accountProofService == null)
+                throw new FclException("User does not container account proof service.");
+
             var address = accountProofService.Data["address"];
             var signatures = ((JArray)accountProofService.Data["signatures"]).ToObject<IEnumerable<FclCompositeSignature>>();
 
@@ -136,7 +140,7 @@ pub fun main(
             foreach (var signature in fclCompositeSignatures)
             {
                 signatures.Add(new CadenceString(!string.IsNullOrEmpty(signature.Signature) ? signature.Signature : ""));
-                signatureIndexes.Add(new CadenceNumber(CadenceNumberType.Int, signature.KeyId > 0 ? signature.KeyId.ToString() : "-1"));
+                signatureIndexes.Add(new CadenceNumber(CadenceNumberType.Int, signature.KeyId.ToString()));
             }
 
             try
@@ -177,9 +181,9 @@ pub fun main(
                 Message = message.StringToHex()
             };
 
-            var response = await _execService.ExecuteAsync(userSignatureService, msg: data).ConfigureAwait(false);
+            var response = await _execService.ExecuteAsync(userSignatureService, await GetServiceConfigAsync(), data).ConfigureAwait(false);
 
-            if (response.Data == null || string.IsNullOrEmpty(response.Data.Signature) || string.IsNullOrEmpty(response.Data.Address) || response.Data.KeyId == null)
+            if (response == null || response.Data == null || string.IsNullOrEmpty(response.Data.Signature) || string.IsNullOrEmpty(response.Data.Address) || response.Data.KeyId == null)
                 throw new FclException("Failed to sign message.");
 
             return new FclCompositeSignature
@@ -197,7 +201,7 @@ pub fun main(
                 if (!User.LoggedIn)
                     throw new FclException("User unauthenticated.");
 
-                var interactionBuilder = new FclInteractionBuilder(_execService, GetServiceConfig(), Sdk);
+                var interactionBuilder = new FclInteractionBuilder(_execService, await GetServiceConfigAsync(), Sdk);
                 var interaction = await interactionBuilder.BuildAsync(fclMutation, User).ConfigureAwait(false);
                 var transaction = await Sdk.SendTransactionAsync(interaction.ToFlowTransaction()).ConfigureAwait(false);
 
@@ -228,7 +232,7 @@ pub fun main(
             _fclConfig.WalletDiscovery = fclWalletDiscovery;
         }
 
-        private FclServiceConfig GetServiceConfig()
+        private async Task<FclServiceConfig> GetServiceConfigAsync()
         {
             return new FclServiceConfig
             {
@@ -236,7 +240,8 @@ pub fun main(
                 App = _fclConfig.AppInfo,
                 Client = new FclClientInfo
                 {
-                    Hostname = _platform.Location()
+                    Hostname = _platform.Location(),
+                    ClientServices = await _platform.GetClientServices()
                 }
             };
         }

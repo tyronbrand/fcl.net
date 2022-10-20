@@ -163,10 +163,9 @@ namespace Fcl.Net.Core.Models
 
             if (Payer.Any())
             {
-                var payer = Payer.FirstOrDefault();
-
-                if (!string.IsNullOrEmpty(payer) && inside.Contains(payer))
-                    inside.Remove(payer);
+                foreach (var payer in Payer)
+                    if (!string.IsNullOrEmpty(payer) && inside.Contains(payer))
+                        inside.Remove(payer);
             }
 
             return inside;
@@ -178,10 +177,9 @@ namespace Fcl.Net.Core.Models
 
             if (Payer.Any())
             {
-                var payer = Payer.FirstOrDefault();
-
-                if (!string.IsNullOrEmpty(payer))
-                    outside.Add(payer);
+                foreach (var payer in Payer)
+                    if (!string.IsNullOrEmpty(payer))
+                        outside.Add(payer);
             }
 
             return outside;

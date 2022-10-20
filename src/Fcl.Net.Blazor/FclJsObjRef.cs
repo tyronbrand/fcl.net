@@ -2,6 +2,7 @@
 using Fcl.Net.Core;
 using Fcl.Net.Core.Models;
 using Microsoft.JSInterop;
+using Newtonsoft.Json;
 
 namespace Fcl.Net.Blazor
 {
@@ -18,10 +19,25 @@ namespace Fcl.Net.Blazor
 
         public async ValueTask<string> OpenLocalViewAwaitResponse(FclService service, FclServiceConfig config, object? data = null)
         {
-            var jsMethod = service.Method.ToString().ToLower().Contains("pop") ? "execPop" : "execIFrame";
+            var jsMethod = GetExecJsMethod(service.Method);
             var module = await _moduleTask.Value.ConfigureAwait(false);
 
-            return await module.InvokeAsync<string>(jsMethod, service.ToDictionary<string, object>(), data, config).ConfigureAwait(false);
+            return await module.InvokeAsync<string>(jsMethod, service.ToDictionary<string, object>(), JsonConvert.SerializeObject(data), JsonConvert.SerializeObject(config)).ConfigureAwait(false);
+        }
+
+        private string GetExecJsMethod(FclServiceMethod fclServiceMethod)
+        {
+            switch(fclServiceMethod)
+            {
+                case FclServiceMethod.IFrameRPC:
+                    return "execIFrame";
+                case FclServiceMethod.ExtRpc:
+                    return "execExt";
+                case FclServiceMethod.PopRpc:
+                    return "execPop";
+                default:
+                    return "execIFrame";
+            }
         }
 
         public async ValueTask OpenLocalView(Uri uri, FclServiceMethod fclServiceMethod)
@@ -37,6 +53,12 @@ namespace Fcl.Net.Blazor
         {
             if (_jsInstance != null)
                 await _jsInstance.Close().ConfigureAwait(false);
+        }
+
+        public async ValueTask<string> InvokeMethod(string identifier)
+        {
+            var module = await _moduleTask.Value.ConfigureAwait(false);
+            return await module.InvokeAsync<string>(identifier).ConfigureAwait(false);
         }
 
         public async ValueTask DisposeAsync()

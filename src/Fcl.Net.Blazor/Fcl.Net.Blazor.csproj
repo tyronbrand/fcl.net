@@ -22,4 +22,8 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
   </ItemGroup>
 
+  <!--<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="npm install" WorkingDirectory="NpmPackages" />
+    <Exec Command="npm run build" WorkingDirectory="NpmPackages" />
+  </Target>-->
 </Project>

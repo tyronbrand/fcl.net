@@ -1,6 +1,115 @@
-export function execPop(service, body, config) {
-    return new Promise((resolve, reject) => {       
+export function execExt(service, bodyJSON, configJson) {
+    var config = JSON.parse(configJson)
+    var body = JSON.parse(bodyJSON)
+    console.log(body);
 
+    return new Promise((resolve, reject) => {
+        extension(service, {
+            async onReady(_, { send }) {
+                try {
+                    send({
+                        type: "FCL:VIEW:READY:RESPONSE",
+                        body,
+                        service: {
+                            params: service.params,
+                            data: service.data,
+                            type: service.type,
+                        },
+                        config,
+                    })
+                } catch (error) {
+                    throw error
+                }
+            },
+
+            onResponse(e, { close }) {
+                try {
+                    if (typeof e.data !== "object") return
+                    const resp = normalizePollingResponse(e.data)
+
+                    switch (resp.status) {
+                        case "APPROVED":
+                            resolve(JSON.stringify(resp))
+                            close()
+                            break
+
+                        case "DECLINED":
+                            reject(`Declined: ${resp.reason || "No reason supplied"}`)
+                            close()
+                            break
+
+                        case "REDIRECT":
+                            resolve(JSON.stringify(resp))
+                            close()
+                            break
+
+                        default:
+                            reject(`Declined: No reason supplied`)
+                            close()
+                            break
+                    }
+                } catch (error) {
+                    console.error("execExtRPC onResponse error", error)
+                    throw error
+                }
+            },
+
+            onClose() {
+                reject(`Declined: Externally Halted`)
+            },
+        })
+    })
+}
+
+const noop = () => { }
+
+export function extension(service, opts = {}) {
+    if (service == null) return { send: noop, close: noop }
+
+    
+
+    const onClose = opts.onClose || noop
+    const onMessage = opts.onMessage || noop
+    const onReady = opts.onReady || noop
+    const onResponse = opts.onResponse || noop
+
+    const handler = buildMessageHandler({
+        close,
+        send,
+        onReady,
+        onResponse,
+        onMessage,
+    })
+
+    window.addEventListener("message", handler)
+
+    send({ service })
+
+    return { send, close }
+
+    function close() {
+        try {
+            window.removeEventListener("message", handler)
+            onClose()
+        } catch (error) {
+            console.error("Ext Close Error", error)
+        }
+    }
+
+    function send(msg) {
+        try {            
+            window && window.postMessage(JSON.parse(JSON.stringify(msg || {})), "*")
+        } catch (error) {
+            console.error("Ext Send Error", msg, error)
+        }
+    }
+}
+
+export function execPop(service, bodyJSON, configJson) {
+    var config = JSON.parse(configJson)
+    var body = JSON.parse(bodyJSON)
+
+    return new Promise((resolve, reject) => {
         pop(service, {
             async onReady(_, { send }) {
                 try {
@@ -28,14 +137,6 @@ export function execPop(service, body, config) {
                                 "FCL:FRAME:READY:RESPONSE is deprecated and replaced with type: FCL:VIEW:READY:RESPONSE",
                         },
                     })
-                    //if (includeOlderJsonRpcCall) {
-                    //    send({
-                    //        jsonrpc: "2.0",
-                    //        id: id,
-                    //        method: "fcl:sign",
-                    //        params: [body, service.params],
-                    //    })
-                    //}
                 } catch (error) {
                     throw error
                 }
@@ -44,9 +145,7 @@ export function execPop(service, body, config) {
             onResponse(e, { close }) {
                 try {
                     if (typeof e.data !== "object") return
-                    const resp = normalizePollingResponse(e.data)
-                    console.log(resp)
-
+                    const resp = normalizePollingResponse(e.data)                   
 
                     switch (resp.status) {
                         case "APPROVED":
@@ -209,7 +308,10 @@ export function renderPop(src, returnDotNetObj) {
     return [popup, unmount]
 }
 
-export function execIFrame(service, body, config) {
+export function execIFrame(service, bodyJSON, configJson) {
+    var config = JSON.parse(configJson)
+    var body = JSON.parse(bodyJSON)
+
     return new Promise((resolve, reject) => {
         frame(service, {
             async onReady(_, { send }) {
@@ -246,9 +348,7 @@ export function execIFrame(service, body, config) {
             onResponse(e, { close }) {
                 try {
                     if (typeof e.data !== "object") return
-                    const resp = normalizePollingResponse(e.data)
-                    console.log('onResponse')
-                    console.log(resp)
+                    const resp = normalizePollingResponse(e.data)                    
 
                     switch (resp.status) {
                         case "APPROVED":
@@ -283,7 +383,6 @@ export function execIFrame(service, body, config) {
                     if (e.data.jsonrpc !== "2.0") return
                     if (e.data.id !== id) return
                     const resp = normalizePollingResponse(e.data.result)
-                    console.log(resp)
 
                     switch (resp.status) {
                         case "APPROVED":
@@ -341,7 +440,7 @@ export function frame(service, opts = {}) {
     return { send, close }
 
     function close() {
-        try {
+        try {            
             window.removeEventListener("message", handler)
             unmount()
             onClose()
@@ -564,4 +663,8 @@ export function normalizePollingResponse(resp) {
                 local: normalizeFrame((resp.local || [])[0]),
             }
     }
+}
+
+export function getFclExtensions() {
+    return JSON.stringify(window.fcl_extensions);
 }

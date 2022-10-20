@@ -1,4 +1,5 @@
 ﻿using Fcl.Net.Core.Models;
+using Flow.Net.Sdk.Core;
 using Flow.Net.Sdk.Core.Client;
 using Flow.Net.Sdk.Core.Exceptions;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Fcl.Net.Core.Resolve
         public async Task ResolveAsync(FclInteraction fclInteraction)
         {
             var proposer = fclInteraction.Proposer;
-            var account = fclInteraction.Accounts[proposer];
+            var account = proposer != null && fclInteraction.Accounts.ContainsKey(proposer) ? fclInteraction.Accounts[proposer] : null;
             var address = account?.Address;
             var keyId = account?.KeyId;
 

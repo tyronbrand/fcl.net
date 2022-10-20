@@ -16,9 +16,16 @@
             <MudText Color="Color.Success" Class="mb-8">Message signed!</MudText>
         }
 
-        @if (_result != null && (bool)_result)
+        @if (_result != null)
         {
-            <MudText Color="Color.Success" Class="mb-8">Signature verified!</MudText>
+            if ((bool)_result)
+            {
+                <MudText Color="Color.Success" Class="mb-8">Signature verified!</MudText>
+            }
+            else
+            {
+                <MudText Color="Color.Error" Class="mb-8">Verification failed!</MudText>
+            }
         }
     </MudCardContent>
     <MudCardActions>
@@ -76,12 +83,19 @@
     {
         _processingSigning = true;
         _result = null;
-        
-        _signature = await Fcl.SignUserMessageAsync(_message); 
+
+        try
+        {
+            _signature = await Fcl.SignUserMessageAsync(_message);
+        }
+        catch(Exception)
+        {
+            Console.WriteLine("Signing error.");
+        }        
 
         _processingSigning = false;
     }
-    
+
     private async Task VerifyUserSignatureAsync()
     {
         _processingVerify = true;
@@ -89,7 +103,15 @@
 
         if(_signature != null)
         {
-            _result = await Fcl.VerifyUserSignatureAsync("test", new List<FclCompositeSignature> { _signature });
+            try
+            {
+                _result = await Fcl.VerifyUserSignatureAsync("test", new List<FclCompositeSignature> { _signature });
+            }
+            catch(Exception)
+            {
+                _result = false;
+                _processingVerify = false;
+            }            
         }
 
         _processingVerify = false;

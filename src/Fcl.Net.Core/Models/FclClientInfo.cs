@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Fcl.Net.Core.Models
 {
@@ -20,7 +21,7 @@ namespace Fcl.Net.Core.Models
         public string Hostname { get; set; }
 
         [JsonProperty("clientServices", NullValueHandling = NullValueHandling.Ignore)]
-        public string ClientServices { get; set; }
+        public ICollection<FclService> ClientServices { get; set; }
 
         [JsonProperty("supportedStrategies", NullValueHandling = NullValueHandling.Ignore)]
         public string SupportedStrategies { get; set; }

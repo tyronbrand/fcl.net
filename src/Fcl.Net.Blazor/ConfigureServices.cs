@@ -67,7 +67,8 @@ namespace Fcl.Net.Blazor
                 {
                     { FclServiceMethod.HttpPost, f.GetRequiredService<HttpPostStrategy>() },
                     { FclServiceMethod.IFrameRPC, f.GetRequiredService<JsStrategy>() },
-                    { FclServiceMethod.PopRpc, f.GetRequiredService<JsStrategy>() }
+                    { FclServiceMethod.PopRpc, f.GetRequiredService<JsStrategy>() },
+                    { FclServiceMethod.ExtRpc, f.GetRequiredService<JsStrategy>() }
                 };
 
                 return new Core.Fcl(
