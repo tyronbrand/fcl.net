@@ -29,20 +29,19 @@ namespace MauiExample
 
             var sdkOptions = new FlowClientOptions
             {
-                ServerUrl = ServerUrl.TestnetHost // TODO - check if prod/dev
+                ServerUrl = ServerUrl.TestnetHost
             };
 
             var fclConfig =
                 new FclConfig(
                     new FclWalletDiscovery
                     {
-                        // TODO - Read uri from config
                         Wallet = new Uri("https://fcl-discovery.onflow.org/testnet/authn"),
                         WalletMethod = FclServiceMethod.HttpPost
                     },
                     new FclAppInfo
                     {
-                        Icon = new Uri("https://kitty-items-flow-testnet-prod.herokuapp.com/images/kitty-items-logo.svg"),
+                        Icon = new Uri("https://avatars.githubusercontent.com/u/62387156?s=200&v=4"),
                         Title = "Blazor Example"
                     },
                     "",
@@ -53,7 +52,6 @@ namespace MauiExample
                 };
 
             builder.Services.AddFclServices(sdkOptions, fclConfig, new Uri("fclmaui://"));
-
 
             return builder.Build();
         }

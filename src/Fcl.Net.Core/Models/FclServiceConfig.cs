@@ -9,7 +9,7 @@ namespace Fcl.Net.Core.Models
         {
             Services = new Dictionary<string, string>();
         }
-        //TODO
+
         [JsonProperty("services", NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, string> Services { get; set; }
 

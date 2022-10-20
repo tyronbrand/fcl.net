@@ -8,10 +8,5 @@ namespace Fcl.Net.Core.Platform
     {
         string Location();
         Task<ICollection<FclService>> GetClientServices();
-
-        //TODO - storage/sessions
-        //Task StorageSet<T>( Dictionary<string, T> items);
-        //Task<T> StorageGet<T>(string key);
-        //Task StorageRemove<T>(string key);
     }
 }
