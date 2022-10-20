@@ -41,7 +41,7 @@ var walletDiscoveryConfig = new FclWalletDiscovery
 
 var appInfo = new FclAppInfo
 {
-    Icon = new Uri("https://kitty-items-flow-testnet-prod.herokuapp.com/images/kitty-items-logo.svg"),
+    Icon = new Uri($"{builder.HostEnvironment.BaseAddress}flow.png"),
     Title = "Blazor Example"
 };
 
