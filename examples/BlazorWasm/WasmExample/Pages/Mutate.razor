@@ -6,29 +6,69 @@
 
 <MudText Typo="Typo.h3" GutterBottom="true">Mutate</MudText>
 
-<MudCard>
-    <MudCardContent>
-        <MudText Class="mb-8">Script: @_simpleScript</MudText>
-    </MudCardContent>
-    <MudCardActions>
-        <MudButton Disabled="@_processingSimpleMutation" OnClick="@(async () => await MutateSimpleAsync())" Variant="Variant.Filled" Color="Color.Primary">
-            @if (_processingSimpleMutation)
-            {
-                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
-                <MudText Class="ms-2">Processing</MudText>
-            }
-            else
-            {
-                <MudText>Run Mutation</MudText>
-            }
-        </MudButton>
-    </MudCardActions>
-</MudCard>
+<MudGrid>
+    <MudItem xs="12" sm="12" md="12">
+        <MudCard>
+            <MudCardContent>
+                <MudText Class="mb-8">Script: @_mutation1Script</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Disabled="@_processingMutation1" OnClick="@(async () => await Mutate1Async())" Variant="Variant.Filled" Color="Color.Primary">
+                    @if (_processingMutation1)
+                    {
+                        <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                        <MudText Class="ms-2">Processing</MudText>
+                    }
+                    else
+                    {
+                        <MudText>Run Mutation</MudText>
+                    }
+                </MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="12" sm="12" md="12">
+        <MudCard>
+            <MudCardContent>
+                <MudText Class="mb-8">Script: @_mutation2Script</MudText>
+                <MudText Class="mb-8">Parameters: test = "Hello World", testInt = 8</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Disabled="@_processingMutation2" OnClick="@(async () => await Mutate2Async())" Variant="Variant.Filled" Color="Color.Primary">
+                    @if (_processingMutation2)
+                    {
+                        <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                        <MudText Class="ms-2">Processing</MudText>
+                    }
+                    else
+                    {
+                        <MudText>Run Mutation</MudText>
+                    }
+                </MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+</MudGrid>
 
 @code {
-    private bool _processingSimpleMutation = false;    
+    private bool _processingMutation1 = false;
+    private bool _processingMutation2 = false;
     private Snackbar? _snackbar;
-    private string _simpleScript = @"transaction() { prepare(signer: AuthAccount) { }}";
+    private string _mutation1Script = @"
+transaction() {
+    prepare(signer: AuthAccount) {
+        log(signer.address)
+    }
+}";
+
+    private string _mutation2Script = @"
+transaction(test: String, testInt: Int) {
+    prepare(signer: AuthAccount) {
+        log(signer.address)
+        log(test)
+        log(testInt)
+    }
+}";
 
     void ShowSnackbar(string message)
     {
@@ -44,13 +84,39 @@
         Snackbar.Remove(_snackbar);
     }
 
-    private async Task MutateSimpleAsync()
+    private async Task Mutate1Async()
     {
-        _processingSimpleMutation = true;
+        _processingMutation1 = true;
+
+        var tx = new FclMutation
+            {
+                Script = _mutation1Script
+            };
+
+        ShowSnackbar("Initializing...");
+        var transactionId = await Fcl.MutateAsync(tx);
+        HideSnackbar();
+
+        ShowSnackbar("Awaiting Sealing...");
+        var result = await Fcl.Sdk.WaitForSealAsync(transactionId);
+        HideSnackbar();
+
+        Snackbar.Add(!string.IsNullOrEmpty(result.ErrorMessage) ? result.ErrorMessage : "Transaction Sealed!");
+        _processingMutation1 = false;
+    }
+
+    private async Task Mutate2Async()
+    {
+        _processingMutation2 = true;
 
         var tx = new FclMutation
         {
-            Script = _simpleScript
+            Script = _mutation2Script,
+            Arguments = new List<ICadence>
+            {
+                new CadenceString("Hello World"),
+                new CadenceNumber(CadenceNumberType.Int, "8")
+            }
         };
 
         ShowSnackbar("Initializing...");
@@ -62,6 +128,6 @@
         HideSnackbar();
 
         Snackbar.Add(!string.IsNullOrEmpty(result.ErrorMessage) ? result.ErrorMessage : "Transaction Sealed!");
-        _processingSimpleMutation = false;
+        _processingMutation2 = false;
     }
 }

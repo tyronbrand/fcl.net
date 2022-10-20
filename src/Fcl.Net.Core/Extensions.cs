@@ -20,7 +20,7 @@ namespace Fcl.Net.Core
             {
                 var cadenceDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(arg.Encode());
 
-                cadenceDict.TryGetValue("Value", out var valueDict);
+                cadenceDict.TryGetValue("value", out var valueDict);
 
                 if (string.IsNullOrEmpty(valueDict))
                     valueDict = string.Empty;
