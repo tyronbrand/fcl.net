@@ -12,12 +12,16 @@
 
     <TabBar Route="main">
         <Tab Title="Query">
-            <ShellContent 
-                ContentTemplate="{DataTemplate local:QueryPage}" />
+            <ShellContent ContentTemplate="{DataTemplate local:QueryPage}" />
         </Tab>
         <Tab Title="Mutate">
-            <ShellContent 
-                ContentTemplate="{DataTemplate local:MutatePage}" />
+            <ShellContent ContentTemplate="{DataTemplate local:MutatePage}" />
+        </Tab>
+        <Tab Title="Sign">
+            <ShellContent ContentTemplate="{DataTemplate local:SignUserMessagePage}" />
+        </Tab>
+        <Tab Title="Account Proof">
+            <ShellContent ContentTemplate="{DataTemplate local:VerifyAccountProofPage}" />
         </Tab>
     </TabBar>
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiExample.Views.SignUserMessagePage"
+             Title="Sign User Message Example"
+             Shell.NavBarIsVisible="True">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="10">
+            <StackLayout VerticalOptions="StartAndExpand">
+                <Label Text="{Binding Message}" FontSize="22" />
+            </StackLayout>            
+            <StackLayout VerticalOptions="End">
+                <Label HorizontalOptions="Center" Text="{Binding SignResult}" FontSize="20"/>
+                <Label HorizontalOptions="Center" Text="{Binding VerifyResult}" FontSize="20"/>
+                <Grid ColumnDefinitions="*, *" ColumnSpacing="15" HorizontalOptions="FillAndExpand">
+                    <Button BackgroundColor="BlueViolet" Text="Sign Message" Clicked="Sign_Clicked" Margin="0,30,0,0" Grid.Column="0" HorizontalOptions="FillAndExpand"/>
+                    <Button BackgroundColor="BlueViolet" Text="Verify Message" Clicked="Verify_Clicked" Margin="0,30,0,0" Grid.Column="1" HorizontalOptions="FillAndExpand"/>
+                </Grid>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

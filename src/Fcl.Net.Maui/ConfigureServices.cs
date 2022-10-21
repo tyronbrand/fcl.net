@@ -6,6 +6,7 @@ using Fcl.Net.Core.Service.Strategies;
 using Fcl.Net.Maui.Strategies;
 using Flow.Net.Sdk.Client.Http;
 using Flow.Net.Sdk.Core.Client;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Fcl.Net.Maui
 {
@@ -18,7 +19,11 @@ namespace Fcl.Net.Maui
 
             // sdk client
             services.AddSingleton(f => sdkClientOptions);
-            services.AddHttpClient<IFlowClient, FlowHttpClient>();
+            services.AddSingleton<IFlowClient>(f =>
+            {
+                var httpClient = new HttpClient();
+                return new FlowHttpClient(httpClient, f.GetRequiredService<FlowClientOptions>());
+            });
 
             // fetch service
             services.AddSingleton(f =>
@@ -33,7 +38,6 @@ namespace Fcl.Net.Maui
             services.AddHttpClient<FetchService>();
 
             // browsers
-            //services.AddSingleton(b => WebAuthenticator.Default);
             services.AddSingleton(b => Browser.Default);
 
             // strategies

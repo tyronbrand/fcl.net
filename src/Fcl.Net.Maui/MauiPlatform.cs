@@ -1,12 +1,11 @@
-﻿using Fcl.Net.Core.Platform;
+﻿using Fcl.Net.Core.Models;
+using Fcl.Net.Core.Platform;
 
 namespace Fcl.Net.Maui
 {
     public class MauiPlatform : IPlatform
     {
-        public string Location()
-        {
-            return "";
-        }
+        public async Task<ICollection<FclService>> GetClientServices() => null;
+        public string Location() => "";
     }
 }

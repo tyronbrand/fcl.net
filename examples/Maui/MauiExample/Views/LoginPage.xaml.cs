@@ -23,6 +23,9 @@ public partial class LoginPage : ContentPage
             await fcl.AuthenticateAsync();
         }
 
-        await Shell.Current.GoToAsync($"//main");
+        if(fcl.User.LoggedIn)
+        {
+            await Shell.Current.GoToAsync($"//main");
+        }        
     }
 }

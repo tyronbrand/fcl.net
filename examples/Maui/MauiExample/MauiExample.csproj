@@ -53,7 +53,27 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Views\" />
+	  <Compile Update="Views\SignUserMessagePage.xaml.cs">
+	    <DependentUpon>SignUserMessagePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\VerifyAccountProofPage.xaml.cs">
+	    <DependentUpon>VerifyAccountProofPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\QueryPage.xaml.cs">
+	    <DependentUpon>QueryPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\SignUserMessagePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\VerifyAccountProofPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\QueryPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

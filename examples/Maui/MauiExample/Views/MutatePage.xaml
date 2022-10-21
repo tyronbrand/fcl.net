@@ -2,11 +2,18 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiExample.Views.MutatePage"
-             Title="MutatePage"
-             Shell.NavBarIsVisible="False">
-    <VerticalStackLayout>
-        <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
-            <Button VerticalOptions="Center" BackgroundColor="BlueViolet" Text="Mutate" Clicked="Mutate_Clicked"/>
+             Title="Mutate Example"
+             Shell.NavBarIsVisible="True">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="10">
+            <StackLayout VerticalOptions="StartAndExpand">
+                <Label Text="{Binding MutationScript}" FontSize="22" Margin="0,0,0,25" />
+                <Label Text="{Binding Params}" FontSize="22" />
+            </StackLayout>            
+            <StackLayout Grid.Row="1" VerticalOptions="End">
+                <Label HorizontalOptions="Center" Text="{Binding Progress}" FontSize="20"/>
+                <Button BackgroundColor="BlueViolet" Text="Run Mutate" Clicked="Mutate_Clicked" Margin="0,30,0,0"/>
+            </StackLayout>            
         </StackLayout>
-    </VerticalStackLayout>
+    </ContentPage.Content>
 </ContentPage>

@@ -234,16 +234,21 @@ pub fun main(
 
         private async Task<FclServiceConfig> GetServiceConfigAsync()
         {
-            return new FclServiceConfig
+            var serviceConfig =  new FclServiceConfig
             {
                 Services = _fclConfig.Services,
                 App = _fclConfig.AppInfo,
                 Client = new FclClientInfo
                 {
-                    Hostname = _platform.Location(),
-                    ClientServices = await _platform.GetClientServices()
+                    Hostname = _platform.Location()
                 }
             };
+
+            var clientServices = await _platform.GetClientServices();
+            if (clientServices != null)
+                serviceConfig.Client.ClientServices = clientServices;
+
+            return serviceConfig;
         }
 
         private FclService GetDiscoveryService()

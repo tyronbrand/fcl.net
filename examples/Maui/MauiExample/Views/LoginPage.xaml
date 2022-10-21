@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiExample.Views.LoginPage"
              Shell.NavBarIsVisible="False"
-             Title="LoginPage">
+             Title="Login">
     <ContentPage.Content>
         <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
             <Label Text="Sign in to continue" FontSize="22" />
