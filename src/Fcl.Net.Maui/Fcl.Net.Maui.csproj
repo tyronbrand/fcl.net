@@ -26,16 +26,4 @@
 	  <ProjectReference Include="..\Fcl.Net.Core\Fcl.Net.Core.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Compile Update="Platforms\Tizen\Browser.cs">
-	    <ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Platforms\Android\" />
-	  <Folder Include="Platforms\MacCatalyst\" />
-	  <Folder Include="Platforms\Windows\" />
-	</ItemGroup>
-
 </Project>

@@ -14,12 +14,10 @@ namespace Fcl.Net.Maui.Strategies
 {
     public class MauiHttpPostStrategy : HttpPostStrategy
     {
-        private readonly IBrowser _browser;
         private readonly Uri _redirectUri;
 
-        public MauiHttpPostStrategy(IBrowser browser, Uri redirectUri, FetchService fetchService, Dictionary<FclServiceMethod, ILocalView> localViews) : base(fetchService, localViews)
+        public MauiHttpPostStrategy(Uri redirectUri, FetchService fetchService, Dictionary<FclServiceMethod, ILocalView> localViews) : base(fetchService, localViews)
         {
-            _browser = browser;
             _redirectUri = redirectUri;
         }
 
@@ -29,10 +27,8 @@ namespace Fcl.Net.Maui.Strategies
                 throw new FclException("Local was null.");
 
             var url = _fetchService.BuildUrl(fclAuthResponse.Local);
-            //await Task.WhenAll(_authenticator.AuthenticateAsync(url, _redirectUri), Poller(fclAuthResponse)).ConfigureAwait(false);
 
-            await _browser.OpenAsync(url).ConfigureAwait(false);
-            await Poller(fclAuthResponse).ConfigureAwait(false);
+            await Task.WhenAny(WebAuthenticator.Default.AuthenticateAsync(url, _redirectUri), Poller(fclAuthResponse)).ConfigureAwait(false);
 
             return await _fetchService.FetchAndReadResponseAsync<FclAuthResponse>(fclAuthResponse.Updates ?? fclAuthResponse.AuthorizationUpdates, httpMethod: HttpMethod.Get).ConfigureAwait(false);
         }

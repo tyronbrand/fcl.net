@@ -6,12 +6,13 @@ using Fcl.Net.Core.Service.Strategies;
 using Fcl.Net.Maui.Strategies;
 using Flow.Net.Sdk.Client.Http;
 using Flow.Net.Sdk.Core.Client;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Fcl.Net.Maui
 {
     public static class ConfigureServices
     {
+        private static readonly HttpClient _httpClient = new();
+
         public static IServiceCollection AddFclServices(this IServiceCollection services, FlowClientOptions sdkClientOptions, FclConfig fclConfig, Uri redirectUri)
         {
             // platform
@@ -21,8 +22,7 @@ namespace Fcl.Net.Maui
             services.AddSingleton(f => sdkClientOptions);
             services.AddSingleton<IFlowClient>(f =>
             {
-                var httpClient = new HttpClient();
-                return new FlowHttpClient(httpClient, f.GetRequiredService<FlowClientOptions>());
+                return new FlowHttpClient(_httpClient, f.GetRequiredService<FlowClientOptions>());
             });
 
             // fetch service
@@ -36,14 +36,15 @@ namespace Fcl.Net.Maui
                 return fetchServiceConfig;
             });
             services.AddHttpClient<FetchService>();
-
-            // browsers
-            services.AddSingleton(b => Browser.Default);
+            services.AddSingleton(f =>
+            {
+                return new FetchService(_httpClient, f.GetRequiredService<FetchServiceConfig>());
+            });
 
             // strategies
             services.AddSingleton(f =>
             {
-                return new MauiHttpPostStrategy(f.GetRequiredService<IBrowser>(), redirectUri, f.GetRequiredService<FetchService>(), null);
+                return new MauiHttpPostStrategy(redirectUri, f.GetRequiredService<FetchService>(), null);
             });
 
             // fcl
