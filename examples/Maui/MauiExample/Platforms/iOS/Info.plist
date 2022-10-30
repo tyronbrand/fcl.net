@@ -28,5 +28,17 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>fclmaui</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fclmaui</string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
+	</array>
 </dict>
 </plist>
