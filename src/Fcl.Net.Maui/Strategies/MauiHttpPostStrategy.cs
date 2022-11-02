@@ -4,6 +4,7 @@ using Fcl.Net.Core.Models;
 using Fcl.Net.Core.Service;
 using Fcl.Net.Core.Service.Strategies;
 using Fcl.Net.Core.Service.Strategies.LocalViews;
+using Fcl.Net.Maui.FlowAuthenticator;
 #if ANDROID
 using Android.Content;
 using Application = Android.App.Application;
@@ -28,7 +29,14 @@ namespace Fcl.Net.Maui.Strategies
 
             var url = _fetchService.BuildUrl(fclAuthResponse.Local);
 
-            await Task.WhenAny(WebAuthenticator.Default.AuthenticateAsync(url, _redirectUri), Poller(fclAuthResponse)).ConfigureAwait(false);
+#if IOS
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                await Task.WhenAll(FlowAuthenticator.WebAuthenticator.Default.AuthenticateAsync(url, _redirectUri), Poller(fclAuthResponse)).ConfigureAwait(false);
+            });
+#else
+            await Task.WhenAny(Microsoft.Maui.Authentication.WebAuthenticator.Default.AuthenticateAsync(url, _redirectUri), Poller(fclAuthResponse)).ConfigureAwait(false);
+#endif
 
             return await _fetchService.FetchAndReadResponseAsync<FclAuthResponse>(fclAuthResponse.Updates ?? fclAuthResponse.AuthorizationUpdates, httpMethod: HttpMethod.Get).ConfigureAwait(false);
         }
@@ -45,7 +53,7 @@ namespace Fcl.Net.Maui.Strategies
 
                 if (pollingResponse.Status == ResponseStatus.Approved || pollingResponse.Status == ResponseStatus.Declined)
                 {
-                    RedirectToApp();
+                    await RedirectToApp();
                     return true;
                 }
 
@@ -56,7 +64,7 @@ namespace Fcl.Net.Maui.Strategies
             }
         }
 
-        private void RedirectToApp()
+        private async Task RedirectToApp()
         {
 #if ANDROID
 
@@ -68,6 +76,8 @@ namespace Fcl.Net.Maui.Strategies
             intent.SetData(global::Android.Net.Uri.Parse(_redirectUri.OriginalString));                      
 
             Platform.CurrentActivity.StartActivity(intent);
+#elif IOS
+            await FlowAuthenticator.WebAuthenticator.Default.CloseBrowserAsync().ConfigureAwait(false);
 #endif
         }
     }
