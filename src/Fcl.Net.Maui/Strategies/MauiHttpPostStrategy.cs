@@ -33,8 +33,6 @@ namespace Fcl.Net.Maui.Strategies
             await MainThread.InvokeOnMainThreadAsync(async () =>
             {
                 await Task.WhenAll(FlowAuthenticator.WebAuthenticator.Default.AuthenticateAsync(url, _redirectUri), Poller(fclAuthResponse)).ConfigureAwait(false);
-                //await FlowAuthenticator.WebAuthenticator.Default.AuthenticateAsync(url, _redirectUri).ConfigureAwait(false);
-                //await Poller(fclAuthResponse).ConfigureAwait(false);
             });
 #else
             await Task.WhenAny(Microsoft.Maui.Authentication.WebAuthenticator.Default.AuthenticateAsync(url, _redirectUri), Poller(fclAuthResponse)).ConfigureAwait(false);
@@ -79,11 +77,7 @@ namespace Fcl.Net.Maui.Strategies
 
             Platform.CurrentActivity.StartActivity(intent);
 #elif IOS
-            //var test = UIKit.UIApplication.SharedApplication;
             await FlowAuthenticator.WebAuthenticator.Default.CloseBrowserAsync().ConfigureAwait(false);
-            Microsoft.Maui.Authentication.WebAuthenticator.Default.OpenUrl(_redirectUri);
-
-            //Platform.OpenUrl(UIKit.UIApplication.SharedApplication, new Foundation.NSUrl(_redirectUri.OriginalString), new Foundation.NSDictionary());
 #endif
         }
     }

@@ -27,32 +27,14 @@ namespace Fcl.Net.Maui.FlowAuthenticator
         SFAuthenticationSession sf;
 #endif
 
-        void AuthSessionCallback(NSUrl cbUrl, NSError error)
-        {
-            if (error == null)
-            {
-                currentViewController?.DismissViewControllerAsync(true);
-                currentViewController = null;
-
-                tcsResponse.TrySetResult(true);
-            }
-            else if (error.Domain == asWebAuthenticationSessionErrorDomain && error.Code == asWebAuthenticationSessionErrorCodeCanceledLogin)
-                tcsResponse.TrySetCanceled();
-            else if (error.Domain == sfAuthenticationErrorDomain && error.Code == sfAuthenticationErrorCanceledLogin)
-                tcsResponse.TrySetCanceled();
-            else
-                tcsResponse.TrySetException(new NSErrorException(error));
-        }
-
         public async Task AuthenticateAsync(Uri url, Uri callbackUrl)
         {
             await OpenBrowserAsync(url, callbackUrl);
-                        
+
             was = null;
             sf = null;
-                       
+
             await WindowStateManager.Default.GetCurrentUIWindow().RootViewController.DismissViewControllerAsync(true);
-            // await WindowStateManager.Default.GetCurrentUIViewController().DismissViewControllerAsync(true);
         }
 
         public async Task<bool> OpenBrowserAsync(Uri url, Uri callbackUrl)
@@ -71,6 +53,20 @@ namespace Fcl.Net.Maui.FlowAuthenticator
             var scheme = redirectUri.Scheme;
 
 #if __IOS__
+            void AuthSessionCallback(NSUrl cbUrl, NSError error)
+            {
+                if (error == null)
+                {
+                    CallbackSuccess();
+                }
+                else if (error.Domain == asWebAuthenticationSessionErrorDomain && error.Code == asWebAuthenticationSessionErrorCodeCanceledLogin)
+                    tcsResponse.TrySetCanceled();
+                else if (error.Domain == sfAuthenticationErrorDomain && error.Code == sfAuthenticationErrorCanceledLogin)
+                    tcsResponse.TrySetCanceled();
+                else
+                    tcsResponse.TrySetException(new NSErrorException(error));
+            }
+
             if (OperatingSystem.IsIOSVersionAtLeast(12))
             {
                 was = new ASWebAuthenticationSession(GetNativeUrl(url), scheme, AuthSessionCallback);
@@ -88,9 +84,7 @@ namespace Fcl.Net.Maui.FlowAuthenticator
 
                 using (was)
                 {
-#pragma warning disable CA1416 // Analyzer bug https://github.com/dotnet/roslyn-analyzers/issues/5938
                     was.Start();
-#pragma warning restore CA1416
                     return await tcsResponse.Task;
                 }
             }
@@ -108,7 +102,7 @@ namespace Fcl.Net.Maui.FlowAuthenticator
                 }
             }
 
-            // This is only on iOS9+ but we only support 10+ in Essentials anyway
+            // iOS9+
             var controller = new SFSafariViewController(GetNativeUrl(url), false)
             {
                 Delegate = new NativeSFSafariViewControllerDelegate
@@ -144,38 +138,19 @@ namespace Fcl.Net.Maui.FlowAuthenticator
                 {
                     foreach (var cookie in cookies)
                     {
-#pragma warning disable CA1416 // Known false positive with lambda, here we can also assert the version
                         WKWebsiteDataStore.DefaultDataStore.HttpCookieStore.DeleteCookie(cookie, null);
-#pragma warning restore CA1416
                     }
                 });
             }
 #endif
         }
 
-        public bool OpenUrlCallback(Uri uri)
+        private void CallbackSuccess()
         {
-            // If we aren't waiting on a task, don't handle the url
-            //if (tcsResponse?.Task?.IsCompleted ?? true)
-            //    return false;
+            currentViewController?.DismissViewControllerAsync(true);
+            currentViewController = null;
 
-            try
-            {
-                // If we can't handle the url, don't
-                //if (!WebUtils.CanHandleCallback(redirectUri, uri))
-                //    return false;
-
-                currentViewController?.DismissViewControllerAsync(true);
-                currentViewController = null;
-
-                tcsResponse.TrySetResult(true);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-            return false;
+            tcsResponse.TrySetResult(true);
         }
 
         static bool VerifyHasUrlSchemeOrDoesntRequire(string scheme)
@@ -267,9 +242,10 @@ namespace Fcl.Net.Maui.FlowAuthenticator
             }
         }
 
-        public async Task CloseBrowserAsync()
+        public Task CloseBrowserAsync()
         {
-            AuthSessionCallback(GetNativeUrl(redirectUri), null);
+            CallbackSuccess();
+            return Task.CompletedTask;
         }
     }
 }
