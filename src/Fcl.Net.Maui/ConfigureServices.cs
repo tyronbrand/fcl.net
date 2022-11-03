@@ -9,6 +9,9 @@ using Flow.Net.Sdk.Core.Client;
 
 namespace Fcl.Net.Maui
 {
+    /// <summary>
+    /// Adds MAUI services
+    /// </summary>
     public static class ConfigureServices
     {
         private static readonly HttpClient _httpClient = new();
@@ -33,12 +36,7 @@ namespace Fcl.Net.Maui
                     Location = fclConfig.Location
                 };
 
-                return fetchServiceConfig;
-            });
-            services.AddHttpClient<FetchService>();
-            services.AddSingleton(f =>
-            {
-                return new FetchService(_httpClient, f.GetRequiredService<FetchServiceConfig>());
+                return new FetchService(_httpClient, fetchServiceConfig);
             });
 
             // strategies
@@ -48,7 +46,6 @@ namespace Fcl.Net.Maui
             });
 
             // fcl
-            services.AddSingleton(f => fclConfig);
             services.AddSingleton(f =>
             {
                 // strategies
@@ -58,7 +55,7 @@ namespace Fcl.Net.Maui
                 };
 
                 return new Core.Fcl(
-                    f.GetRequiredService<FclConfig>(),
+                    fclConfig,
                     f.GetRequiredService<IFlowClient>(),
                     f.GetRequiredService<IPlatform>(),
                     strategies);
