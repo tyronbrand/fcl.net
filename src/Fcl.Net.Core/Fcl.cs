@@ -21,13 +21,19 @@ using System.Threading.Tasks;
 namespace Fcl.Net.Core
 {
     public class Fcl : INotifyPropertyChanged
-    {        
+    {
+        /// <summary>
+        /// Current user
+        /// </summary>
         public FclUser User
         {
             get => _user;
             private set => SetProperty(ref _user, value);
         }
         
+        /// <summary>
+        /// SDK Client
+        /// </summary>
         public IFlowClient Sdk
         {
             get => _sdk;
@@ -36,27 +42,19 @@ namespace Fcl.Net.Core
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (Equals(storage, value))
-                return false;
-
-            storage = value;
-            OnPropertyChanged(propertyName);
-            return true;
-        }
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         private FclUser _user;
         private IFlowClient _sdk;
         private readonly ExecService _execService;
         private readonly FclConfig _fclConfig;
-        private readonly IPlatform _platform;        
+        private readonly IPlatform _platform;
 
+        /// <summary>
+        /// Flow Client Library
+        /// </summary>
+        /// <param name="fclConfig"></param>
+        /// <param name="sdkClient"></param>
+        /// <param name="platform"></param>
+        /// <param name="strategies"></param>
         public Fcl(FclConfig fclConfig, IFlowClient sdkClient, IPlatform platform, Dictionary<FclServiceMethod, IStrategy> strategies)
         {
             _platform = platform;
@@ -65,42 +63,64 @@ namespace Fcl.Net.Core
             _sdk = sdkClient;
         }
 
+        /// <summary>
+        /// Authenticate user.
+        /// </summary>
+        /// <exception cref="FclException"></exception>
         public async Task AuthenticateAsync()
         {
-            var service = (User != null && User.LoggedIn) ? User.Services.FirstOrDefault(f => f.Type == FclServiceType.AuthnRefresh) : GetDiscoveryService();
-            if(service !=null)
+            try
             {
-                var response = await _execService.ExecuteAsync(service, await GetServiceConfigAsync(), _fclConfig.AccountProof).ConfigureAwait(false);
+                var service = (User != null && User.LoggedIn) ? User.Services.FirstOrDefault(f => f.Type == FclServiceType.AuthnRefresh) : GetDiscoveryService();
+                if (service != null)
+                {
+                    var response = await _execService.ExecuteAsync(service, await GetServiceConfigAsync(), _fclConfig.AccountProof).ConfigureAwait(false);
 
-                if (response != null && response.Status == ResponseStatus.Approved)
-                    SetCurrentUser(response);
-            }            
+                    if (response != null && response.Status == ResponseStatus.Approved)
+                        SetCurrentUser(response);
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new FclException("Authentication error", ex);
+            }                      
         }
 
+        /// <summary>
+        /// Unauthenticate user.
+        /// </summary>
         public void Unauthenticate()
         {
             User = null;
         }
 
+        /// <summary>
+        /// Verifies account proof.
+        /// </summary>
+        /// <param name="includeDomainTag"></param>
+        /// <returns><see langword="true"/> if verified</returns>
+        /// <exception cref="FclException"></exception>
         public async Task<bool> VerifyAccountProofAsync(bool includeDomainTag = false)
         {
-            if (User == null || !User.LoggedIn)
-                throw new FclException("User unauthenticated.");
+            try
+            {
+                if (User == null || !User.LoggedIn)
+                    throw new FclException("User unauthenticated.");
 
-            if (_fclConfig.AccountProof == null)
-                throw new FclException("Config does not contain account proof.");
+                if (_fclConfig.AccountProof == null)
+                    throw new FclException("Config does not contain account proof.");
 
-            var accountProofService = User.Services.FirstOrDefault(f => f.Type == FclServiceType.AccountProof);
+                var accountProofService = User.Services.FirstOrDefault(f => f.Type == FclServiceType.AccountProof);
 
-            if (accountProofService == null)
-                throw new FclException("User does not container account proof service.");
+                if (accountProofService == null)
+                    throw new FclException("User does not container account proof service.");
 
-            var address = accountProofService.Data["address"];
-            var signatures = ((JArray)accountProofService.Data["signatures"]).ToObject<IEnumerable<FclCompositeSignature>>();
+                var address = accountProofService.Data["address"];
+                var signatures = ((JArray)accountProofService.Data["signatures"]).ToObject<IEnumerable<FclCompositeSignature>>();
 
-            var message = WalletUtilities.EncodeAccountProof(address.ToString(), _fclConfig.AccountProof.Nonce, _fclConfig.AccountProof.AppId, includeDomainTag);
+                var message = WalletUtilities.EncodeAccountProof(address.ToString(), _fclConfig.AccountProof.Nonce, _fclConfig.AccountProof.AppId, includeDomainTag);
 
-            var script = $@"
+                var script = $@"
 import FCLCrypto from {(_fclConfig.Environment == ChainId.Mainnet ? "0xb4b82a1c9d21d284" : "0x74daa6f9c7ef24b1")}
 pub fun main(
     address: Address,
@@ -111,12 +131,26 @@ pub fun main(
     return FCLCrypto.verifyAccountProofSignatures(address: address, message: message, keyIndices: keyIndices, signatures: signatures)
 }}";
 
-            return await VerifyAsync(address.ToString(), message.BytesToHex(), script, signatures).ConfigureAwait(false);
-        }        
+                return await VerifyAsync(address.ToString(), message.BytesToHex(), script, signatures).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                throw new FclException("Verify account proof error", ex);
+            }
+        }
 
+        /// <summary>
+        /// Verifies user signature.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="fclCompositeSignatures"></param>
+        /// <returns><see langword="true"/> if verified</returns>
+        /// <exception cref="FclException"></exception>
         public async Task<bool> VerifyUserSignatureAsync(string message, IEnumerable<FclCompositeSignature> fclCompositeSignatures)
         {
-            var script = $@"
+            try
+            {
+                var script = $@"
 import FCLCrypto from {(_fclConfig.Environment == ChainId.Mainnet ? "0xb4b82a1c9d21d284" : "0x74daa6f9c7ef24b1")}
 pub fun main(
     address: Address,
@@ -127,24 +161,29 @@ pub fun main(
     return FCLCrypto.verifyUserSignatures(address: address, message: message, keyIndices: keyIndices, signatures: signatures)
 }}";
 
-            var address = fclCompositeSignatures.Select(s => s.Address).FirstOrDefault();
+                var address = fclCompositeSignatures.Select(s => s.Address).FirstOrDefault();
 
-            return await VerifyAsync(address, message.StringToHex(), script, fclCompositeSignatures).ConfigureAwait(false);
+                return await VerifyAsync(address, message.StringToHex(), script, fclCompositeSignatures).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                throw new FclException("Verify user signature error", ex);
+            }
         }
 
         private async Task<bool> VerifyAsync(string address, string message, string script, IEnumerable<FclCompositeSignature> fclCompositeSignatures)
         {
-            var signatures = new List<ICadence>();
-            var signatureIndexes = new List<ICadence>();
-
-            foreach (var signature in fclCompositeSignatures)
-            {
-                signatures.Add(new CadenceString(!string.IsNullOrEmpty(signature.Signature) ? signature.Signature : ""));
-                signatureIndexes.Add(new CadenceNumber(CadenceNumberType.Int, signature.KeyId.ToString()));
-            }
-
             try
             {
+                var signatures = new List<ICadence>();
+                var signatureIndexes = new List<ICadence>();
+
+                foreach (var signature in fclCompositeSignatures)
+                {
+                    signatures.Add(new CadenceString(!string.IsNullOrEmpty(signature.Signature) ? signature.Signature : ""));
+                    signatureIndexes.Add(new CadenceNumber(CadenceNumberType.Int, signature.KeyId.ToString()));
+                }
+                
                 var response = await Sdk.ExecuteScriptAtLatestBlockAsync(
                     new FlowScript
                     {
@@ -166,34 +205,53 @@ pub fun main(
             }
         }
 
+        /// <summary>
+        /// Signs a message.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns><see cref="FclCompositeSignature"/></returns>
+        /// <exception cref="FclException"></exception>
         public async Task<FclCompositeSignature> SignUserMessageAsync(string message)
         {
-            if (User == null || !User.LoggedIn)
-                throw new FclException("User unauthenticated.");
-
-            var userSignatureService = User.Services.FirstOrDefault(f => f.Type == FclServiceType.UserSignature);
-
-            if (userSignatureService == null)
-                throw new FclException("Current user must have authorized a signing service.");
-
-            var data = new FclSignableMessage
+            try
             {
-                Message = message.StringToHex()
-            };
+                if (User == null || !User.LoggedIn)
+                    throw new FclException("User unauthenticated.");
 
-            var response = await _execService.ExecuteAsync(userSignatureService, await GetServiceConfigAsync(), data).ConfigureAwait(false);
+                var userSignatureService = User.Services.FirstOrDefault(f => f.Type == FclServiceType.UserSignature);
 
-            if (response == null || response.Data == null || string.IsNullOrEmpty(response.Data.Signature) || string.IsNullOrEmpty(response.Data.Address) || response.Data.KeyId == null)
-                throw new FclException("Failed to sign message.");
+                if (userSignatureService == null)
+                    throw new FclException("Current user must have authorized a signing service.");
 
-            return new FclCompositeSignature
+                var data = new FclSignableMessage
+                {
+                    Message = message.StringToHex()
+                };
+
+                var response = await _execService.ExecuteAsync(userSignatureService, await GetServiceConfigAsync(), data).ConfigureAwait(false);
+
+                if (response == null || response.Data == null || string.IsNullOrEmpty(response.Data.Signature) || string.IsNullOrEmpty(response.Data.Address) || response.Data.KeyId == null)
+                    throw new FclException("Failed to sign message.");
+
+                return new FclCompositeSignature
+                {
+                    Address = response.Data.Address,
+                    KeyId = (uint)response.Data.KeyId,
+                    Signature = response.Data.Signature
+                };
+            }
+            catch (Exception ex)
             {
-                Address = response.Data.Address,
-                KeyId = (uint)response.Data.KeyId,
-                Signature = response.Data.Signature
-            };
+                throw new FclException("Sign user message error", ex);
+            }
         }
 
+        /// <summary>
+        /// Submits a transaction to the network.
+        /// </summary>
+        /// <param name="fclMutation"></param>
+        /// <returns>Transaction Id</returns>
+        /// <exception cref="FclException"></exception>
         public async Task<string> MutateAsync(FclMutation fclMutation)
         {
             try
@@ -209,24 +267,140 @@ pub fun main(
             }
             catch (Exception ex)
             {
-                throw new FclException("Mutation failed", ex);
+                throw new FclException("Mutation error", ex);
             }
         }
 
-        public async Task<ICadence> QueryAsync(FlowScript flowScript) => await Sdk.ExecuteScriptAtLatestBlockAsync(flowScript).ConfigureAwait(false);
+        /// <summary>
+        /// Executes a read-only Cadence script against the latest sealed execution state.
+        /// </summary>
+        /// <param name="flowScript"></param>
+        /// <returns><see cref="ICadence"/></returns>
+        /// <exception cref="FclException"></exception>
+        public async Task<ICadence> QueryAsync(FlowScript flowScript)
+        {
+            try
+            {
+                return await Sdk.ExecuteScriptAtLatestBlockAsync(flowScript).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                throw new FclException("Query error", ex);
+            }
+        }
 
-        public async Task<FlowAccount> GetAccountAsync(string address) => await _sdk.GetAccountAtLatestBlockAsync(address).ConfigureAwait(false);
+        /// <summary>
+        /// Gets an account by address at the latest sealed block.
+        /// </summary>
+        /// <param name="address"></param>
+        /// <returns><see cref="FlowAccount"/></returns>
+        /// <exception cref="FclException"></exception>
+        public async Task<FlowAccount> GetAccountAsync(string address)
+        {
+            try
+            {
+                return await _sdk.GetAccountAtLatestBlockAsync(address).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                throw new FclException("Get account error", ex);
+            }
+        }
 
-        public async Task<FlowBlock> GetBlockAsync(string blockId) => await _sdk.GetBlockByIdAsync(blockId).ConfigureAwait(false);
+        /// <summary>
+        /// Gets a full block by Id.
+        /// </summary>
+        /// <param name="blockId"></param>
+        /// <returns><see cref="FlowBlock"/></returns>
+        /// <exception cref="FclException"></exception>
+        public async Task<FlowBlock> GetBlockAsync(string blockId)
+        {
+            try
+            {
+                return await _sdk.GetBlockByIdAsync(blockId).ConfigureAwait(false);
+            }
+            catch (Exception ex) 
+            {
+                throw new FclException("Get block by id error", ex);
+            }
+        }
 
-        public async Task<FlowBlock> GetLastestBlock(bool isSealed = true) => await _sdk.GetLatestBlockAsync(isSealed).ConfigureAwait(false);
+        /// <summary>
+        /// Gets the full payload of the latest sealed or unsealed block.
+        /// </summary>
+        /// <param name="isSealed"></param>
+        /// <returns><see cref="FlowBlock"/></returns>
+        /// <exception cref="FclException"></exception>
+        public async Task<FlowBlock> GetLastestBlock(bool isSealed = true) 
+        {
+            try
+            {
+                return await _sdk.GetLatestBlockAsync(isSealed).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                throw new FclException("Get latest block error", ex);
+            }
+        }
 
-        public async Task<FlowBlockHeader> GetBlockHeader(string blockId) => await _sdk.GetBlockHeaderByIdAsync(blockId).ConfigureAwait(false);
+        /// <summary>
+        /// Gets a block header by Id.
+        /// </summary>
+        /// <param name="blockId"></param>
+        /// <returns><see cref="FlowBlockHeader"/></returns>
+        /// <exception cref="FclException"></exception>
+        public async Task<FlowBlockHeader> GetBlockHeader(string blockId) 
+        {
+            try
+            {
+                return await _sdk.GetBlockHeaderByIdAsync(blockId).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                throw new FclException("Get block header error", ex);
+            }
+        }
 
-        public async Task<FlowTransactionResult> GetTransactionStatus(string transactionId) => await _sdk.GetTransactionResultAsync(transactionId).ConfigureAwait(false);
+        /// <summary>
+        /// Gets the result of a transaction.
+        /// </summary>
+        /// <param name="transactionId"></param>
+        /// <returns><see cref="FlowTransactionResult"/></returns>
+        /// <exception cref="FclException"></exception>
+        public async Task<FlowTransactionResult> GetTransactionStatus(string transactionId) 
+        {
+            try
+            {
+                return await _sdk.GetTransactionResultAsync(transactionId).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                throw new FclException("Get transaction status error", ex);
+            }
+        }
 
-        public async Task<FlowTransactionResponse> GetTransaction(string transactionId) => await _sdk.GetTransactionAsync(transactionId).ConfigureAwait(false);
+        /// <summary>
+        /// Gets a transaction by Id.
+        /// </summary>
+        /// <param name="transactionId"></param>
+        /// <returns><see cref="FlowTransactionResponse"/></returns>
+        /// <exception cref="FclException"></exception>
+        public async Task<FlowTransactionResponse> GetTransaction(string transactionId) 
+        {
+            try
+            {
+                return await _sdk.GetTransactionAsync(transactionId).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                throw new FclException("Get transaction error", ex);
+            }
+        }
 
+        /// <summary>
+        /// Override wallet provider.
+        /// </summary>
+        /// <param name="fclWalletDiscovery"></param>
         public void SetWalletProvider(FclWalletDiscovery fclWalletDiscovery)
         {
             _fclConfig.WalletDiscovery = fclWalletDiscovery;
@@ -234,21 +408,28 @@ pub fun main(
 
         private async Task<FclServiceConfig> GetServiceConfigAsync()
         {
-            var serviceConfig =  new FclServiceConfig
+            try
             {
-                Services = _fclConfig.Services,
-                App = _fclConfig.AppInfo,
-                Client = new FclClientInfo
+                var serviceConfig = new FclServiceConfig
                 {
-                    Hostname = _platform.Location()
-                }
-            };
+                    Services = _fclConfig.Services,
+                    App = _fclConfig.AppInfo,
+                    Client = new FclClientInfo
+                    {
+                        Hostname = _platform.Location()
+                    }
+                };
 
-            var clientServices = await _platform.GetClientServices();
-            if (clientServices != null)
-                serviceConfig.Client.ClientServices = clientServices;
+                var clientServices = await _platform.GetClientServices();
+                if (clientServices != null)
+                    serviceConfig.Client.ClientServices = clientServices;
 
-            return serviceConfig;
+                return serviceConfig;
+            }
+            catch (Exception ex)
+            {
+                throw new FclException("Get transaction error", ex);
+            }            
         }
 
         private FclService GetDiscoveryService()
@@ -271,6 +452,21 @@ pub fun main(
                 LoggedIn = true,
                 Services = fclAuthResponse.Data.Services,
             };
+        }
+
+        private bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (Equals(storage, value))
+                return false;
+
+            storage = value;
+            OnPropertyChanged(propertyName);
+            return true;
+        }
+
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
