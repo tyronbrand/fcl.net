@@ -23,10 +23,5 @@ namespace Fcl.Net.Blazor.Platform
 
             return null;
         }
-
-        public string Location()
-        {
-            return "";
-        }
     }
 }
