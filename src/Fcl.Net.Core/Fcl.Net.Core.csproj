@@ -2,17 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-	  <Authors>Tyron Brand</Authors>
-	  <Version>0.0.0</Version>
-	  <Company>Tyron Brand</Company>
-	  <Description>Core functionality for fcl.net</Description>
-	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
-	  <RepositoryUrl>https://github.com/tyronbrand/fcl.net</RepositoryUrl>
-	  <PackageProjectUrl>https://github.com/tyronbrand/fcl.net</PackageProjectUrl>
-	  <RepositoryType>git</RepositoryType>
-	  <PackageTags></PackageTags>
-	  <IncludeSymbols>true</IncludeSymbols>
-	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	<Authors>Tyron Brand</Authors>
+	<Version>0.0.1</Version>
+	<Company>Tyron Brand</Company>
+	<Description>Core functionality for fcl.net</Description>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<RepositoryUrl>https://github.com/tyronbrand/fcl.net</RepositoryUrl>
+	<PackageProjectUrl>https://github.com/tyronbrand/fcl.net</PackageProjectUrl>
+	<RepositoryType>git</RepositoryType>
+	<PackageTags></PackageTags>
+	<IncludeSymbols>true</IncludeSymbols>
+	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
