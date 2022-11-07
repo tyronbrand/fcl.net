@@ -17,12 +17,6 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0.x
-        
-    - name: Install MAUI workload
-      run: dotnet workload install maui
-
-    - name: Install WASM workload
-      run: dotnet workload install wasm-tools
 
     - name: Test
-      run: dotnet test
+      run: dotnet test tests/Fcl.Net.Tests/Fcl.Net.Tests.csproj
