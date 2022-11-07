@@ -1,0 +1,77 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "src": "../",
+          "files": [
+            "src/**.csproj"
+          ],
+		  "exclude": [
+            "Protos/**"
+          ]
+        }
+      ],
+	    "filter": "filter.yml",
+	    "dest": "api",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "api/**.yml",
+          "api/**.md"
+        ]
+      },
+      {
+        "files": [
+          "guides/**.md",
+          "guides/**/toc.yml"
+        ]
+      },
+      {
+        "files": [
+          "toc.yml",
+          "index.md"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "fcldotnetsmall.png",
+          "fcldotnetfav.png",
+          "fcldotnetfull.png"
+        ]
+      }
+    ],
+    "dest": "_site",
+    "globalMetadata": {
+      "_appName": "Fcl.Net",
+      "_appTitle": "Fcl.Net SDK Documentation",
+      "_appLogoPath": "fcldotnetsmall.png",
+      "_appFaviconPath": "fcldotnetfav.png",
+      "_enableSearch": false,
+      "_disableAffix": false,
+      "_disableSideFilter": true,
+      "_appFooter": ""
+    },
+    "globalMetadataFiles": [],
+    "fileMetadataFiles": [],
+    "template": [
+      "default"
+    ],
+    "postProcessors": [],
+    "markdownEngineName": "markdig",
+    "noLangKeyword": false,
+    "keepFileLink": false,
+    "cleanupCacheHistory": false,
+    "disableGitFeatures": false,
+    "xrefService": [
+      "https://xref.docs.microsoft.com/query?uid={uid}"
+    ]
+  }
+}
