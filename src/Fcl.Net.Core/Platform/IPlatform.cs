@@ -6,7 +6,6 @@ namespace Fcl.Net.Core.Platform
 {
     public interface IPlatform
     {
-        string Location();
         Task<ICollection<FclService>> GetClientServices();
     }
 }

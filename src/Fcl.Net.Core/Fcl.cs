@@ -416,7 +416,7 @@ pub fun main(
                     App = _fclConfig.AppInfo,
                     Client = new FclClientInfo
                     {
-                        Hostname = _platform.Location()
+                        Hostname = _fclConfig.Location
                     }
                 };
 
