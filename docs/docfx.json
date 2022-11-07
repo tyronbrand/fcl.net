@@ -6,9 +6,6 @@
           "src": "../",
           "files": [
             "src/**.csproj"
-          ],
-		  "exclude": [
-            "Protos/**"
           ]
         }
       ],
