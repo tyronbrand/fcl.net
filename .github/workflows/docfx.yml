@@ -22,7 +22,7 @@ jobs:
         with:
           args: install docfx
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore src/Fcl.Net.Core/Fcl.Net.Core.csproj
       - name: DocFX Build
         working-directory: docs
         run: docfx docfx.json
