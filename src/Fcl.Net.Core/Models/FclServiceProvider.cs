@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace Fcl.Net.Core.Models
 {
@@ -15,5 +16,11 @@ namespace Fcl.Net.Core.Models
 
         [JsonProperty("description")]
         public string Description { get; set; }
+
+        [JsonProperty("website", NullValueHandling = NullValueHandling.Ignore)]
+        public Uri Website { get; set; }
+
+        [JsonProperty("supportEmail", NullValueHandling = NullValueHandling.Ignore)]
+        public string SupportEmail { get; set; }
     }
 }

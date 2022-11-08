@@ -59,7 +59,6 @@ namespace Fcl.Net.Blazor
             });            
 
             // fcl
-            services.AddSingleton(f => fclConfig);
             services.AddSingleton(f =>
             {
                 // strategies
@@ -68,11 +67,12 @@ namespace Fcl.Net.Blazor
                     { FclServiceMethod.HttpPost, f.GetRequiredService<HttpPostStrategy>() },
                     { FclServiceMethod.IFrameRPC, f.GetRequiredService<JsStrategy>() },
                     { FclServiceMethod.PopRpc, f.GetRequiredService<JsStrategy>() },
-                    { FclServiceMethod.ExtRpc, f.GetRequiredService<JsStrategy>() }
+                    { FclServiceMethod.ExtRpc, f.GetRequiredService<JsStrategy>() },
+                    { FclServiceMethod.WcRpc, f.GetRequiredService<JsStrategy>() }
                 };
 
                 return new Core.Fcl(
-                    f.GetRequiredService<FclConfig>(),
+                    fclConfig,
                     f.GetRequiredService<IFlowClient>(),
                     f.GetRequiredService<IPlatform>(),
                     strategies);

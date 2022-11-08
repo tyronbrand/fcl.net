@@ -1,4 +1,6 @@
-﻿using System.Runtime.Serialization;
+﻿using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace Fcl.Net.Core
 {
@@ -47,6 +49,7 @@ namespace Fcl.Net.Core
         Redirect
     }
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum FclServiceMethod
     {
         [EnumMember(Value = "HTTP/POST")]
@@ -63,6 +66,9 @@ namespace Fcl.Net.Core
         
         [EnumMember(Value = "EXT/RPC")]
         ExtRpc,
+
+        [EnumMember(Value = "WC/RPC")]
+        WcRpc,
 
         [EnumMember(Value = "DATA")]
         Data,

@@ -2,6 +2,6 @@
 {
     public static class FclVersion
     {
-        public const string Number = "1.2.0";
+        public const string Number = "1.3.2";
     }
 }

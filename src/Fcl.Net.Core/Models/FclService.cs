@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System;
 using System.Collections.Generic;
 
 namespace Fcl.Net.Core.Models
@@ -24,15 +23,15 @@ namespace Fcl.Net.Core.Models
         public FclServiceMethod Method { get; set; }
 
         [JsonProperty("endpoint")]
-        public Uri Endpoint { get; set; }
+        public string Endpoint { get; set; }
 
         [JsonProperty("uid")]
         public string Uid { get; set; }
 
-        [JsonProperty("id")]
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
 
-        [JsonProperty("identity")]
+        [JsonProperty("identity", NullValueHandling = NullValueHandling.Ignore)]
         public FclServiceIdentity Identity { get; set; }
 
         [JsonProperty("provider")]
@@ -41,16 +40,16 @@ namespace Fcl.Net.Core.Models
         [JsonProperty("params")]
         public Dictionary<string, string> Params { get; set; }
 
-        [JsonProperty("data")]
+        [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, object> Data { get; set; }
 
-        [JsonProperty("headers")]
+        [JsonProperty("headers", NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, string> Headers { get; set; }
 
-        [JsonProperty("scoped")]
+        [JsonProperty("scoped", NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, object> Scoped { get; set; }
 
-        [JsonProperty("network", NullValueHandling = NullValueHandling.Ignore)]
-        public string Network { get; set; }
+        [JsonProperty("optIn", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? OptIn { get; set; }
     }
 }
