@@ -9,6 +9,8 @@ namespace Fcl.Net.Core.Models
         {
             FclVersion = Core.FclVersion.Number;
             FclLibrary = "https://github.com/tyronbrand/fcl.net";
+            ClientServices = new List<FclService>();
+            SupportedStrategies = new List<FclServiceMethod>();
         }
 
         [JsonProperty("fclVersion")]
@@ -23,7 +25,7 @@ namespace Fcl.Net.Core.Models
         [JsonProperty("clientServices", NullValueHandling = NullValueHandling.Ignore)]
         public ICollection<FclService> ClientServices { get; set; }
 
-        [JsonProperty("supportedStrategies", NullValueHandling = NullValueHandling.Ignore)]
-        public string SupportedStrategies { get; set; }
+        [JsonProperty("supportedStrategies", NullValueHandling = NullValueHandling.Ignore)]        
+        public ICollection<FclServiceMethod> SupportedStrategies { get; set; }
     }
 }

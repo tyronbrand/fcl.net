@@ -17,6 +17,6 @@ namespace Fcl.Net.Core.Models
         public FclAppInfo App { get; set; }
 
         [JsonProperty("client")]
-        public FclClientInfo Client { get; set; }
+        public FclClientInfo Client { get; set; }        
     }
 }

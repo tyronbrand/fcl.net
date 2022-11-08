@@ -47,6 +47,7 @@ namespace Fcl.Net.Core
         private readonly ExecService _execService;
         private readonly FclConfig _fclConfig;
         private readonly IPlatform _platform;
+        private readonly Dictionary<FclServiceMethod, IStrategy> _strategies;
 
         /// <summary>
         /// Flow Client Library
@@ -61,6 +62,7 @@ namespace Fcl.Net.Core
             _execService = new ExecService(strategies);
             _fclConfig = fclConfig;
             _sdk = sdkClient;
+            _strategies = strategies;
         }
 
         /// <summary>
@@ -424,12 +426,39 @@ pub fun main(
                 if (clientServices != null)
                     serviceConfig.Client.ClientServices = clientServices;
 
+                if (_strategies.ContainsKey(FclServiceMethod.WcRpc))
+                    serviceConfig.Client.ClientServices.Add(GetWallectConnectService());
+
+                foreach (var strategy in _strategies)
+                    serviceConfig.Client.SupportedStrategies.Add(strategy.Key);
+
                 return serviceConfig;
             }
             catch (Exception ex)
             {
                 throw new FclException("Get transaction error", ex);
             }            
+        }
+
+        private FclService GetWallectConnectService()
+        {
+            return new FclService
+            {
+                FclType = "Service",
+                FclVsn = "1.0.0",
+                Type = FclServiceType.Authn,
+                Method = FclServiceMethod.WcRpc,
+                Uid = "https://walletconnect.com",
+                Endpoint = "flow_authn",
+                OptIn = false,
+                Provider = new FclServiceProvider
+                {
+                    Name = "WalletConnect",
+                    Icon = "https://avatars.githubusercontent.com/u/37784886",
+                    Description = "Wallet Connect",
+                    Website = new Uri("https://walletconnect.com")
+                }
+            };
         }
 
         private FclService GetDiscoveryService()
@@ -439,7 +468,7 @@ pub fun main(
                 FclType = "Service",
                 FclVsn = "1.0.0",
                 Type = FclServiceType.Authn,
-                Endpoint = _fclConfig.WalletDiscovery.Wallet,
+                Endpoint = _fclConfig.WalletDiscovery.Wallet.ToString(),
                 Method = _fclConfig.WalletDiscovery.WalletMethod
             };
         }

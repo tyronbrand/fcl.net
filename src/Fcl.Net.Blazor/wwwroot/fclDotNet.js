@@ -1,7 +1,6 @@
 export function execExt(service, bodyJSON, configJson) {
     var config = JSON.parse(configJson)
     var body = JSON.parse(bodyJSON)
-    console.log(body);
 
     return new Promise((resolve, reject) => {
         extension(service, {
