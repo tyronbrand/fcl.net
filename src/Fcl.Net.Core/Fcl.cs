@@ -76,7 +76,10 @@ namespace Fcl.Net.Core
                 var service = (User != null && User.LoggedIn) ? User.Services.FirstOrDefault(f => f.Type == FclServiceType.AuthnRefresh) : GetDiscoveryService();
                 if (service != null)
                 {
-                    var response = await _execService.ExecuteAsync(service, await GetServiceConfigAsync(), _fclConfig.AccountProof).ConfigureAwait(false);
+                    var serviceConfig = await GetServiceConfigAsync();
+                    serviceConfig.DiscoveryAuthnInclude = _fclConfig.WalletDiscovery.Include;
+
+                    var response = await _execService.ExecuteAsync(service, serviceConfig, _fclConfig.AccountProof).ConfigureAwait(false);
 
                     if (response != null && response.Status == ResponseStatus.Approved)
                         SetCurrentUser(response);
@@ -413,7 +416,7 @@ pub fun main(
             try
             {
                 var serviceConfig = new FclServiceConfig
-                {
+                {                   
                     Services = _fclConfig.Services,
                     App = _fclConfig.AppInfo,
                     Client = new FclClientInfo

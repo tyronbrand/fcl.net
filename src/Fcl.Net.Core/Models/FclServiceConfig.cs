@@ -8,6 +8,7 @@ namespace Fcl.Net.Core.Models
         public FclServiceConfig()
         {
             Services = new Dictionary<string, string>();
+            DiscoveryAuthnInclude = new List<string>();
         }
 
         [JsonProperty("services", NullValueHandling = NullValueHandling.Ignore)]
@@ -17,6 +18,9 @@ namespace Fcl.Net.Core.Models
         public FclAppInfo App { get; set; }
 
         [JsonProperty("client")]
-        public FclClientInfo Client { get; set; }        
+        public FclClientInfo Client { get; set; }
+        
+        [JsonProperty("discoveryAuthnInclude", NullValueHandling = NullValueHandling.Ignore)]
+        public ICollection<string> DiscoveryAuthnInclude { get; set; }
     }
 }
