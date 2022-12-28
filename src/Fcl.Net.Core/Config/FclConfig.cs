@@ -5,6 +5,14 @@ namespace Fcl.Net.Core.Config
 {
     public class FclConfig
     {
+        public FclConfig(FclAppInfo appInfo, ChainId environment)
+        {
+            WalletDiscovery = new FclWalletDiscovery();
+            AppInfo = appInfo;
+            Location = "";
+            Environment = environment;
+        }
+
         public FclConfig(FclWalletDiscovery walletDiscovery, FclAppInfo appInfo, string location, ChainId environment)
         {
             WalletDiscovery = walletDiscovery;

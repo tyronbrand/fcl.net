@@ -3,6 +3,7 @@ using Fcl.Net.Blazor.Platform;
 using Fcl.Net.Blazor.Strategies;
 using Fcl.Net.Core;
 using Fcl.Net.Core.Config;
+using Fcl.Net.Core.Exceptions;
 using Fcl.Net.Core.Platform;
 using Fcl.Net.Core.Service;
 using Fcl.Net.Core.Service.Strategies;
@@ -17,11 +18,16 @@ namespace Fcl.Net.Blazor
     {
         public static IServiceCollection AddFclServices(this IServiceCollection services, FlowClientOptions sdkClientOptions, FclConfig fclConfig)
         {
+            if (string.IsNullOrWhiteSpace(fclConfig.Location))
+                throw new FclException("FclConfig: Location required.");
+
+            if (fclConfig.WalletDiscovery == null || string.IsNullOrWhiteSpace(fclConfig.WalletDiscovery.Wallet.AbsoluteUri) )
+                throw new FclException("FclConfig: WalletDiscovery required.");
+
             // platform
-            //services.AddBlazoredLocalStorage();
             services.AddSingleton<IPlatform, BlazorPlatform>();
 
-            // sdk client
+            // sdk client            
             services.AddSingleton(f => sdkClientOptions);
             services.AddHttpClient<IFlowClient, FlowHttpClient>();
 
