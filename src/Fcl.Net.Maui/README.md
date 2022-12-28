@@ -88,7 +88,7 @@ Add the following to Info.plist. Example can be found <a href="https://github.co
 	</array>
 ```
 
-### Andriod setup
+#### Andriod setup
 Add the following to AndriodManifest.xml. Example can be found <a href="https://github.com/tyronbrand/fcl.net/blob/main/examples/Maui/MauiExample/Platforms/Android/AndroidManifest.xml">here</a>
 
 ```
