@@ -33,23 +33,19 @@ namespace MauiExample
                 ServerUrl = ServerUrl.TestnetHost
             };
 
+            // fcl config
+            var appInfo = new FclAppInfo
+            {
+                Icon = new Uri("https://avatars.githubusercontent.com/u/62387156?s=200&v=4"),
+                Title = "Blazor Example"
+            };
 
+            var fclConfig = new FclConfig(appInfo, ChainId.Testnet)
+            {
+                AccountProof = new FclAccountProofData("AWESOME-BLAZOR-APP-ID", "3037366134636339643564623330316636626239323161663465346131393662")
+            };
 
-            var fclConfig =
-                new FclConfig(
-                    new FclWalletDiscovery(),
-                    new FclAppInfo
-                    {
-                        Icon = new Uri("https://avatars.githubusercontent.com/u/62387156?s=200&v=4"),
-                        Title = "Blazor Example"
-                    },
-                    "",
-                    ChainId.Testnet
-                )
-                {
-                    AccountProof = new FclAccountProofData("AWESOME-BLAZOR-APP-ID", "3037366134636339643564623330316636626239323161663465346131393662")
-                };
-
+            // maui redirect URI
             var redirectUri = new Uri("fclmaui://");
 
             builder.Services.AddFclServices(sdkOptions, fclConfig, redirectUri);

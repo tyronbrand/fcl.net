@@ -108,7 +108,7 @@ Secondly, create an Activity to handle the redirect. Example can be found <a hre
 [IntentFilter(
     new[] { Intent.ActionView },
     Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable },        
-    DataScheme = "fclmaui")]
+    DataScheme = "enterAppUri")]
 public class FclCallbackActivity : Activity
 {
     protected override void OnCreate(Bundle bundle)
