@@ -6,8 +6,45 @@
              Title="Login">
     <ContentPage.Content>
         <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
+            <Label Text="Sign in to continue" FontSize="22" Margin="30,50"/>
+            <ListView x:Name="LoginView" ItemsSource="{Binding Providers}" ItemSelected="ProviderSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame CornerRadius="5" 
+                               HasShadow="True"
+                               IsClippedToBounds="True"
+                               Padding="0">
+                                <StackLayout Padding="10,5"
+                                    Orientation="Horizontal"
+                                    HorizontalOptions="CenterAndExpand"
+                                    VerticalOptions="CenterAndExpand"
+                                    BackgroundColor="White">
+                                <Image Source="{Binding Logo}"  
+                                    HeightRequest="25" 
+                                    WidthRequest="25" 
+                                    Aspect="Fill" />
+                                <Label Text="{Binding Name}"
+                                    FontSize="Large" 
+                                    VerticalTextAlignment="Center" 
+                                    VerticalOptions="Center" />
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>    
+</ContentPage>
+    
+
+
+<!--<ContentPage.Content>
+        <StackLayout Padding="10,0,10,0" VerticalOptions="Center">            
             <Label Text="Sign in to continue" FontSize="22" />
             <Button VerticalOptions="Center" BackgroundColor="#003FBE" Text="Login with Blocto" Clicked="Blocto_Clicked"/>
         </StackLayout>
-    </ContentPage.Content>
-</ContentPage>
+        
+    </ContentPage.Content>-->
+<!--</ContentPage>-->

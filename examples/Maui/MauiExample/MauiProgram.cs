@@ -27,31 +27,28 @@ namespace MauiExample
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            // sdk 
             var sdkOptions = new FlowClientOptions
             {
                 ServerUrl = ServerUrl.TestnetHost
             };
 
-            var fclConfig =
-                new FclConfig(
-                    new FclWalletDiscovery
-                    {
-                        Wallet = new Uri("https://fcl-discovery.onflow.org/testnet/authn"),
-                        WalletMethod = FclServiceMethod.HttpPost
-                    },
-                    new FclAppInfo
-                    {
-                        Icon = new Uri("https://avatars.githubusercontent.com/u/62387156?s=200&v=4"),
-                        Title = "Blazor Example"
-                    },
-                    "",
-                    ChainId.Testnet
-                )
-                {
-                    AccountProof = new FclAccountProofData("AWESOME-BLAZOR-APP-ID", "3037366134636339643564623330316636626239323161663465346131393662")
-                };
+            // fcl config
+            var appInfo = new FclAppInfo
+            {
+                Icon = new Uri("https://avatars.githubusercontent.com/u/62387156?s=200&v=4"),
+                Title = "Blazor Example"
+            };
 
-            builder.Services.AddFclServices(sdkOptions, fclConfig, new Uri("fclmaui://"));
+            var fclConfig = new FclConfig(appInfo, ChainId.Testnet)
+            {
+                AccountProof = new FclAccountProofData("AWESOME-BLAZOR-APP-ID", "3037366134636339643564623330316636626239323161663465346131393662")
+            };
+
+            // maui redirect URI
+            var redirectUri = new Uri("fclmaui://");
+
+            builder.Services.AddFclServices(sdkOptions, fclConfig, redirectUri);
 
             return builder.Build();
         }
