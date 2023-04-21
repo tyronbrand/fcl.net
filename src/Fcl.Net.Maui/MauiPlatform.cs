@@ -1,5 +1,5 @@
-﻿using Fcl.Net.Core.Models;
-using Fcl.Net.Core.Platform;
+﻿using Fcl.Net.Core.Interfaces;
+using Fcl.Net.Core.Models;
 
 namespace Fcl.Net.Maui
 {

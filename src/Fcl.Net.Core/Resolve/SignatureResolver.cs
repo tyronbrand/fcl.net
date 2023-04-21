@@ -1,4 +1,5 @@
 ﻿using Fcl.Net.Core.Exceptions;
+using Fcl.Net.Core.Interfaces;
 using Fcl.Net.Core.Models;
 using Fcl.Net.Core.Service;
 using Flow.Net.Sdk.Core;
@@ -43,7 +44,7 @@ namespace Fcl.Net.Core.Resolve
 
                 var acct = fclInteraction.Accounts[id];
                 var signable = CreateSignable(fclInteraction, payload, acct);
-                var response = await _execService.ExecuteAsync(acct.SigningService, _fclServiceConfig, signable).ConfigureAwait(false);
+                var response = await _execService.ExecuteAsync<FclAuthResponse>(acct.SigningService, _fclServiceConfig, signable).ConfigureAwait(false);
                 fclInteraction.Accounts[id].Signature = response.Data?.Signature ?? response.CompositeSignature?.Signature;
             }
         }

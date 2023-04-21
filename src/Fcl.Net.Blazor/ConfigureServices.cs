@@ -4,10 +4,9 @@ using Fcl.Net.Blazor.Strategies;
 using Fcl.Net.Core;
 using Fcl.Net.Core.Config;
 using Fcl.Net.Core.Exceptions;
-using Fcl.Net.Core.Platform;
+using Fcl.Net.Core.Interfaces;
 using Fcl.Net.Core.Service;
 using Fcl.Net.Core.Service.Strategies;
-using Fcl.Net.Core.Service.Strategies.LocalViews;
 using Flow.Net.Sdk.Client.Http;
 using Flow.Net.Sdk.Core.Client;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,7 +20,7 @@ namespace Fcl.Net.Blazor
             if (string.IsNullOrWhiteSpace(fclConfig.Location))
                 throw new FclException("FclConfig: Location required.");
 
-            if (fclConfig.WalletDiscovery == null || string.IsNullOrWhiteSpace(fclConfig.WalletDiscovery.Wallet.AbsoluteUri) )
+            if (fclConfig.WalletDiscovery == null)
                 throw new FclException("FclConfig: WalletDiscovery required.");
 
             // platform

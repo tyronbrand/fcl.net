@@ -1,5 +1,5 @@
-﻿using Fcl.Net.Core.Models;
-using Fcl.Net.Core.Platform;
+﻿using Fcl.Net.Core.Interfaces;
+using Fcl.Net.Core.Models;
 using Flow.Net.Sdk.Client.Http;
 using Newtonsoft.Json;
 

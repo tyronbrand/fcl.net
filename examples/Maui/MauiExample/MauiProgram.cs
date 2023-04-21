@@ -40,7 +40,12 @@ namespace MauiExample
                 Title = "Blazor Example"
             };
 
-            var fclConfig = new FclConfig(appInfo, ChainId.Testnet)
+            var walletDiscoveryConfig = new FclWalletDiscovery
+            {
+                Authn = new Uri("https://fcl-discovery.onflow.org/api/testnet/authn")
+            };
+
+            var fclConfig = new FclConfig(walletDiscoveryConfig, appInfo, "", ChainId.Testnet)
             {
                 AccountProof = new FclAccountProofData("AWESOME-BLAZOR-APP-ID", "3037366134636339643564623330316636626239323161663465346131393662")
             };

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiExample.Views.DiscoveryPage"
+             Title="Discovery Example"
+             Shell.NavBarIsVisible="True">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="10">
+            <StackLayout VerticalOptions="StartAndExpand">
+                <Label HorizontalOptions="Center" Text="{Binding Result}" FontSize="10"/>
+            </StackLayout>
+            <StackLayout Grid.Row="1" VerticalOptions="End">
+                <Button BackgroundColor="BlueViolet" Text="Run Discovery" Clicked="Discovery_Clicked" Margin="0,30,0,0"/>
+            </StackLayout>         
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

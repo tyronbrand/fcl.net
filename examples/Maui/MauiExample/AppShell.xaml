@@ -23,6 +23,9 @@
         <Tab Title="Account Proof">
             <ShellContent ContentTemplate="{DataTemplate local:VerifyAccountProofPage}" />
         </Tab>
+        <Tab Title="Discovery">
+            <ShellContent ContentTemplate="{DataTemplate local:DiscoveryPage}" />
+        </Tab>
     </TabBar>
 
 </Shell>

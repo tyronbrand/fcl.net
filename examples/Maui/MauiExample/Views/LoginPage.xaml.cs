@@ -21,18 +21,19 @@ public partial class LoginPage : ContentPage
 
     async void ProviderSelected(object sender, SelectedItemChangedEventArgs e)
     {
-        var selectedProvider = ((ListView)sender).SelectedItem as FclWalletProvider;
-
         var fcl = ServiceHelper.GetService<Fcl.Net.Core.Fcl>();
 
         if (fcl.User == null || !fcl.User.LoggedIn)
         {
-            fcl.SetWalletProvider(new Fcl.Net.Core.Models.FclWalletDiscovery
-            {
-                Wallet = new Uri(selectedProvider.Endpoint),
-                WalletMethod = selectedProvider.Method
-            });
-            await fcl.AuthenticateAsync();
+            var discoveryServices = await fcl.DiscoveryServicesAsync();
+
+            if(discoveryServices == null || !discoveryServices.Any())
+                throw new Exception("Failed to find any services");
+
+            // selecting blocto for example only
+            var authnService = discoveryServices.FirstOrDefault(f => f.Uid == "blocto#authn") ?? throw new Exception("Failed to find blocto service");
+            
+            await fcl.AuthenticateAsync(authnService);
         }
 
         if (fcl.User.LoggedIn)

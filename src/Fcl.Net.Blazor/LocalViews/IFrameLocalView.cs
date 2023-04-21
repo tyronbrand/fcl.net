@@ -1,5 +1,5 @@
 ﻿using Fcl.Net.Core;
-using Fcl.Net.Core.Service.Strategies.LocalViews;
+using Fcl.Net.Core.Interfaces;
 
 namespace Fcl.Net.Blazor.LocalViews
 {

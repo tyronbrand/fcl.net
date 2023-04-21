@@ -1,6 +1,6 @@
 ﻿using Fcl.Net.Core;
 using Fcl.Net.Core.Config;
-using Fcl.Net.Core.Platform;
+using Fcl.Net.Core.Interfaces;
 using Fcl.Net.Core.Service;
 using Fcl.Net.Core.Service.Strategies;
 using Fcl.Net.Maui.Strategies;
@@ -40,6 +40,7 @@ namespace Fcl.Net.Maui
             });
 
             // strategies
+            services.AddSingleton<DataStrategy>();
             services.AddSingleton(f =>
             {
                 return new MauiHttpPostStrategy(redirectUri, f.GetRequiredService<FetchService>(), null);
@@ -51,7 +52,8 @@ namespace Fcl.Net.Maui
                 // strategies
                 var strategies = new Dictionary<FclServiceMethod, IStrategy>
                 {
-                    { FclServiceMethod.HttpPost, f.GetRequiredService<MauiHttpPostStrategy>() }
+                    { FclServiceMethod.HttpPost, f.GetRequiredService<MauiHttpPostStrategy>() },
+                    { FclServiceMethod.Data, f.GetRequiredService<DataStrategy>() }
                 };
 
                 return new Core.Fcl(
