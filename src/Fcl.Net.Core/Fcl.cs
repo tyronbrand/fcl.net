@@ -16,6 +16,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Fcl.Net.Core
 {
@@ -431,7 +432,14 @@ pub fun main(
                 Method = FclServiceMethod.Data
             };
 
-            return await _execService.ExecuteAsync<List<FclService>>(authnDiscoverService, await GetServiceConfigAsync(), data).ConfigureAwait(false);
+            try
+            {
+                return await _execService.ExecuteAsync<List<FclService>>(authnDiscoverService, await GetServiceConfigAsync(), data).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                throw new FclException("Get transaction error", ex);
+            }
         }
 
         private async Task<FclServiceConfig> GetServiceConfigAsync()
