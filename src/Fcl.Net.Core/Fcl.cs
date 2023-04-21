@@ -402,15 +402,12 @@ pub fun main(
         }
 
         /// <summary>
-        /// Override wallet provider.
+        /// Get services from the authn endpoint
         /// </summary>
-        /// <param name="fclWalletDiscovery"></param>
-        public void SetWalletProvider(FclWalletDiscovery fclWalletDiscovery)
-        {
-            _fclConfig.WalletDiscovery = fclWalletDiscovery;
-        }
-
-        public async Task<FclService[]> DiscoveryServicesAsync(FclDiscoveryService fclDiscoveryService = null)
+        /// <param name="fclDiscoveryService"></param>
+        /// <returns><see cref="FclService"/>[]</returns>
+        /// <exception cref="FclException"></exception>
+        public async Task<ICollection<FclService>> DiscoveryServicesAsync(FclDiscoveryService fclDiscoveryService = null)
         {
             if(!_strategies.ContainsKey(FclServiceMethod.Data))
                 throw new FclException("Missing Data strategy");
@@ -434,7 +431,7 @@ pub fun main(
                 Method = FclServiceMethod.Data
             };
 
-            return await _execService.ExecuteAsync<FclService[]>(authnDiscoverService, await GetServiceConfigAsync(), data).ConfigureAwait(false);
+            return await _execService.ExecuteAsync<List<FclService>>(authnDiscoverService, await GetServiceConfigAsync(), data).ConfigureAwait(false);
         }
 
         private async Task<FclServiceConfig> GetServiceConfigAsync()
