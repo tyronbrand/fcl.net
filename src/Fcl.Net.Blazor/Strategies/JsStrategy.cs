@@ -14,6 +14,7 @@ namespace Fcl.Net.Blazor.Strategies
         }
 
         public async Task<T?> ExecuteAsync<T>(FclService service, FclServiceConfig? config = null, object? data = null, HttpMethod? httpMethod = null)
+            where T : class
         {
             try
             {

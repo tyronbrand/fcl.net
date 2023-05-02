@@ -16,6 +16,7 @@ namespace Fcl.Net.Core.Service.Strategies
         }
 
         public virtual async Task<T> ExecuteAsync<T>(FclService service, FclServiceConfig config = null, object data = null, HttpMethod httpMethod = null)
+            where T : class
         {
             if (httpMethod == null)
                 httpMethod = HttpMethod.Post;

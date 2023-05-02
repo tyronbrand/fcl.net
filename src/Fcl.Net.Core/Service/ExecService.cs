@@ -16,6 +16,7 @@ namespace Fcl.Net.Core.Service
         }
 
         public async Task<T> ExecuteAsync<T>(FclService service, FclServiceConfig config = null, object msg = null)
+            where T : class
         {
             var message = CreateMessage(service, msg);
             var response = await _strategies[service.Method].ExecuteAsync<T>(service, config, message).ConfigureAwait(false);

@@ -6,6 +6,6 @@ namespace Fcl.Net.Core.Interfaces
 {
     public interface IStrategy
     {
-        Task<T> ExecuteAsync<T>(FclService service, FclServiceConfig config = null, object data = null, HttpMethod httpMethod = null);
+        Task<T> ExecuteAsync<T>(FclService service, FclServiceConfig config = null, object data = null, HttpMethod httpMethod = null) where T : class;
     }
 }
