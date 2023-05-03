@@ -1,5 +1,5 @@
-﻿using Fcl.Net.Core.Models;
-using Fcl.Net.Core.Service.Strategies;
+﻿using Fcl.Net.Core.Interfaces;
+using Fcl.Net.Core.Models;
 using Newtonsoft.Json;
 
 namespace Fcl.Net.Blazor.Strategies
@@ -13,17 +13,18 @@ namespace Fcl.Net.Blazor.Strategies
             _fclJsObjRef = fclJsObjRef;
         }
 
-        public async Task<FclAuthResponse?> ExecuteAsync(FclService service, FclServiceConfig? config = null, object? data = null, HttpMethod? httpMethod = null)
+        public async Task<T?> ExecuteAsync<T>(FclService service, FclServiceConfig? config = null, object? data = null, HttpMethod? httpMethod = null)
+            where T : class
         {
             try
             {
                 var response = await _fclJsObjRef.OpenLocalViewAwaitResponse(service, config, data).ConfigureAwait(false);
-                return JsonConvert.DeserializeObject<FclAuthResponse>(response);
+                return JsonConvert.DeserializeObject<T>(response);
             }
             catch (Exception)
             {
                 await _fclJsObjRef.CloseLocalView();
-                return null;
+                return default;
             }
         }
     }

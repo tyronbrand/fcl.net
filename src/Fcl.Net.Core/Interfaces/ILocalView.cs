@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Fcl.Net.Core.Service.Strategies.LocalViews
+namespace Fcl.Net.Core.Interfaces
 {
     public interface ILocalView
     {

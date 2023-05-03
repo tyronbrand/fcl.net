@@ -1,4 +1,5 @@
 ﻿using Fcl.Net.Core.Exceptions;
+using Fcl.Net.Core.Interfaces;
 using Fcl.Net.Core.Models;
 using Fcl.Net.Core.Service;
 using Flow.Net.Sdk.Core;
@@ -29,7 +30,7 @@ namespace Fcl.Net.Core.Resolve
                 throw new FclException($"User missing preAuthz.");
 
             var preSigned = fclInteraction.BuildPreSignable(new FclRole { Proposer = true, Authorizer = true, Payer = true });
-            var response = await _execService.ExecuteAsync(preAuthz, _fclServiceConfig, preSigned).ConfigureAwait(false);
+            var response = await _execService.ExecuteAsync<FclAuthResponse>(preAuthz, _fclServiceConfig, preSigned).ConfigureAwait(false);
             var signableUsers = GetSignableUsersAsync(response);
 
             var accounts = new Dictionary<string, FclSignableUser>();

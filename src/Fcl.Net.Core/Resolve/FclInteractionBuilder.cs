@@ -1,4 +1,5 @@
-﻿using Fcl.Net.Core.Models;
+﻿using Fcl.Net.Core.Interfaces;
+using Fcl.Net.Core.Models;
 using Fcl.Net.Core.Service;
 using Flow.Net.Sdk.Core.Client;
 using System.Collections.Generic;

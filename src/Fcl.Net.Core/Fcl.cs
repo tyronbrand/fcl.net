@@ -1,10 +1,9 @@
 ﻿using Fcl.Net.Core.Config;
 using Fcl.Net.Core.Exceptions;
+using Fcl.Net.Core.Interfaces;
 using Fcl.Net.Core.Models;
-using Fcl.Net.Core.Platform;
 using Fcl.Net.Core.Resolve;
 using Fcl.Net.Core.Service;
-using Fcl.Net.Core.Service.Strategies;
 using Fcl.Net.Core.Utilities;
 using Flow.Net.Sdk.Core;
 using Flow.Net.Sdk.Core.Cadence;
@@ -17,6 +16,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Fcl.Net.Core
 {
@@ -69,17 +69,17 @@ namespace Fcl.Net.Core
         /// Authenticate user.
         /// </summary>
         /// <exception cref="FclException"></exception>
-        public async Task AuthenticateAsync()
+        public async Task AuthenticateAsync(FclService fclService = null)
         {
             try
             {
-                var service = (User != null && User.LoggedIn) ? User.Services.FirstOrDefault(f => f.Type == FclServiceType.AuthnRefresh) : GetDiscoveryService();
+                var service = fclService ?? ((User != null && User.LoggedIn) ? User.Services.FirstOrDefault(f => f.Type == FclServiceType.AuthnRefresh) : GetWalletDiscoveryService());
                 if (service != null)
                 {
                     var serviceConfig = await GetServiceConfigAsync();
                     serviceConfig.DiscoveryAuthnInclude = _fclConfig.WalletDiscovery.Include;
 
-                    var response = await _execService.ExecuteAsync(service, serviceConfig, _fclConfig.AccountProof).ConfigureAwait(false);
+                    var response = await _execService.ExecuteAsync<FclAuthResponse>(service, serviceConfig, _fclConfig.AccountProof).ConfigureAwait(false);
 
                     if (response != null && response.Status == ResponseStatus.Approved)
                         SetCurrentUser(response);
@@ -233,7 +233,7 @@ pub fun main(
                     Message = message.StringToHex()
                 };
 
-                var response = await _execService.ExecuteAsync(userSignatureService, await GetServiceConfigAsync(), data).ConfigureAwait(false);
+                var response = await _execService.ExecuteAsync<FclAuthResponse>(userSignatureService, await GetServiceConfigAsync(), data).ConfigureAwait(false);
 
                 if (response == null || response.Data == null || string.IsNullOrEmpty(response.Data.Signature) || string.IsNullOrEmpty(response.Data.Address) || response.Data.KeyId == null)
                     throw new FclException("Failed to sign message.");
@@ -372,7 +372,7 @@ pub fun main(
         /// <param name="transactionId"></param>
         /// <returns><see cref="FlowTransactionResult"/></returns>
         /// <exception cref="FclException"></exception>
-        public async Task<FlowTransactionResult> GetTransactionStatus(string transactionId) 
+        public async Task<FlowTransactionResult> GetTransactionStatus(string transactionId)
         {
             try
             {
@@ -403,12 +403,43 @@ pub fun main(
         }
 
         /// <summary>
-        /// Override wallet provider.
+        /// Get services from the authn endpoint
         /// </summary>
-        /// <param name="fclWalletDiscovery"></param>
-        public void SetWalletProvider(FclWalletDiscovery fclWalletDiscovery)
+        /// <param name="fclDiscoveryService"></param>
+        /// <returns><see cref="FclService"/>[]</returns>
+        /// <exception cref="FclException"></exception>
+        public async Task<ICollection<FclService>> DiscoveryServicesAsync(FclDiscoveryService fclDiscoveryService = null)
         {
-            _fclConfig.WalletDiscovery = fclWalletDiscovery;
+            if(!_strategies.ContainsKey(FclServiceMethod.Data))
+                throw new FclException("Missing Data strategy");
+
+            var data = fclDiscoveryService ?? 
+                new FclDiscoveryService
+                {
+                    Type = FclServiceType.Authn,
+                    Include = _fclConfig.WalletDiscovery.Include,
+                    ClientServices = await ClientServices().ConfigureAwait(false),
+                    SupportedStrategies = SupportedStrategies(),
+                    Network = _fclConfig.Environment
+                };
+
+            var authnDiscoverService = new FclService
+            {
+                Endpoint = _fclConfig.WalletDiscovery.Authn.ToString(),
+                FclType = "Service",
+                FclVsn = "1.0.0",
+                Type = FclServiceType.Authn,
+                Method = FclServiceMethod.Data
+            };
+
+            try
+            {
+                return await _execService.ExecuteAsync<List<FclService>>(authnDiscoverService, await GetServiceConfigAsync(), data).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                throw new FclException("Get transaction error", ex);
+            }
         }
 
         private async Task<FclServiceConfig> GetServiceConfigAsync()
@@ -424,16 +455,9 @@ pub fun main(
                         Hostname = _fclConfig.Location
                     }
                 };
-
-                var clientServices = await _platform.GetClientServices();
-                if (clientServices != null)
-                    serviceConfig.Client.ClientServices = clientServices;
-
-                if (_strategies.ContainsKey(FclServiceMethod.WcRpc))
-                    serviceConfig.Client.ClientServices.Add(GetWallectConnectService());
-
-                foreach (var strategy in _strategies)
-                    serviceConfig.Client.SupportedStrategies.Add(strategy.Key);
+                                
+                serviceConfig.Client.ClientServices = await ClientServices().ConfigureAwait(false);
+                serviceConfig.Client.SupportedStrategies = SupportedStrategies();
 
                 return serviceConfig;
             }
@@ -441,6 +465,30 @@ pub fun main(
             {
                 throw new FclException("Get transaction error", ex);
             }            
+        }
+
+        private ICollection<FclServiceMethod> SupportedStrategies()
+        {
+            var strategies = new List<FclServiceMethod>();
+
+            foreach (var strategy in _strategies)
+                strategies.Add(strategy.Key);
+
+            return strategies;
+        }
+
+        private async Task<ICollection<FclService>> ClientServices()
+        {
+            var clientServices = new List<FclService>();
+
+            var platformServices = await _platform.GetClientServices().ConfigureAwait(false);
+            if (platformServices != null && platformServices.Any())
+                clientServices.AddRange(clientServices);
+
+            if (_strategies.ContainsKey(FclServiceMethod.WcRpc))
+                clientServices.Add(GetWallectConnectService());
+
+            return clientServices;
         }
 
         private FclService GetWallectConnectService()
@@ -464,7 +512,7 @@ pub fun main(
             };
         }
 
-        private FclService GetDiscoveryService()
+        private FclService GetWalletDiscoveryService()
         {
             return new FclService
             {

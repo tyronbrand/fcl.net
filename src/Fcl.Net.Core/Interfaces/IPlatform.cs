@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Fcl.Net.Core.Platform
+namespace Fcl.Net.Core.Interfaces
 {
     public interface IPlatform
     {
