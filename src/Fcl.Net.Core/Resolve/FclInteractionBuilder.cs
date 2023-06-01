@@ -32,7 +32,7 @@ namespace Fcl.Net.Core.Resolve
                     ComputeLimit = fclMutation.GasLimit,
                 }
             };
-            
+
             if (fclMutation.Arguments.Any())
             {
                 var arguments = fclMutation.Arguments.ToFclArgument();
@@ -50,7 +50,9 @@ namespace Fcl.Net.Core.Resolve
 
             foreach (var resolver in mutationResolvers)
                 await resolver.ResolveAsync(interaction).ConfigureAwait(false);
-            
+
+            interaction.Status = "OK";
+
             return interaction;
         }
     }

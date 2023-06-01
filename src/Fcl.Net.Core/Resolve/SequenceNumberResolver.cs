@@ -1,6 +1,5 @@
 ﻿using Fcl.Net.Core.Interfaces;
 using Fcl.Net.Core.Models;
-using Flow.Net.Sdk.Core;
 using Flow.Net.Sdk.Core.Client;
 using Flow.Net.Sdk.Core.Exceptions;
 using System.Linq;

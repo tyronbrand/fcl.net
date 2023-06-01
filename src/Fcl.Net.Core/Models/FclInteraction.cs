@@ -19,6 +19,11 @@ namespace Fcl.Net.Core.Models
             Arguments = new Dictionary<string, FclArgument>();
             Authorizations = new List<string>();
             Payer = new List<string>();
+            Events = new FclEvents();
+            Transaction = new FclId();
+            Block = new FclBlock();
+            Account = new FclAccount();
+            Collection = new FclId();
         }
 
         [JsonProperty("tag")]
@@ -29,7 +34,7 @@ namespace Fcl.Net.Core.Models
         public Dictionary<string, string> Assigns { get; set; }
 
         [JsonProperty("status")]
-        public string Status { get; set; }
+        public string Status { get; set; } = "OK";
 
         [JsonProperty("reason")]
         public string Reason { get; set; }
@@ -311,5 +316,11 @@ namespace Fcl.Net.Core.Models
 
         [JsonProperty("refBlock")]
         public string RefrenceBlock { get; set; }
+
+        [JsonProperty("proposer")]
+        public string Proposer { get; set; }
+
+        [JsonProperty("payer")]
+        public string Payer { get; set; }
     }
 }

@@ -16,7 +16,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Transactions;
 
 namespace Fcl.Net.Core
 {
@@ -30,7 +29,7 @@ namespace Fcl.Net.Core
             get => _user;
             private set => SetProperty(ref _user, value);
         }
-        
+
         /// <summary>
         /// SDK Client
         /// </summary>
@@ -85,10 +84,10 @@ namespace Fcl.Net.Core
                         SetCurrentUser(response);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new FclException("Authentication error", ex);
-            }                      
+            }
         }
 
         /// <summary>
@@ -188,7 +187,7 @@ pub fun main(
                     signatures.Add(new CadenceString(!string.IsNullOrEmpty(signature.Signature) ? signature.Signature : ""));
                     signatureIndexes.Add(new CadenceNumber(CadenceNumberType.Int, signature.KeyId.ToString()));
                 }
-                
+
                 var response = await Sdk.ExecuteScriptAtLatestBlockAsync(
                     new FlowScript
                     {
@@ -324,7 +323,7 @@ pub fun main(
             {
                 return await _sdk.GetBlockByIdAsync(blockId).ConfigureAwait(false);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 throw new FclException("Get block by id error", ex);
             }
@@ -336,7 +335,7 @@ pub fun main(
         /// <param name="isSealed"></param>
         /// <returns><see cref="FlowBlock"/></returns>
         /// <exception cref="FclException"></exception>
-        public async Task<FlowBlock> GetLastestBlock(bool isSealed = true) 
+        public async Task<FlowBlock> GetLastestBlock(bool isSealed = true)
         {
             try
             {
@@ -354,7 +353,7 @@ pub fun main(
         /// <param name="blockId"></param>
         /// <returns><see cref="FlowBlockHeader"/></returns>
         /// <exception cref="FclException"></exception>
-        public async Task<FlowBlockHeader> GetBlockHeader(string blockId) 
+        public async Task<FlowBlockHeader> GetBlockHeader(string blockId)
         {
             try
             {
@@ -390,7 +389,7 @@ pub fun main(
         /// <param name="transactionId"></param>
         /// <returns><see cref="FlowTransactionResponse"/></returns>
         /// <exception cref="FclException"></exception>
-        public async Task<FlowTransactionResponse> GetTransaction(string transactionId) 
+        public async Task<FlowTransactionResponse> GetTransaction(string transactionId)
         {
             try
             {
@@ -410,10 +409,10 @@ pub fun main(
         /// <exception cref="FclException"></exception>
         public async Task<ICollection<FclService>> DiscoveryServicesAsync(FclDiscoveryService fclDiscoveryService = null)
         {
-            if(!_strategies.ContainsKey(FclServiceMethod.Data))
+            if (!_strategies.ContainsKey(FclServiceMethod.Data))
                 throw new FclException("Missing Data strategy");
 
-            var data = fclDiscoveryService ?? 
+            var data = fclDiscoveryService ??
                 new FclDiscoveryService
                 {
                     Type = FclServiceType.Authn,
@@ -447,7 +446,7 @@ pub fun main(
             try
             {
                 var serviceConfig = new FclServiceConfig
-                {                   
+                {
                     Services = _fclConfig.Services,
                     App = _fclConfig.AppInfo,
                     Client = new FclClientInfo
@@ -455,7 +454,7 @@ pub fun main(
                         Hostname = _fclConfig.Location
                     }
                 };
-                                
+
                 serviceConfig.Client.ClientServices = await ClientServices().ConfigureAwait(false);
                 serviceConfig.Client.SupportedStrategies = SupportedStrategies();
 
@@ -464,7 +463,7 @@ pub fun main(
             catch (Exception ex)
             {
                 throw new FclException("Get transaction error", ex);
-            }            
+            }
         }
 
         private ICollection<FclServiceMethod> SupportedStrategies()
@@ -483,7 +482,7 @@ pub fun main(
 
             var platformServices = await _platform.GetClientServices().ConfigureAwait(false);
             if (platformServices != null && platformServices.Any())
-                clientServices.AddRange(clientServices);
+                clientServices.AddRange(platformServices);
 
             if (_strategies.ContainsKey(FclServiceMethod.WcRpc))
                 clientServices.Add(GetWallectConnectService());
