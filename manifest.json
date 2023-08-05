@@ -1,0 +1,1338 @@
+{
+  "homepages": [],
+  "source_base_path": "D:/a/fcl.net/fcl.net/docs",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Blazor.ConfigureServices.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Blazor.ConfigureServices.html",
+          "hash": "hVclsmd51E6bE+tObG4CRwWHgh9pCO5YECSVi/ajtV4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Blazor.FclJsObjRef.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Blazor.FclJsObjRef.html",
+          "hash": "fjs16qSPWozm3g4HLCI233KHLmzEiKLApQ1qSCbPevQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Blazor.LocalViews.IFrameLocalView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Blazor.LocalViews.IFrameLocalView.html",
+          "hash": "LkF74dy1bm2BXRMTUAMilCW5hpFmDoljyIa40sWGizI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Blazor.LocalViews.PopLocalView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Blazor.LocalViews.PopLocalView.html",
+          "hash": "UTL7x9w4CKJZkCdUlG2QneQZUEdWEFWZJzxc8CprpOo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Blazor.LocalViews.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Blazor.LocalViews.html",
+          "hash": "T+MxOFXuJlBnfSYTtxAmhIV70536wGUypTsM1bwhuD8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Blazor.Models.JsInstance.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Blazor.Models.JsInstance.html",
+          "hash": "A0jTxTl7LBZ966q3kl/gLvEyB0VqKLCEG6TnDLpK71w="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Blazor.Models.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Blazor.Models.html",
+          "hash": "B/DT0h8wucyPl9ib2JKmPauJqwh7vUrxzBLt3+4nUGQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Blazor.Platform.BlazorPlatform.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Blazor.Platform.BlazorPlatform.html",
+          "hash": "yC6u9+kLTk+dgs3kiNZDy5N8Z7N5nFrtfWBJz3iNAbg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Blazor.Platform.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Blazor.Platform.html",
+          "hash": "b2zhUHb9CsGMF6+J9ZJnZy7gq1RNHFq2tTCvWuQMzRU="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Blazor.Strategies.JsStrategy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Blazor.Strategies.JsStrategy.html",
+          "hash": "dmPDrGWJJxoDwx7YA+yt2dwS45kqjzVMkfTGU7NL67k="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Blazor.Strategies.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Blazor.Strategies.html",
+          "hash": "R3BZxW8aop3dQaJIZHdRrDKj0ebMSPOmr46hsaeobvE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Blazor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Blazor.html",
+          "hash": "7jSAmeF0n5YB9GtwEa9hsKUTfTPunT1dzBiSikBzHvE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.ChainId.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.ChainId.html",
+          "hash": "hV12GM/s/Mzrb0wVv5Eg0zNN4hNx8lJc8HmIQQuFS7I="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Config.FclConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Config.FclConfig.html",
+          "hash": "RGzohLxy8GAQgTCPLwcqDV3FlBvfv5ySm9jKwFvS+qw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Config.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Config.html",
+          "hash": "fw0eM27UMqfzCONA+wotuB+55bInNPps9Deo0ckgE9A="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Converters.ArrayConverter-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Converters.ArrayConverter-1.html",
+          "hash": "0cOgprETYEcN/dIH8DBXq9ajRAPGKHXYJR849N7F9GE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Converters.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Converters.html",
+          "hash": "V+7tcvLecqCQTKz+UiTM50bdCZEja5kmn0fSfSZS4Lc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Exceptions.FclException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Exceptions.FclException.html",
+          "hash": "uxH4sNvyrK75ntxWCfJs1o3Ts7+7omk+qwlPMbQ71zQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Exceptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Exceptions.html",
+          "hash": "+EEfwYig7T0Em+ywXE8yyWnsaov4qcfaJUmNYWze9TQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Extensions.html",
+          "hash": "2gBm+6oH7jyP+uhttnxs74rv1Pgexna8mARFm6QqeKw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Fcl.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Fcl.html",
+          "hash": "qrhDXUBusTxWRXfQ99GcoUtbyHH/vIwGszyYm2BctFM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.FclInteractionTag.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.FclInteractionTag.html",
+          "hash": "KhB0NDAH+O9lUWNFKy3h7kKrfud1a78kKhOOOkByFM0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.FclServiceMethod.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.FclServiceMethod.html",
+          "hash": "0ZUwDYN6H4QJqLkFTv+RHt4ecSt/wdFzLyC9COMb06I="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.FclServiceType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.FclServiceType.html",
+          "hash": "xwG8cNUtKMSDc61fQ2xdWiQlTBODoU5iK3oEL+Qfp5s="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.FclVersion.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.FclVersion.html",
+          "hash": "c3+zrEUthJYwSGKTjor+06nzPNQm5NvXQgVljJB3dw8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Interfaces.ILocalView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Interfaces.ILocalView.html",
+          "hash": "A+4TLaMAK2xFs9RkQKXet9XTwsMkFKAoqSlDDbUoOdo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Interfaces.IPlatform.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Interfaces.IPlatform.html",
+          "hash": "XnkARZyUI42TrkQWsOr1EoO/he06/L9bkqyqmJNWEHo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Interfaces.IResolver.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Interfaces.IResolver.html",
+          "hash": "Yu7z9xCrxt0wiZIF6ZWikIlACQ0psaVAP6icyJQ2Bds="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Interfaces.IStrategy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Interfaces.IStrategy.html",
+          "hash": "HmVBhemaC5SzqTe39JdIg92kfUbPzBcaB6T9F88p8B4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Interfaces.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Interfaces.html",
+          "hash": "gikPuj9hiUAmdaeCGnJQXdnHDkV7ZOJIl1yZNEVisJ8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclAccount.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclAccount.html",
+          "hash": "kdeJ54FBBdH2M7vXxPVKrdpaj/4+U47yae5b6ogb0xg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclAccountProofData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclAccountProofData.html",
+          "hash": "QD8QZPLASsMNltllizzG7DWGIKLZSMI849ka4LQsDuk="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclAccountProofSignatureData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclAccountProofSignatureData.html",
+          "hash": "L46Loa7hjZBTf/tcr7zGyH7rk8hxkDb1nJ34JDbHI1w="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclAppInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclAppInfo.html",
+          "hash": "CmV0DyZHH1kn9UwiFp6mbQ3bOIlGEWFhlgd+zP0/18g="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclArgument.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclArgument.html",
+          "hash": "PpajFC5Zxyxq8ZWrcfXqcNILJNeOutZ4bB+aSsoXEsM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclAsArgument.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclAsArgument.html",
+          "hash": "TFbsvgiPgT7+IOBe1K6pMX2D3U5TsUXqEdH2BcrksEw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclAuthData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclAuthData.html",
+          "hash": "N13r5dslSDSkX5WrEfvL+6OGWsCu2cHbqrzgyh05VTQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclAuthResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclAuthResponse.html",
+          "hash": "SDzxnMzwc8RtlXd7kHOKXuJEKIkgt3T6feffRH4Q4kI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclBlock.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclBlock.html",
+          "hash": "O6jKIsWgvbmmdnPxH/qojWm2B3ff6167/xmwceTjCMM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclClientInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclClientInfo.html",
+          "hash": "vJpslym9irXzJZV9wjPTpkazuUDdOPCzAMV6lhrkl2k="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclCompositeSignature.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclCompositeSignature.html",
+          "hash": "RQKrPcibm7YQJoLgooB3HLQH3wrd2NdAW2zwZ53ibaM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclDiscoveryService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclDiscoveryService.html",
+          "hash": "27Of8T96xWcJp3Djm/9oEQZcqqtjJuEv/YdWiRI3f20="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclEvents.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclEvents.html",
+          "hash": "UcXtWX5GkzK8Qg4hQYVu/ImliCgAaUekoAIf4WCZj4E="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclId.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclId.html",
+          "hash": "xeNk/4zNwbtDpy2Lz9RHE+nkIdaxrODfeq5nbL1+zy0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclInteraction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclInteraction.html",
+          "hash": "dsSo2Cgu/t2Lq4RE9g+GdTk3zBFkAVTP/Ps8pLnTR9s="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclMessage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclMessage.html",
+          "hash": "ibM4IrfRSx8eBhhSXsm7P/NAyK/YQfmhX8eZzgEM5N4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclMutation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclMutation.html",
+          "hash": "+TdVU767KmA1XKVcaHDNicJu0w1UF/7oYVNdW18aIow="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclPreSignable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclPreSignable.html",
+          "hash": "yRuIb+PG6Puv7GOEymU7xlW4engN8D34wqDuhT0mTnc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclProposalKey.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclProposalKey.html",
+          "hash": "Ts9AxTjthGQVv3xrSoRzKu0ropWIOnQdafdXTtKH4Us="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclRole.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclRole.html",
+          "hash": "jszy0BQTX+RkScjBmscFy857OjfFKCIDI6FXJC7/gxw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclService.html",
+          "hash": "UBl5ueUQUvc+ykiWD0xBsKVptRvjD3KUuftAXGbY070="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclServiceAccountProof.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclServiceAccountProof.html",
+          "hash": "rPKTODdU+qAMIHtep4CZbsO5Xhc6yzZcIZtGeeL25OA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclServiceConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclServiceConfig.html",
+          "hash": "vLQJnoLjBjh9Y1EXgVlEFoPxeBkztQOePDHp2xm6dT4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclServiceIdentity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclServiceIdentity.html",
+          "hash": "VztDFtZndjWxBD8+TKzbiP4fZqjZDXOwnl1DBWznbCI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclServiceProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclServiceProvider.html",
+          "hash": "ZuRBhHLWO1byYPpNtW4hBN63t/GMrewUhOPSHyTK4nI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclSignable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclSignable.html",
+          "hash": "Ij3TmH0rsAvwWUrmgehhAaX7erDb7V+F+BhdPbNZRj8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclSignableMessage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclSignableMessage.html",
+          "hash": "ZUESWVLEX4xTbVcMq/RZTVMrv4u6+80YNuEcijgUNF0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclSignableUser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclSignableUser.html",
+          "hash": "be3bRQVkwTFEhhEUbF5rPZtww4kaWDkXGtlaNTnm268="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclSignableUserItem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclSignableUserItem.html",
+          "hash": "WrrclBbsOX7cuarxLc3FFrN1+Jarb4iSrm9SQV2CkZ4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclSignature.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclSignature.html",
+          "hash": "YuHV6gi+xiKHfh77za8xcjTpyco57h4gBj52LceFeKk="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclStrategyRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclStrategyRequest.html",
+          "hash": "g9yY5qGdxmXGzcpMjLScK0Vt2dERsu9ZJVfoBsc+YUA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclStrategyRequestService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclStrategyRequestService.html",
+          "hash": "gje/DJBXRhJdHeK+vqztA4+XAxJp5xt0wIRmokEm/IQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclTransactionFeePayer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclTransactionFeePayer.html",
+          "hash": "LjVhQThAoY30wKJFT8aK6kDL84gOxWE1ATbb4IU3Njg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclTypeVersion.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclTypeVersion.html",
+          "hash": "C9RxHBbmc0JttlV/PAlrDnnv/HPCqtzmiWZqZPxwF7A="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclUser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclUser.html",
+          "hash": "pYcvlXT5TLmbHlfjLYyPhqpnz9p2xVA2L77iGjs/QRg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclVoucher.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclVoucher.html",
+          "hash": "zhCCf7PkhdOPnDokshMhj7WvfBst5Y56wfg69z6kiEQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclWalletDiscovery.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclWalletDiscovery.html",
+          "hash": "bdAdztfYAHCl/bhzo8UE+QN10E4V33huHcI9NVnFsto="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.FclXform.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.FclXform.html",
+          "hash": "geGTrHahi+i4lMMrvwHKDCKDi1J2m4/ZPjiniYY1nE4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Models.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Models.html",
+          "hash": "ZNc+PEOQALZzLthCLE/PjDU6gk3zv0fvQyjLYvuEpJk="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Resolve.AccountsResolver.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Resolve.AccountsResolver.html",
+          "hash": "GlkwFmMTQUTvGFOkERHhcEf+HMABYEL6bRLl0pa2jO8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Resolve.FclInteractionBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Resolve.FclInteractionBuilder.html",
+          "hash": "BitX4cKv4iovz/eguEsoQAvHp0emQOXqZiZ3dfeQ+yA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Resolve.RefBlockResolver.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Resolve.RefBlockResolver.html",
+          "hash": "WHkEWuF+jtFr31Js4mtDF/3lTQRHWfupbn4BpVBIglQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Resolve.SequenceNumberResolver.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Resolve.SequenceNumberResolver.html",
+          "hash": "ckszCTZf/LcL1RNC2oqbarZS9v5+J+eHQVVv616jdAk="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Resolve.SignatureResolver.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Resolve.SignatureResolver.html",
+          "hash": "aQudnkxqKwrSPKqOtaevi6i6TIyrNiW0QWIbPSMGlNs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Resolve.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Resolve.html",
+          "hash": "YjhMiD7FBeB8jOh2YuccLX4ROgAp/HKqHhxZnyziZPI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.ResponseStatus.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.ResponseStatus.html",
+          "hash": "4G4obCjxt6Lm+BFCr02ipSW46gcH5Mo4jYxuSpL8FTU="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.ResultType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.ResultType.html",
+          "hash": "z39AeF6u/0lHwzmyf/TuX7PpAkmVA23FCl1VdUFmrd8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Service.ExecService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Service.ExecService.html",
+          "hash": "dfd8wMO5qBDXEDugLlNYjGtKlSLGdY2qN/Ut6aQk9xQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Service.FetchService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Service.FetchService.html",
+          "hash": "Nsry+TQHf9DWnRWfBkMxYzSZRaRJMoRALn7uFmDz2sU="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Service.FetchServiceConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Service.FetchServiceConfig.html",
+          "hash": "150Z0H1MLdI+L7MIN0D33Yn7hI+YCAcquCRocuMWDXQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Service.Strategies.BaseStrategy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Service.Strategies.BaseStrategy.html",
+          "hash": "2Da7VAYtWP6Ord/12rCoMfx6Hb5eidN/3ttJbNzxQWI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Service.Strategies.DataStrategy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Service.Strategies.DataStrategy.html",
+          "hash": "TCbfaaSkB76DG/+hou6WblggWoeBlrkAoY04VLRLlZg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Service.Strategies.HttpPostStrategy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Service.Strategies.HttpPostStrategy.html",
+          "hash": "FAt2pzRY8EXdi7/cZyAQsI+m4hvASgEUZynmeYouA90="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Service.Strategies.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Service.Strategies.html",
+          "hash": "Y72TnnQtsyu6GivF/VRYhXTVnTLMuybrJP79X5djAoE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Service.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Service.html",
+          "hash": "UneKAsuv1junhK1FyLnfZmVUMThq+LeI3j8nHdXkUT8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Utilities.WalletUtilities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Utilities.WalletUtilities.html",
+          "hash": "a2E0iqYBQlZoikU2Yf67UiTnwq9ice/Cz9rrPtGtZsE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.Utilities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.Utilities.html",
+          "hash": "vrYE2jW0V74y+Lgv8VYJQy9IAJvW9iQLL/XAaVue7nE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Core.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Core.html",
+          "hash": "A3Bzo9r1T6pgTbHcHb5dfnzwhTOs+qcHO0dO5KZu4rM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Maui.ConfigureServices.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Maui.ConfigureServices.html",
+          "hash": "q+tAH57LhBGYX0PRGcy9tBSSH8SBkvrJmTPMTEiTL1A="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Maui.FlowAuthenticator.IFlowAuthenticator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Maui.FlowAuthenticator.IFlowAuthenticator.html",
+          "hash": "VnCWgruj8m6maGLXBFT4XAvU6fV/GspoNrWM9TC0/PU="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Maui.FlowAuthenticator.WebAuthenticator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Maui.FlowAuthenticator.WebAuthenticator.html",
+          "hash": "VYPE5YSe+tOHgMDnAoiloknq94rHLdEkaXDKqqM4jUc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Maui.FlowAuthenticator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Maui.FlowAuthenticator.html",
+          "hash": "mOWBvg5uo2+ZH6VG0JaDH4kjJPTSsGbxPd/wF1h9cT8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Maui.MauiPlatform.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Maui.MauiPlatform.html",
+          "hash": "tMqRnOzobJwQf2VEUqodTrlR1j/xvItlJONaqpMZsYw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Maui.Strategies.MauiHttpPostStrategy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Maui.Strategies.MauiHttpPostStrategy.html",
+          "hash": "H+YNlISqd6nd3BYCf3jm5hp9YxEP4DVCWL20q+Ixx7U="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Maui.Strategies.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Maui.Strategies.html",
+          "hash": "PFPThthujtckevuJXWlHAtuwjtIm9s8WrWISmbON+vY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Maui.WalletProviders.FclWalletProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Maui.WalletProviders.FclWalletProvider.html",
+          "hash": "lejWNyHVZvqK2CY680XFUIV4cte+WuApqfoNZzpEv0Y="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Maui.WalletProviders.WalletProviders.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Maui.WalletProviders.WalletProviders.html",
+          "hash": "r3EnH3y+t03lWvrlW8JXPHTf7fKUKNOivf2CN77GhaY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Maui.WalletProviders.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Maui.WalletProviders.html",
+          "hash": "1n5T7mlCNnnT8c8kbhUiKGgZ7F7iQ7+i5DIO7keZzh4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Fcl.Net.Maui.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Fcl.Net.Maui.html",
+          "hash": "6GCtW0kB+ZtOY/3q+3ie3U5Lv8u7QeYhq/5NpkY5wdQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html",
+          "hash": "i69qd6OT1Xa/CU8l0PCzkUGF21NwbUJt5TM/rqJ4tlE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "iiNnmN10uWwQv1akNtnIwgglBuxJwLUsIHSJoTzSsfQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "fcldotnetfav.png",
+      "output": {
+        "resource": {
+          "relative_path": "fcldotnetfav.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "fcldotnetfull.png",
+      "output": {
+        "resource": {
+          "relative_path": "fcldotnetfull.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "fcldotnetsmall.png",
+      "output": {
+        "resource": {
+          "relative_path": "fcldotnetsmall.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "UidNotFound"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "vcCMRT7vwW+ejDuM44mU4LCtAIqcOj0racMv52qkmbY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "UidNotFound"
+      ],
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "vNgAQx3mLGdvcSo3XR6HvjDbfYq8hm/WQyl7Ea3dfJY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0,
+        "full_build_reason_code": "NoAvailableBuildCache"
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 2,
+          "skipped_file_count": 0
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 99,
+          "skipped_file_count": 0
+        },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: last post processor info is null.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
