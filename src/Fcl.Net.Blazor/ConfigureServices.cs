@@ -61,7 +61,7 @@ namespace Fcl.Net.Blazor
                 };
 
                 return new HttpPostStrategy(f.GetRequiredService<FetchService>(), localViews);
-            });            
+            });
 
             // fcl
             services.AddSingleton(f =>
@@ -70,7 +70,7 @@ namespace Fcl.Net.Blazor
                 var strategies = new Dictionary<FclServiceMethod, IStrategy>
                 {
                     { FclServiceMethod.HttpPost, f.GetRequiredService<HttpPostStrategy>() },
-                    { FclServiceMethod.IFrameRPC, f.GetRequiredService<JsStrategy>() },
+                    { FclServiceMethod.IFrameRpc, f.GetRequiredService<JsStrategy>() },
                     { FclServiceMethod.PopRpc, f.GetRequiredService<JsStrategy>() },
                     { FclServiceMethod.ExtRpc, f.GetRequiredService<JsStrategy>() },
                     { FclServiceMethod.WcRpc, f.GetRequiredService<JsStrategy>() }
@@ -81,7 +81,7 @@ namespace Fcl.Net.Blazor
                     f.GetRequiredService<IFlowClient>(),
                     f.GetRequiredService<IPlatform>(),
                     strategies);
-            });            
+            });
 
             return services;
         }

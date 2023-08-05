@@ -27,9 +27,9 @@ namespace Fcl.Net.Blazor
 
         private string GetExecJsMethod(FclServiceMethod fclServiceMethod)
         {
-            switch(fclServiceMethod)
+            switch (fclServiceMethod)
             {
-                case FclServiceMethod.IFrameRPC:
+                case FclServiceMethod.IFrameRpc:
                     return "execIFrame";
                 case FclServiceMethod.ExtRpc:
                     return "execExt";

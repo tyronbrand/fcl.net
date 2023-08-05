@@ -1,14 +1,14 @@
 using Fcl.Net.Blazor;
+using Fcl.Net.Core;
 using Fcl.Net.Core.Config;
 using Fcl.Net.Core.Models;
-using Fcl.Net.Core;
 using Flow.Net.Sdk.Client.Http;
 using Flow.Net.Sdk.Core.Client;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using MudBlazor;
 using MudBlazor.Services;
 using WasmExample;
-using MudBlazor;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -36,7 +36,7 @@ var sdkOptions = new FlowClientOptions
 var walletDiscoveryConfig = new FclWalletDiscovery
 {
     Wallet = new Uri("https://fcl-discovery.onflow.org/testnet/authn"),
-    WalletMethod = FclServiceMethod.IFrameRPC
+    WalletMethod = FclServiceMethod.IFrameRpc
 };
 
 var appInfo = new FclAppInfo
@@ -53,7 +53,7 @@ var fclConfig = new FclConfig(walletDiscoveryConfig, appInfo, location, ChainId.
 };
 
 builder.Services.AddFclServices(
-    sdkOptions, 
+    sdkOptions,
     fclConfig
 );
 
