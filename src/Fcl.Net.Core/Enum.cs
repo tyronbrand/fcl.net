@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json.Converters;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System.Runtime.Serialization;
 
 namespace Fcl.Net.Core
@@ -59,11 +59,11 @@ namespace Fcl.Net.Core
         HttpGet,
 
         [EnumMember(Value = "IFRAME/RPC")]
-        IFrameRPC,
+        IFrameRpc,
 
         [EnumMember(Value = "POP/RPC")]
         PopRpc,
-        
+
         [EnumMember(Value = "EXT/RPC")]
         ExtRpc,
 
@@ -81,7 +81,10 @@ namespace Fcl.Net.Core
         ViewPop,
 
         [EnumMember(Value = "BROWSER/IFRAME")]
-        BrowserIframe
+        BrowserIframe,
+
+        [EnumMember(Value = "DEEPLINK/RPC")]
+        DeeplinkRpc
     }
 
     public enum ResultType
